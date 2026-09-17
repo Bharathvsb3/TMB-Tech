@@ -152,8 +152,8 @@ textarea:focus-visible {
   align-items: center;
   flex-shrink: 0;
 }
-.logo-img { height: 34px; width: auto; display: block; }
-.logo-img-footer { height: 28px; }
+.logo-img { height: 46px; width: auto; display: block; }
+.logo-img-footer { height: 36px; }
 
 .main-nav ul {
   display: flex;
