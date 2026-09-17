@@ -187,7 +187,8 @@
         "Customer Management", "Pricing Management", "Accounts",
         "Voice Ordering", "Invoice Import", "Storefronts", "Business Mobile Access"
       ],
-      tech: ["Flutter", "ASP.NET Core", "SQL Server", "REST API"]
+      tech: ["Flutter", "ASP.NET Core", "SQL Server", "REST API"],
+      url: "https://ledgoerp.runasp.net/website/index.html"
     },
     gasone: {
       title: "GasOne",
@@ -198,7 +199,8 @@
         "Payment Tracking", "Customer Records", "Daily Business Operations",
         "Reports", "Tamil / English Support"
       ],
-      tech: ["Flutter", "ASP.NET Core", "SQLite", "REST API"]
+      tech: ["Flutter", "ASP.NET Core", "SQLite", "REST API"],
+      url: "https://gasoneapp.runasp.net/GasOne_Guide.html"
     },
     jbone: {
       title: "JB One",
@@ -257,12 +259,17 @@
       data.tech.map(function (t) { return "<li>" + t + "</li>"; }).join("") +
       "</ul>";
 
+    var visitHtml = data.url
+      ? '<a class="btn btn-primary modal-visit-link" href="' + data.url + '" target="_blank" rel="noopener noreferrer">Visit Website</a>'
+      : "";
+
     modalBody.innerHTML =
       '<h3 id="modal-title">' + data.title + "</h3>" +
       '<p class="modal-body-tagline">' + data.tagline + "</p>" +
       '<p class="modal-body-desc">' + data.description + "</p>" +
       featureListHtml +
-      techHtml;
+      techHtml +
+      visitHtml;
   }
 
   function openModal(key) {

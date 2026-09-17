@@ -16,7 +16,7 @@ tmb-tech/
 │   └── script.js       Navigation, scroll reveal, modals, parallax
 │
 ├── assets/
-│   ├── logo/           Logo mark (placeholder monogram — swap when the real logo is ready)
+│   ├── logo/           Real TMB Tech logo (lockup + favicon, cropped from the source artwork)
 │   ├── products/       Reserved for real product screenshots
 │   ├── projects/       Reserved for real project screenshots
 │   └── icons/          Reserved for any additional icon assets
@@ -45,18 +45,19 @@ Colours are controlled through CSS variables at the top of `css/style.css`:
 
 Change `--primary` to re-theme the whole site.
 
-## Replacing the logo
+## Logo assets
 
-`index.html` references `assets/logo/logo.svg` in the header and footer. The current file is a temporary monogram placeholder. To use the real TMB Tech logo:
+`assets/logo/` contains:
 
-1. Add the new logo file to `assets/logo/` (SVG preferred, PNG also works).
-2. Update the `src` on the two `<img class="logo-mark">` tags in `index.html`, and the favicon `<link rel="icon">` in `<head>`.
+- `logo-source.png` — the original full artwork (icon + wordmark + tagline), kept for reference.
+- `logo.png` — header/footer lockup (icon + "Tech" wordmark, tagline cropped out since the tagline is already set as real text in the footer). Referenced by the two `<img class="logo-img">` tags in `index.html`.
+- `favicon.png` — the "TMB" icon mark only, isolated by colour from the "Tech" text and padded to a square canvas. Referenced by `<link rel="icon">` in `<head>`.
 
-No other changes are required.
+To swap in a revised logo later, replace these files (or update the `src`/`href` in `index.html` if the filenames change).
 
 ## Contact links
 
-The Email, GitHub and LinkedIn links in the Contact section are placeholders (`data-placeholder="true"`, `href="#"`) until real links are provided. Search `index.html` for `data-placeholder` to update them.
+Email and LinkedIn in the Contact section are live. GitHub is still a placeholder (`data-placeholder="true"`, `href="#"`) until a link is provided — search `index.html` for `data-placeholder` to update it.
 
 ## Product screenshots
 

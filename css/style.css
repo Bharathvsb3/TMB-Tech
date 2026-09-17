@@ -150,14 +150,10 @@ textarea:focus-visible {
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: 0.02em;
   flex-shrink: 0;
 }
-.logo-mark { border-radius: 8px; }
-.logo-text strong { color: var(--primary); }
+.logo-img { height: 34px; width: auto; display: block; }
+.logo-img-footer { height: 28px; }
 
 .main-nav ul {
   display: flex;
@@ -631,6 +627,8 @@ textarea:focus-visible {
   border-radius: 50%;
   background: var(--primary);
 }
+
+.modal-visit-link { margin-top: 8px; }
 
 /* ---------- Scroll reveal ---------- */
 .reveal {
