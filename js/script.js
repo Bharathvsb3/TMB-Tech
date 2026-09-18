@@ -9,6 +9,22 @@
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---------------------------------------------------------------------
+   * Scroll progress bar
+   * ------------------------------------------------------------------- */
+  var scrollProgress = document.getElementById("scroll-progress");
+
+  function updateScrollProgress() {
+    if (!scrollProgress) return;
+    var docEl = document.documentElement;
+    var scrollable = docEl.scrollHeight - docEl.clientHeight;
+    var pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+    scrollProgress.style.width = pct + "%";
+  }
+  updateScrollProgress();
+  window.addEventListener("scroll", updateScrollProgress, { passive: true });
+  window.addEventListener("resize", updateScrollProgress);
+
+  /* ---------------------------------------------------------------------
    * Sticky header state
    * ------------------------------------------------------------------- */
   var header = document.getElementById("site-header");
@@ -62,6 +78,25 @@
   });
 
   /* ---------------------------------------------------------------------
+   * Sliding active-nav indicator
+   * ------------------------------------------------------------------- */
+  var navIndicator = document.getElementById("nav-indicator");
+
+  function updateNavIndicator() {
+    var activeLink = document.querySelector(".nav-link.active");
+    if (!activeLink || !navIndicator) return;
+    navIndicator.style.left = activeLink.offsetLeft + "px";
+    navIndicator.style.top = activeLink.offsetTop + "px";
+    navIndicator.style.width = activeLink.offsetWidth + "px";
+    navIndicator.style.height = activeLink.offsetHeight + "px";
+    navIndicator.classList.add("visible");
+  }
+
+  window.addEventListener("resize", function () {
+    window.requestAnimationFrame(updateNavIndicator);
+  });
+
+  /* ---------------------------------------------------------------------
    * Active navigation section (IntersectionObserver)
    * ------------------------------------------------------------------- */
   var sections = document.querySelectorAll("main section[id]");
@@ -75,6 +110,7 @@
           navLinks.forEach(function (link) {
             link.classList.toggle("active", link.getAttribute("href") === "#" + id);
           });
+          updateNavIndicator();
         });
       },
       { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
@@ -82,10 +118,23 @@
     sections.forEach(function (s) { navObserver.observe(s); });
   }
 
+  updateNavIndicator();
+  window.addEventListener("load", updateNavIndicator);
+
   /* ---------------------------------------------------------------------
    * Scroll reveal animations
    * ------------------------------------------------------------------- */
   var revealEls = document.querySelectorAll(".reveal");
+
+  var revealGroups = new Map();
+  revealEls.forEach(function (el) {
+    var parent = el.parentElement;
+    var index = revealGroups.has(parent) ? revealGroups.get(parent) : 0;
+    if (index > 0) {
+      el.style.transitionDelay = Math.min(index * 70, 280) + "ms";
+    }
+    revealGroups.set(parent, index + 1);
+  });
 
   if ("IntersectionObserver" in window && revealEls.length) {
     var revealObserver = new IntersectionObserver(
@@ -169,6 +218,39 @@
   }
 
   /* ---------------------------------------------------------------------
+   * Hero bar-chart grow-in (on load)
+   * ------------------------------------------------------------------- */
+  var heroGraphic = document.getElementById("hero-graphic");
+  if (heroGraphic) {
+    window.requestAnimationFrame(function () {
+      window.requestAnimationFrame(function () {
+        heroGraphic.classList.add("bars-in");
+      });
+    });
+  }
+
+  /* ---------------------------------------------------------------------
+   * Timeline connecting line draw-in
+   * ------------------------------------------------------------------- */
+  var timeline = document.querySelector(".timeline");
+  if (timeline && "IntersectionObserver" in window) {
+    var timelineObserver = new IntersectionObserver(
+      function (entries, observer) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("line-drawn");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    timelineObserver.observe(timeline);
+  } else if (timeline) {
+    timeline.classList.add("line-drawn");
+  }
+
+  /* ---------------------------------------------------------------------
    * Product / Project detail modal
    * ------------------------------------------------------------------- */
   var modalOverlay = document.getElementById("detail-modal");
@@ -188,7 +270,8 @@
         "Voice Ordering", "Invoice Import", "Storefronts", "Business Mobile Access"
       ],
       tech: ["Flutter", "ASP.NET Core", "SQL Server", "REST API"],
-      url: "https://ledgoerp.runasp.net/website/index.html"
+      url: "https://ledgoerp.runasp.net/website/index.html",
+      logo: "assets/products/ledgo.png"
     },
     gasone: {
       title: "GasOne",
@@ -200,7 +283,8 @@
         "Reports", "Tamil / English Support"
       ],
       tech: ["Flutter", "ASP.NET Core", "SQLite", "REST API"],
-      url: "https://gasoneapp.runasp.net/GasOne_Guide.html"
+      url: "https://gasoneapp.runasp.net/GasOne_Guide.html",
+      logo: "assets/products/gasone.png"
     },
     jbone: {
       title: "JB One",
@@ -210,7 +294,8 @@
         "Jewellery Tag Management", "Product Management", "Billing",
         "Inventory", "Customer Management", "Business Records"
       ],
-      tech: ["Flutter", "ASP.NET Core", "SQL"]
+      tech: ["Flutter", "ASP.NET Core", "SQL"],
+      logo: "assets/products/jbone.png"
     },
     "gro-shipper": {
       title: "Gro Shipper",
@@ -263,7 +348,12 @@
       ? '<a class="btn btn-primary modal-visit-link" href="' + data.url + '" target="_blank" rel="noopener noreferrer">Visit Website</a>'
       : "";
 
+    var logoHtml = data.logo
+      ? '<div class="modal-logo"><img src="' + data.logo + '" alt="" width="56" height="56"></div>'
+      : "";
+
     modalBody.innerHTML =
+      logoHtml +
       '<h3 id="modal-title">' + data.title + "</h3>" +
       '<p class="modal-body-tagline">' + data.tagline + "</p>" +
       '<p class="modal-body-desc">' + data.description + "</p>" +

@@ -17,7 +17,7 @@ tmb-tech/
 │
 ├── assets/
 │   ├── logo/           Real TMB Tech logo (lockup + favicon, cropped from the source artwork)
-│   ├── products/       Reserved for real product screenshots
+│   ├── products/       Real app icons for LedGo ERP, GasOne and JB One
 │   ├── projects/       Reserved for real project screenshots
 │   └── icons/          Reserved for any additional icon assets
 │
@@ -57,11 +57,13 @@ To swap in a revised logo later, replace these files (or update the `src`/`href`
 
 ## Contact links
 
-Email and LinkedIn in the Contact section are live. GitHub is still a placeholder (`data-placeholder="true"`, `href="#"`) until a link is provided — search `index.html` for `data-placeholder` to update it.
+Email, GitHub and LinkedIn in the Contact section are all live.
 
-## Product screenshots
+## Product logos
 
-`assets/products/` and `assets/projects/` are currently empty — no real screenshots were available at build time, so the product/project cards use simple drawn illustrations instead. Real screenshots can be dropped into these folders and referenced from the corresponding cards in `index.html` at any time.
+`assets/products/` holds the real app icons for each product (`ledgo.png`, `gasone.png`, `jbone.png`), sourced from each app's own launcher-icon artwork and resized for the web. They're used in both the product cards and their detail modals.
+
+`assets/projects/` is still empty — no real screenshots were available for the Projects section, so those cards use simple drawn illustrations instead. Real screenshots can be dropped in and referenced from the project cards in `index.html` at any time.
 
 ## Deploying to GitHub Pages
 
