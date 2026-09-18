@@ -9,6 +9,26 @@
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---------------------------------------------------------------------
+   * Body scroll lock (used by mobile nav + modal; ref-counted so both
+   * can be open at once without one closing unlocking the other)
+   * ------------------------------------------------------------------- */
+  var scrollLockCount = 0;
+
+  function lockScroll() {
+    scrollLockCount++;
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+  }
+
+  function unlockScroll() {
+    scrollLockCount = Math.max(0, scrollLockCount - 1);
+    if (scrollLockCount === 0) {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+    }
+  }
+
+  /* ---------------------------------------------------------------------
    * Scroll progress bar
    * ------------------------------------------------------------------- */
   var scrollProgress = document.getElementById("scroll-progress");
@@ -51,12 +71,15 @@
     mainNav.classList.add("open");
     navBackdrop.classList.add("visible");
     navToggle.setAttribute("aria-expanded", "true");
+    lockScroll();
   }
 
   function closeNav() {
+    if (!mainNav.classList.contains("open")) return;
     mainNav.classList.remove("open");
     navBackdrop.classList.remove("visible");
     navToggle.setAttribute("aria-expanded", "false");
+    unlockScroll();
   }
 
   navToggle.addEventListener("click", function () {
@@ -271,7 +294,8 @@
       ],
       tech: ["Flutter", "ASP.NET Core", "SQL Server", "REST API"],
       url: "https://ledgoerp.runasp.net/website/index.html",
-      logo: "assets/products/ledgo.png"
+      logo: "assets/products/ledgo.png",
+      trial: true
     },
     gasone: {
       title: "GasOne",
@@ -289,13 +313,15 @@
     jbone: {
       title: "JB One",
       tagline: "Jewellery Business Management",
-      description: "JB One is a jewellery business application designed to simplify jewellery-related business operations and management workflows.",
+      description: "JB One is a jewellery business application, available as both a mobile app and a web app with an online catalogue, designed to simplify jewellery-related business operations and management workflows.",
       features: [
         "Jewellery Tag Management", "Product Management", "Billing",
-        "Inventory", "Customer Management", "Business Records"
+        "Inventory", "Customer Management", "Business Records",
+        "Mobile App", "Web App", "Online Product Catalogue"
       ],
       tech: ["Flutter", "ASP.NET Core", "SQL"],
-      logo: "assets/products/jbone.png"
+      logo: "assets/products/jbone.png",
+      trial: true
     },
     "gro-shipper": {
       title: "Gro Shipper",
@@ -352,10 +378,15 @@
       ? '<div class="modal-logo"><img src="' + data.logo + '" alt="" width="56" height="56"></div>'
       : "";
 
+    var trialHtml = data.trial
+      ? '<span class="trial-badge">Free Trial Available</span>'
+      : "";
+
     modalBody.innerHTML =
       logoHtml +
       '<h3 id="modal-title">' + data.title + "</h3>" +
       '<p class="modal-body-tagline">' + data.tagline + "</p>" +
+      trialHtml +
       '<p class="modal-body-desc">' + data.description + "</p>" +
       featureListHtml +
       techHtml +
@@ -366,13 +397,14 @@
     renderModal(key);
     lastFocusedEl = document.activeElement;
     modalOverlay.hidden = false;
-    document.body.style.overflow = "hidden";
+    lockScroll();
     modalClose.focus();
   }
 
   function closeModal() {
+    if (modalOverlay.hidden) return;
     modalOverlay.hidden = true;
-    document.body.style.overflow = "";
+    unlockScroll();
     if (lastFocusedEl) lastFocusedEl.focus();
   }
 
@@ -400,4 +432,96 @@
       e.preventDefault();
     });
   });
+
+  /* ---------------------------------------------------------------------
+   * Contact form — validates, then hands off to the visitor's email app
+   * ------------------------------------------------------------------- */
+  var contactForm = document.getElementById("contact-form");
+  var CONTACT_EMAIL = "Bharathvsb3@gmail.com";
+
+  if (contactForm) {
+    var cfName = document.getElementById("cf-name");
+    var cfEmail = document.getElementById("cf-email");
+    var cfPhone = document.getElementById("cf-phone");
+    var cfMessage = document.getElementById("cf-message");
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function setFieldError(input, message) {
+      var field = input.closest(".form-field");
+      var error = document.getElementById(input.id + "-error");
+      if (message) {
+        field.classList.add("invalid");
+        if (error) error.textContent = message;
+        return false;
+      }
+      field.classList.remove("invalid");
+      if (error) error.textContent = "";
+      return true;
+    }
+
+    function validateContactForm() {
+      var valid = true;
+
+      if (!cfName.value.trim()) {
+        setFieldError(cfName, "Please enter your name.");
+        valid = false;
+      } else {
+        setFieldError(cfName, "");
+      }
+
+      if (!cfEmail.value.trim()) {
+        setFieldError(cfEmail, "Please enter your email.");
+        valid = false;
+      } else if (!emailPattern.test(cfEmail.value.trim())) {
+        setFieldError(cfEmail, "Please enter a valid email address.");
+        valid = false;
+      } else {
+        setFieldError(cfEmail, "");
+      }
+
+      if (!cfPhone.value.trim()) {
+        setFieldError(cfPhone, "Please enter your phone number.");
+        valid = false;
+      } else {
+        setFieldError(cfPhone, "");
+      }
+
+      if (!cfMessage.value.trim()) {
+        setFieldError(cfMessage, "Please describe what you need.");
+        valid = false;
+      } else {
+        setFieldError(cfMessage, "");
+      }
+
+      return valid;
+    }
+
+    [cfName, cfEmail, cfPhone, cfMessage].forEach(function (input) {
+      input.addEventListener("blur", validateContactForm);
+    });
+
+    contactForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!validateContactForm()) return;
+
+      var name = cfName.value.trim();
+      var email = cfEmail.value.trim();
+      var phone = cfPhone.value.trim();
+      var message = cfMessage.value.trim();
+
+      var subject = "New enquiry from " + name;
+      var body =
+        "Name: " + name + "\n" +
+        "Email: " + email + "\n" +
+        "Phone: " + phone + "\n\n" +
+        message;
+
+      var mailtoLink =
+        "mailto:" + CONTACT_EMAIL +
+        "?subject=" + encodeURIComponent(subject) +
+        "&body=" + encodeURIComponent(body);
+
+      window.location.href = mailtoLink;
+    });
+  }
 })();
