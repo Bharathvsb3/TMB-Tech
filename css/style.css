@@ -464,22 +464,9 @@ textarea:focus-visible {
   .floating-icon svg { width: 20px; height: 20px; }
 }
 
-/* ---------- Decorative section blobs (parallax) ---------- */
-.section-blob {
-  position: absolute;
-  width: 380px;
-  height: 380px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(37, 99, 235, 0.10), rgba(37, 99, 235, 0) 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-.section-blob-left { top: 10%; left: -120px; }
-.section-blob-right { top: 20%; right: -120px; }
-
 /* ---------- Intro ---------- */
-.intro { position: relative; overflow: hidden; padding-block: 64px; background: var(--surface); border-block: 1px solid var(--border); }
-.intro-inner { position: relative; z-index: 1; display: grid; gap: 32px; }
+.intro { padding-block: 64px; background: var(--surface); border-block: 1px solid var(--border); }
+.intro-inner { display: grid; gap: 32px; }
 .intro-text h2 { margin-bottom: 14px; max-width: 30ch; }
 .intro-text p { max-width: 62ch; }
 
@@ -501,8 +488,6 @@ textarea:focus-visible {
 /* ---------- Sections generic ---------- */
 .section { padding-block: 88px; }
 .section-alt { background: var(--surface); }
-#technologies { position: relative; overflow: hidden; }
-#technologies .container { position: relative; z-index: 1; }
 .section-head { max-width: 60ch; margin-bottom: 44px; }
 .section-head h2 { margin-bottom: 12px; }
 .section-head-left { max-width: none; }
@@ -744,8 +729,7 @@ textarea:focus-visible {
 .timeline-step p { font-size: 0.95rem; }
 
 /* ---------- About ---------- */
-#about { position: relative; overflow: hidden; }
-.about-inner { position: relative; z-index: 1; max-width: 900px; }
+.about-inner { max-width: 900px; }
 .about-lead { font-size: 1.15rem; color: var(--text); max-width: 68ch; margin-bottom: 36px; }
 .capability-grid {
   display: grid;
@@ -800,8 +784,6 @@ textarea:focus-visible {
 .founder-email:hover { text-decoration: underline; }
 
 /* ---------- Contact ---------- */
-#contact { position: relative; overflow: hidden; }
-#contact .container { position: relative; z-index: 1; }
 .contact-grid { display: grid; gap: 18px; grid-template-columns: 1fr; margin-bottom: 56px; }
 @media (min-width: 480px) {
   .contact-grid { grid-template-columns: repeat(2, 1fr); }
