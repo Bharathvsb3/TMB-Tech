@@ -211,13 +211,16 @@
     var scrollY = window.scrollY;
 
     if (heroStage) {
-      var rotY = -12 + pointerX * 14;
-      var rotX = 6 - pointerY * 10 + Math.min(scrollY * 0.02, 10);
+      var tiltScale = window.innerWidth < 768 ? 0.4 : 1;
+      var rotY = (-12 + pointerX * 14) * tiltScale;
+      var rotX = (6 - pointerY * 10 + Math.min(scrollY * 0.02, 10)) * tiltScale;
       heroStage.style.transform = "rotateY(" + rotY + "deg) rotateX(" + rotX + "deg)";
     }
 
+    var parallaxScale = window.innerWidth < 768 ? 0.25 : 1;
+
     parallaxEls.forEach(function (el) {
-      var speed = parseFloat(el.getAttribute("data-speed")) || 0.05;
+      var speed = (parseFloat(el.getAttribute("data-speed")) || 0.05) * parallaxScale;
       var scrollOffset = scrollY * speed;
       var pointerOffsetX = pointerX * speed * 40;
       var pointerOffsetY = pointerY * speed * 40;
