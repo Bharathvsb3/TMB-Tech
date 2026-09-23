@@ -415,17 +415,13 @@ textarea:focus-visible {
 @media (max-width: 767px) {
   .hero-inner { gap: 32px; }
   .hero-visual { min-height: 0; }
-  .hero-stage { min-height: 0; padding-block: 24px; transform: rotateY(-5deg) rotateX(3deg); }
-  .hero-stage .device-mock { width: 84%; }
+  .hero-stage { min-height: 0; padding-block: 8px; transform: none !important; }
+  .hero-stage .device-mock { width: 100%; transform: none !important; }
+  .hero-stage .app-row,
+  .hero-stage .app-panel-foot { translate: none; }
+  .hero-stage .floating-icon { display: none; }
   .hero { padding-bottom: 48px; }
-  .hero-sphere { width: 430px; max-width: none; opacity: 0.85; }
-  .hero-stage .floating-icon,
-  .hero-stage .icon-db,
-  .hero-stage .icon-mobile { translate: 0 0 24px; }
-  .hero-stage .icon-mobile { top: 0; left: 2%; }
-  .hero-stage .icon-api { top: 4%; right: 2%; }
-  .hero-stage .icon-db { bottom: 4%; left: 0; }
-  .hero-stage .icon-cloud { bottom: 0; right: 4%; }
+  .hero-sphere { width: 430px; max-width: none; opacity: 0.6; }
 }
 
 .hero-glow {
