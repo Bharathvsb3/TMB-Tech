@@ -415,10 +415,10 @@ textarea:focus-visible {
 @media (max-width: 767px) {
   .hero-inner { gap: 32px; }
   .hero-visual { min-height: 0; }
-  .hero-stage { min-height: 0; padding-block: 8px; transform: none !important; }
+  .hero-stage { min-height: 0; padding-block: 8px; transform: none; }
   .hero-stage .device-mock { width: 100%; transform: none !important; }
-  .hero-stage .app-row,
-  .hero-stage .app-panel-foot { translate: none; }
+  .hero-stage .app-row { translate: 0 0 18px; }
+  .hero-stage .app-panel-foot { translate: 0 0 10px; }
   .hero-stage .floating-icon { display: none; }
   .hero { padding-bottom: 48px; }
   .hero-sphere { width: 430px; max-width: none; opacity: 0.6; }
@@ -1196,6 +1196,24 @@ textarea:focus-visible {
   transition: opacity 600ms ease, transform 600ms ease;
 }
 .reveal.in-view { opacity: 1; transform: translateY(0); }
+
+/* ---------- Mobile: cards flip up in 3D as they scroll into view ---------- */
+@supports (animation-timeline: view()) {
+  @media (max-width: 767px) and (prefers-reduced-motion: no-preference) {
+    .product-card,
+    .solution-card,
+    .why-card,
+    .project-card {
+      animation: cardFlipUp linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 90%;
+    }
+  }
+}
+@keyframes cardFlipUp {
+  from { transform: perspective(900px) rotateX(28deg) translateY(40px) scale(0.92); }
+  to   { transform: perspective(900px) rotateX(0) translateY(0) scale(1); }
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

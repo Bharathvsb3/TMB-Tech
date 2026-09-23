@@ -205,19 +205,33 @@
   var heroStage = document.getElementById("hero-stage");
   var ticking = false;
   var pointerX = 0, pointerY = 0;
+  var gyroX = 0, gyroY = 0;
 
   function applyParallax() {
     if (!parallaxEls.length) return;
     var scrollY = window.scrollY;
 
+    var isMobile = window.innerWidth < 768;
+
     if (heroStage) {
-      var tiltScale = window.innerWidth < 768 ? 0.4 : 1;
-      var rotY = (-12 + pointerX * 14) * tiltScale;
-      var rotX = (6 - pointerY * 10 + Math.min(scrollY * 0.02, 10)) * tiltScale;
-      heroStage.style.transform = "rotateY(" + rotY + "deg) rotateX(" + rotX + "deg)";
+      if (isMobile) {
+        // Mobile: the card tilts back while below the viewport centre and
+        // settles flat as it scrolls in; phone tilt adds a little extra.
+        var rect = heroStage.getBoundingClientRect();
+        var vh = window.innerHeight;
+        var progress = (rect.top + rect.height / 2 - vh / 2) / vh;
+        progress = Math.max(-1, Math.min(1, progress));
+        var mRotX = progress * 24 + gyroY * 6;
+        var mRotY = gyroX * 10;
+        heroStage.style.transform = "rotateX(" + mRotX + "deg) rotateY(" + mRotY + "deg)";
+      } else {
+        var rotY = -12 + pointerX * 14;
+        var rotX = 6 - pointerY * 10 + Math.min(scrollY * 0.02, 10);
+        heroStage.style.transform = "rotateY(" + rotY + "deg) rotateX(" + rotX + "deg)";
+      }
     }
 
-    var parallaxScale = window.innerWidth < 768 ? 0.25 : 1;
+    var parallaxScale = isMobile ? 0.25 : 1;
 
     parallaxEls.forEach(function (el) {
       var speed = (parseFloat(el.getAttribute("data-speed")) || 0.05) * parallaxScale;
@@ -253,6 +267,20 @@
         requestParallax();
       });
     }
+    window.addEventListener("resize", requestParallax);
+
+    // Phone tilt (fires without a permission prompt on Android; iOS stays still).
+    if ("DeviceOrientationEvent" in window && window.matchMedia("(pointer: coarse)").matches) {
+      window.addEventListener("deviceorientation", function (e) {
+        if (e.gamma == null || e.beta == null) return;
+        var targetX = Math.max(-1, Math.min(1, e.gamma / 25));
+        var targetY = Math.max(-1, Math.min(1, (e.beta - 45) / 25));
+        gyroX += (targetX - gyroX) * 0.15;
+        gyroY += (targetY - gyroY) * 0.15;
+        requestParallax();
+      });
+    }
+
     applyParallax();
   }
 
