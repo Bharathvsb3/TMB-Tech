@@ -50,6 +50,7 @@
   var header = document.getElementById("site-header");
 
   function updateHeaderState() {
+    if (!header) return;
     if (window.scrollY > 8) {
       header.classList.add("scrolled");
     } else {
@@ -82,23 +83,25 @@
     unlockScroll();
   }
 
-  navToggle.addEventListener("click", function () {
-    var isOpen = mainNav.classList.contains("open");
-    if (isOpen) { closeNav(); } else { openNav(); }
-  });
+  if (navToggle && mainNav && navBackdrop) {
+    navToggle.addEventListener("click", function () {
+      var isOpen = mainNav.classList.contains("open");
+      if (isOpen) { closeNav(); } else { openNav(); }
+    });
 
-  navBackdrop.addEventListener("click", closeNav);
+    navBackdrop.addEventListener("click", closeNav);
 
-  navLinks.forEach(function (link) {
-    link.addEventListener("click", closeNav);
-  });
+    navLinks.forEach(function (link) {
+      link.addEventListener("click", closeNav);
+    });
 
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && mainNav.classList.contains("open")) {
-      closeNav();
-      navToggle.focus();
-    }
-  });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && mainNav.classList.contains("open")) {
+        closeNav();
+        navToggle.focus();
+      }
+    });
+  }
 
   /* ---------------------------------------------------------------------
    * Sliding active-nav indicator
@@ -182,14 +185,17 @@
   var backToTop = document.getElementById("back-to-top");
 
   function updateBackToTop() {
+    if (!backToTop) return;
     backToTop.classList.toggle("visible", window.scrollY > 480);
   }
   updateBackToTop();
   window.addEventListener("scroll", updateBackToTop, { passive: true });
 
-  backToTop.addEventListener("click", function () {
-    window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
-  });
+  if (backToTop) {
+    backToTop.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+    });
+  }
 
   /* ---------------------------------------------------------------------
    * Hero parallax (scroll + subtle pointer movement)
@@ -282,47 +288,6 @@
   var lastFocusedEl = null;
 
   var detailContent = {
-    ledgo: {
-      title: "LedGo ERP",
-      tagline: "All-in-One Business Management Software",
-      description: "LedGo ERP is a business management platform designed to help retailers manage daily operations from a centralized system.",
-      features: [
-        "Sales Billing / POS", "Purchase Management", "Inventory Management",
-        "Sales Returns", "Purchase Returns", "Multi-Location Management",
-        "Customer Management", "Pricing Management", "Accounts",
-        "Voice Ordering", "Invoice Import", "Storefronts", "Business Mobile Access"
-      ],
-      tech: ["Flutter", "ASP.NET Core", "SQL Server", "REST API"],
-      url: "https://ledgoerp.runasp.net/website/index.html",
-      logo: "assets/products/ledgo.png",
-      trial: true
-    },
-    gasone: {
-      title: "GasOne",
-      tagline: "LPG Gas Agency Management System",
-      description: "GasOne is designed to simplify daily LPG gas agency operations and collection management.",
-      features: [
-        "Customer Management", "Cylinder / Gas Delivery Management", "Collection Management",
-        "Payment Tracking", "Customer Records", "Daily Business Operations",
-        "Reports", "Tamil / English Support"
-      ],
-      tech: ["Flutter", "ASP.NET Core", "SQLite", "REST API"],
-      url: "https://gasoneapp.runasp.net/GasOne_Guide.html",
-      logo: "assets/products/gasone.png"
-    },
-    jbone: {
-      title: "JB One",
-      tagline: "Jewellery Business Management",
-      description: "JB One is a jewellery business application, available as both a mobile app and a web app with an online catalogue, designed to simplify jewellery-related business operations and management workflows.",
-      features: [
-        "Jewellery Tag Management", "Product Management", "Billing",
-        "Inventory", "Customer Management", "Business Records",
-        "Mobile App", "Web App", "Online Product Catalogue"
-      ],
-      tech: ["Flutter", "ASP.NET Core", "SQL"],
-      logo: "assets/products/jbone.png",
-      trial: true
-    },
     "gro-shipper": {
       title: "Gro Shipper",
       tagline: "Online truck booking marketplace",
@@ -408,21 +373,23 @@
     if (lastFocusedEl) lastFocusedEl.focus();
   }
 
-  document.querySelectorAll("[data-modal-open]").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      openModal(btn.getAttribute("data-modal-open"));
+  if (modalOverlay && modalBody && modalClose) {
+    document.querySelectorAll("[data-modal-open]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        openModal(btn.getAttribute("data-modal-open"));
+      });
     });
-  });
 
-  modalClose.addEventListener("click", closeModal);
+    modalClose.addEventListener("click", closeModal);
 
-  modalOverlay.addEventListener("click", function (e) {
-    if (e.target === modalOverlay) closeModal();
-  });
+    modalOverlay.addEventListener("click", function (e) {
+      if (e.target === modalOverlay) closeModal();
+    });
 
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && !modalOverlay.hidden) closeModal();
-  });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !modalOverlay.hidden) closeModal();
+    });
+  }
 
   /* ---------------------------------------------------------------------
    * Contact placeholders — prevent silent no-op navigation confusion
