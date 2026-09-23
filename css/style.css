@@ -104,10 +104,12 @@ section, .section { scroll-margin-top: var(--header-h); }
   top: 0;
   left: 0;
   height: 3px;
-  width: 0%;
+  width: 100%;
   background: linear-gradient(90deg, var(--primary), var(--primary-dark));
   z-index: 900;
-  transition: width 120ms linear;
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
 }
 
 /* ---------- Focus ---------- */
@@ -215,6 +217,14 @@ textarea:focus-visible {
 }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .header-inner::before { background: rgba(255, 255, 255, 0.97); }
+}
+/* A lighter blur keeps scrolling smooth on phones. */
+@media (max-width: 767px) {
+  .header-inner::before {
+    background: rgba(255, 255, 255, 0.85);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
 }
 
 .logo {
@@ -634,7 +644,10 @@ textarea:focus-visible {
 .why-card p { font-size: 0.95rem; }
 
 /* ---------- 3D tilt ---------- */
-[data-tilt] { transform-style: preserve-3d; will-change: transform; }
+[data-tilt] { transform-style: preserve-3d; }
+@media (hover: hover) and (pointer: fine) {
+  [data-tilt] { will-change: transform; }
+}
 [data-tilt] .card-icon,
 [data-tilt] .product-logo { translate: 0 0 36px; }
 [data-tilt] h3 { translate: 0 0 20px; }
@@ -666,8 +679,8 @@ textarea:focus-visible {
   pointer-events: none;
 }
 @keyframes ctaGridMove {
-  from { background-position: 0 0; }
-  to { background-position: 0 48px; }
+  from { transform: perspective(500px) rotateX(62deg) translateY(0); }
+  to { transform: perspective(500px) rotateX(62deg) translateY(48px); }
 }
 .cta-inner { position: relative; z-index: 1; max-width: 720px; }
 .cta-band h2 { color: #fff; margin-bottom: 14px; }

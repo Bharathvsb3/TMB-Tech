@@ -37,11 +37,10 @@
     if (!scrollProgress) return;
     var docEl = document.documentElement;
     var scrollable = docEl.scrollHeight - docEl.clientHeight;
-    var pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
-    scrollProgress.style.width = pct + "%";
+    var ratio = scrollable > 0 ? window.scrollY / scrollable : 0;
+    scrollProgress.style.transform = "scaleX(" + ratio + ")";
   }
   updateScrollProgress();
-  window.addEventListener("scroll", updateScrollProgress, { passive: true });
   window.addEventListener("resize", updateScrollProgress);
 
   /* ---------------------------------------------------------------------
@@ -58,7 +57,6 @@
     }
   }
   updateHeaderState();
-  window.addEventListener("scroll", updateHeaderState, { passive: true });
 
   /* ---------------------------------------------------------------------
    * Mobile navigation
@@ -189,7 +187,19 @@
     backToTop.classList.toggle("visible", window.scrollY > 480);
   }
   updateBackToTop();
-  window.addEventListener("scroll", updateBackToTop, { passive: true });
+
+  // One rAF-batched scroll handler for the cheap per-scroll UI updates.
+  var uiTicking = false;
+  window.addEventListener("scroll", function () {
+    if (uiTicking) return;
+    uiTicking = true;
+    window.requestAnimationFrame(function () {
+      updateScrollProgress();
+      updateHeaderState();
+      updateBackToTop();
+      uiTicking = false;
+    });
+  }, { passive: true });
 
   if (backToTop) {
     backToTop.addEventListener("click", function () {
@@ -315,9 +325,10 @@
 
     var sSize = 0, sDpr = 1, sAngle = 0, sRunning = false, sVisible = true;
     var projected = new Float32Array(POINTS * 3);
+    var LINE_BUCKETS = 6, DOT_BUCKETS = 8;
 
     function resizeSphere() {
-      sDpr = Math.min(window.devicePixelRatio || 1, 2);
+      sDpr = Math.min(window.devicePixelRatio || 1, window.innerWidth < 768 ? 1.5 : 2);
       sSize = sphereCanvas.clientWidth;
       sphereCanvas.width = Math.round(sSize * sDpr);
       sphereCanvas.height = Math.round(sSize * sDpr);
@@ -348,32 +359,55 @@
         projected[i * 3 + 2] = (z2 + 1) / 2;
       }
 
+      // Batch by alpha level: a handful of strokes/fills per frame instead
+      // of one per line and dot keeps this cheap on phones.
       sctx.lineWidth = 1;
-      for (var k = 0; k < sPairs.length; k += 2) {
-        var i1 = sPairs[k] * 3, i2 = sPairs[k + 1] * 3;
-        var depth = (projected[i1 + 2] + projected[i2 + 2]) / 2;
-        sctx.strokeStyle = "rgba(37, 99, 235, " + (0.04 + depth * 0.22).toFixed(3) + ")";
+      for (var lb = 0; lb < LINE_BUCKETS; lb++) {
         sctx.beginPath();
-        sctx.moveTo(projected[i1], projected[i1 + 1]);
-        sctx.lineTo(projected[i2], projected[i2 + 1]);
+        var lMin = lb / LINE_BUCKETS, lMax = (lb + 1) / LINE_BUCKETS;
+        for (var k = 0; k < sPairs.length; k += 2) {
+          var i1 = sPairs[k] * 3, i2 = sPairs[k + 1] * 3;
+          var depth = (projected[i1 + 2] + projected[i2 + 2]) / 2;
+          if (depth < lMin || (depth >= lMax && lb < LINE_BUCKETS - 1)) continue;
+          sctx.moveTo(projected[i1], projected[i1 + 1]);
+          sctx.lineTo(projected[i2], projected[i2 + 1]);
+        }
+        sctx.strokeStyle = "rgba(37, 99, 235, " + (0.04 + (lMin + lMax) / 2 * 0.22).toFixed(3) + ")";
         sctx.stroke();
       }
 
-      for (var j = 0; j < POINTS; j++) {
-        var d = projected[j * 3 + 2];
-        sctx.fillStyle = d > 0.5
-          ? "rgba(37, 99, 235, " + (0.35 + d * 0.65).toFixed(3) + ")"
-          : "rgba(129, 140, 248, " + (0.15 + d * 0.5).toFixed(3) + ")";
+      for (var db = 0; db < DOT_BUCKETS; db++) {
         sctx.beginPath();
-        sctx.arc(projected[j * 3], projected[j * 3 + 1], 0.8 + d * 2, 0, Math.PI * 2);
+        var dMin = db / DOT_BUCKETS, dMax = (db + 1) / DOT_BUCKETS, dMid = (dMin + dMax) / 2;
+        for (var j = 0; j < POINTS; j++) {
+          var d = projected[j * 3 + 2];
+          if (d < dMin || (d >= dMax && db < DOT_BUCKETS - 1)) continue;
+          var px = projected[j * 3], py = projected[j * 3 + 1], pr = 0.8 + d * 2;
+          sctx.moveTo(px + pr, py);
+          sctx.arc(px, py, pr, 0, Math.PI * 2);
+        }
+        sctx.fillStyle = dMid > 0.5
+          ? "rgba(37, 99, 235, " + (0.35 + dMid * 0.65).toFixed(3) + ")"
+          : "rgba(129, 140, 248, " + (0.15 + dMid * 0.5).toFixed(3) + ")";
         sctx.fill();
       }
     }
 
-    function sphereLoop() {
+    // On phones the sphere runs at ~30fps and holds still while the page is
+    // being scrolled, so scrolling gets the main thread to itself.
+    var lastScrollAt = 0, lastDrawAt = 0;
+    window.addEventListener("scroll", function () { lastScrollAt = performance.now(); }, { passive: true });
+
+    function sphereLoop(now) {
       if (!sVisible || document.hidden) { sRunning = false; return; }
-      sAngle += 0.0035;
-      drawSphere();
+      var isMobile = window.innerWidth < 768;
+      var scrolling = now - lastScrollAt < 180;
+      var frameGap = isMobile ? 32 : 0;
+      if (!(isMobile && scrolling) && now - lastDrawAt >= frameGap) {
+        sAngle += 0.0035 * (lastDrawAt ? Math.min((now - lastDrawAt) / 16.7, 3) : 1);
+        lastDrawAt = now;
+        drawSphere();
+      }
       window.requestAnimationFrame(sphereLoop);
     }
 
@@ -386,7 +420,13 @@
     resizeSphere();
     drawSphere();
 
-    window.addEventListener("resize", function () { resizeSphere(); drawSphere(); });
+    // Mobile browsers fire resize as the address bar shows/hides while
+    // scrolling; only rebuild the canvas when its width actually changes.
+    window.addEventListener("resize", function () {
+      if (sphereCanvas.clientWidth === sSize) return;
+      resizeSphere();
+      drawSphere();
+    });
 
     if ("IntersectionObserver" in window) {
       new IntersectionObserver(function (entries) {
