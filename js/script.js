@@ -435,13 +435,13 @@
   }
 
   /* ---------------------------------------------------------------------
-   * Hero bar-chart grow-in (on load)
+   * Hero product panel slide-in (on load)
    * ------------------------------------------------------------------- */
   var heroGraphic = document.getElementById("hero-graphic");
   if (heroGraphic) {
     window.requestAnimationFrame(function () {
       window.requestAnimationFrame(function () {
-        heroGraphic.classList.add("bars-in");
+        heroGraphic.classList.add("panel-in");
       });
     });
   }
