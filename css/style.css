@@ -713,6 +713,41 @@ textarea:focus-visible {
   font-size: 0.92rem;
 }
 
+.founder-note {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 32px;
+  padding: 20px 24px;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+.founder-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.founder-name { font-weight: 700; color: var(--text); margin: 0 0 2px; }
+.founder-role { font-size: 0.85rem; color: var(--muted); margin: 0; }
+.founder-email {
+  margin-left: auto;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--primary);
+  transition: color var(--transition);
+}
+.founder-email:hover { text-decoration: underline; }
+
 /* ---------- Contact ---------- */
 #contact { position: relative; overflow: hidden; }
 #contact .container { position: relative; z-index: 1; }
