@@ -202,12 +202,19 @@
    * ------------------------------------------------------------------- */
   var parallaxEls = document.querySelectorAll(".parallax-el");
   var heroSection = document.querySelector(".hero");
+  var heroStage = document.getElementById("hero-stage");
   var ticking = false;
   var pointerX = 0, pointerY = 0;
 
   function applyParallax() {
     if (!parallaxEls.length) return;
     var scrollY = window.scrollY;
+
+    if (heroStage) {
+      var rotY = -12 + pointerX * 14;
+      var rotX = 6 - pointerY * 10 + Math.min(scrollY * 0.02, 10);
+      heroStage.style.transform = "rotateY(" + rotY + "deg) rotateX(" + rotX + "deg)";
+    }
 
     parallaxEls.forEach(function (el) {
       var speed = parseFloat(el.getAttribute("data-speed")) || 0.05;
@@ -244,6 +251,184 @@
       });
     }
     applyParallax();
+  }
+
+  /* ---------------------------------------------------------------------
+   * Hero 3D point sphere (canvas, perspective-projected)
+   * ------------------------------------------------------------------- */
+  var sphereCanvas = document.getElementById("hero-sphere");
+
+  if (sphereCanvas && sphereCanvas.getContext) {
+    var sctx = sphereCanvas.getContext("2d");
+    var POINTS = 260;
+    var sPoints = [];
+    var golden = Math.PI * (3 - Math.sqrt(5));
+
+    for (var si = 0; si < POINTS; si++) {
+      var sy = 1 - (si / (POINTS - 1)) * 2;
+      var sr = Math.sqrt(1 - sy * sy);
+      var theta = golden * si;
+      sPoints.push([Math.cos(theta) * sr, sy, Math.sin(theta) * sr]);
+    }
+
+    // The sphere is rigid, so neighbour links only need computing once.
+    var sPairs = [];
+    for (var a = 0; a < POINTS; a++) {
+      for (var b = a + 1; b < POINTS; b++) {
+        var dx = sPoints[a][0] - sPoints[b][0];
+        var dy = sPoints[a][1] - sPoints[b][1];
+        var dz = sPoints[a][2] - sPoints[b][2];
+        if (dx * dx + dy * dy + dz * dz < 0.058) sPairs.push(a, b);
+      }
+    }
+
+    var sSize = 0, sDpr = 1, sAngle = 0, sRunning = false, sVisible = true;
+    var projected = new Float32Array(POINTS * 3);
+
+    function resizeSphere() {
+      sDpr = Math.min(window.devicePixelRatio || 1, 2);
+      sSize = sphereCanvas.clientWidth;
+      sphereCanvas.width = Math.round(sSize * sDpr);
+      sphereCanvas.height = Math.round(sSize * sDpr);
+    }
+
+    function drawSphere() {
+      if (!sSize) return;
+      sctx.setTransform(sDpr, 0, 0, sDpr, 0, 0);
+      sctx.clearRect(0, 0, sSize, sSize);
+
+      var tiltX = 0.35 + pointerY * 0.25;
+      var rotY = sAngle + pointerX * 0.4;
+      var cosY = Math.cos(rotY), sinY = Math.sin(rotY);
+      var cosX = Math.cos(tiltX), sinX = Math.sin(tiltX);
+      var radius = sSize * 0.38;
+      var cx = sSize / 2, cy = sSize / 2;
+      var persp = 3;
+
+      for (var i = 0; i < POINTS; i++) {
+        var p = sPoints[i];
+        var x1 = p[0] * cosY + p[2] * sinY;
+        var z1 = -p[0] * sinY + p[2] * cosY;
+        var y2 = p[1] * cosX - z1 * sinX;
+        var z2 = p[1] * sinX + z1 * cosX;
+        var f = persp / (persp - z2);
+        projected[i * 3] = cx + x1 * f * radius;
+        projected[i * 3 + 1] = cy + y2 * f * radius;
+        projected[i * 3 + 2] = (z2 + 1) / 2;
+      }
+
+      sctx.lineWidth = 1;
+      for (var k = 0; k < sPairs.length; k += 2) {
+        var i1 = sPairs[k] * 3, i2 = sPairs[k + 1] * 3;
+        var depth = (projected[i1 + 2] + projected[i2 + 2]) / 2;
+        sctx.strokeStyle = "rgba(37, 99, 235, " + (0.04 + depth * 0.22).toFixed(3) + ")";
+        sctx.beginPath();
+        sctx.moveTo(projected[i1], projected[i1 + 1]);
+        sctx.lineTo(projected[i2], projected[i2 + 1]);
+        sctx.stroke();
+      }
+
+      for (var j = 0; j < POINTS; j++) {
+        var d = projected[j * 3 + 2];
+        sctx.fillStyle = d > 0.5
+          ? "rgba(37, 99, 235, " + (0.35 + d * 0.65).toFixed(3) + ")"
+          : "rgba(129, 140, 248, " + (0.15 + d * 0.5).toFixed(3) + ")";
+        sctx.beginPath();
+        sctx.arc(projected[j * 3], projected[j * 3 + 1], 0.8 + d * 2, 0, Math.PI * 2);
+        sctx.fill();
+      }
+    }
+
+    function sphereLoop() {
+      if (!sVisible || document.hidden) { sRunning = false; return; }
+      sAngle += 0.0035;
+      drawSphere();
+      window.requestAnimationFrame(sphereLoop);
+    }
+
+    function startSphere() {
+      if (reduceMotion || sRunning) return;
+      sRunning = true;
+      window.requestAnimationFrame(sphereLoop);
+    }
+
+    resizeSphere();
+    drawSphere();
+
+    window.addEventListener("resize", function () { resizeSphere(); drawSphere(); });
+
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        sVisible = entries[0].isIntersecting;
+        if (sVisible) startSphere();
+      }).observe(sphereCanvas);
+    } else {
+      startSphere();
+    }
+
+    document.addEventListener("visibilitychange", function () {
+      if (!document.hidden) startSphere();
+    });
+  }
+
+  /* ---------------------------------------------------------------------
+   * 3D tilt on cards (mouse / trackpad only)
+   * ------------------------------------------------------------------- */
+  var canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  if (canHover && !reduceMotion) {
+    document.querySelectorAll("[data-tilt]").forEach(function (card) {
+      var tiltFrame = null;
+
+      card.addEventListener("pointerenter", function () {
+        card.style.transitionDelay = "0ms";
+        card.style.transition = "transform 120ms ease-out, opacity 700ms ease, box-shadow 250ms ease, border-color 250ms ease";
+      });
+
+      card.addEventListener("pointermove", function (e) {
+        var rect = card.getBoundingClientRect();
+        var px = (e.clientX - rect.left) / rect.width - 0.5;
+        var py = (e.clientY - rect.top) / rect.height - 0.5;
+        if (tiltFrame) window.cancelAnimationFrame(tiltFrame);
+        tiltFrame = window.requestAnimationFrame(function () {
+          card.style.transform =
+            "perspective(900px) rotateX(" + (-py * 10).toFixed(2) + "deg) rotateY(" + (px * 12).toFixed(2) + "deg) translateY(-4px)";
+        });
+      });
+
+      card.addEventListener("pointerleave", function () {
+        if (tiltFrame) window.cancelAnimationFrame(tiltFrame);
+        card.style.transition = "transform 500ms cubic-bezier(.2,.7,.2,1), opacity 700ms ease, box-shadow 250ms ease, border-color 250ms ease";
+        card.style.transform = "";
+      });
+    });
+  }
+
+  /* ---------------------------------------------------------------------
+   * Stats count-up
+   * ------------------------------------------------------------------- */
+  var statNums = document.querySelectorAll(".stat-num[data-count]");
+
+  if (statNums.length && "IntersectionObserver" in window && !reduceMotion) {
+    var countObserver = new IntersectionObserver(function (entries, observer) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        observer.unobserve(entry.target);
+        var el = entry.target;
+        var target = parseInt(el.getAttribute("data-count"), 10);
+        var startTime = null;
+        el.textContent = "0";
+        function step(ts) {
+          if (!startTime) startTime = ts;
+          var progress = Math.min((ts - startTime) / 1200, 1);
+          el.textContent = Math.round(target * (1 - Math.pow(1 - progress, 3)));
+          if (progress < 1) window.requestAnimationFrame(step);
+        }
+        window.requestAnimationFrame(step);
+      });
+    }, { threshold: 0.6 });
+
+    statNums.forEach(function (el) { countObserver.observe(el); });
   }
 
   /* ---------------------------------------------------------------------

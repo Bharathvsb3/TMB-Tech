@@ -136,7 +136,9 @@
 
       <div class="hero-visual" aria-hidden="true">
         <div class="hero-graphic" id="hero-graphic">
+          <canvas class="hero-sphere" id="hero-sphere"></canvas>
           <div class="hero-glow"></div>
+          <div class="hero-stage" id="hero-stage">
           <div class="device-mock parallax-el" data-speed="0.05">
             <div class="device-bar"><span></span><span></span><span></span></div>
             <div class="device-lines">
@@ -170,7 +172,30 @@
           <div class="floating-icon icon-cloud parallax-el" data-speed="0.16">
             <span class="icon-float"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M17.5 19a4.5 4.5 0 0 0 0-9 6 6 0 0 0-11.4-1.8A5 5 0 0 0 6.5 19h11z"/></svg></span>
           </div>
+          </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AT A GLANCE -->
+  <section class="stats" aria-label="TMB Tech at a glance">
+    <div class="container stats-grid">
+      <div class="stat reveal">
+        <span class="stat-num" data-count="3">3</span>
+        <span class="stat-label">Products built</span>
+      </div>
+      <div class="stat reveal">
+        <span class="stat-num" data-count="4">4</span>
+        <span class="stat-label">Projects built</span>
+      </div>
+      <div class="stat reveal">
+        <span class="stat-num" data-count="17">17</span>
+        <span class="stat-label">Technologies in use</span>
+      </div>
+      <div class="stat reveal">
+        <span class="stat-num" data-count="3">3</span>
+        <span class="stat-label">Platforms: Mobile, Web &amp; Backend</span>
       </div>
     </div>
   </section>
@@ -206,7 +231,7 @@
 
       <div class="card-grid product-grid">
 
-        <article class="product-card reveal">
+        <article class="product-card reveal" data-tilt>
           <div class="product-logo">
             <img src="assets/products/ledgo.png" alt="LedGo ERP logo" loading="lazy" width="64" height="64">
           </div>
@@ -220,7 +245,7 @@
           <a href="products/ledgo-erp/" class="btn btn-outline">Learn More</a>
         </article>
 
-        <article class="product-card reveal">
+        <article class="product-card reveal" data-tilt>
           <div class="product-logo">
             <img src="assets/products/gasone.png" alt="GasOne logo" loading="lazy" width="64" height="64">
           </div>
@@ -233,7 +258,7 @@
           <a href="products/gasone/" class="btn btn-outline">Learn More</a>
         </article>
 
-        <article class="product-card reveal">
+        <article class="product-card reveal" data-tilt>
           <div class="product-logo">
             <img src="assets/products/jbone.png" alt="JB One logo" loading="lazy" width="64" height="64">
           </div>
@@ -259,35 +284,79 @@
       </div>
 
       <div class="card-grid solution-grid">
-        <div class="solution-card reveal">
+        <div class="solution-card reveal" data-tilt>
           <div class="card-icon icon-grad-blue" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="21"/></svg></div>
           <h3>Business Management</h3>
           <p>Software for managing day-to-day business operations.</p>
         </div>
-        <div class="solution-card reveal">
+        <div class="solution-card reveal" data-tilt>
           <div class="card-icon icon-grad-purple" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h18M3 12h18M3 17h12"/></svg></div>
           <h3>ERP &amp; POS</h3>
           <p>Billing, inventory and business management systems.</p>
         </div>
-        <div class="solution-card reveal">
+        <div class="solution-card reveal" data-tilt>
           <div class="card-icon icon-grad-teal" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg></div>
           <h3>Mobile Applications</h3>
           <p>Android and cross-platform business applications.</p>
         </div>
-        <div class="solution-card reveal">
+        <div class="solution-card reveal" data-tilt>
           <div class="card-icon icon-grad-orange" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="13" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
           <h3>Web Applications</h3>
           <p>Responsive business websites, dashboards and management portals.</p>
         </div>
-        <div class="solution-card reveal">
+        <div class="solution-card reveal" data-tilt>
           <div class="card-icon icon-grad-pink" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/><circle cx="12" cy="12" r="3"/></svg></div>
           <h3>Backend &amp; APIs</h3>
           <p>REST APIs and backend systems using modern .NET technologies.</p>
         </div>
-        <div class="solution-card reveal">
+        <div class="solution-card reveal" data-tilt>
           <div class="card-icon icon-grad-indigo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><ellipse cx="12" cy="5" rx="7" ry="3"/><path d="M5 5v14c0 1.66 3.13 3 7 3s7-1.34 7-3V5"/><path d="M5 12c0 1.66 3.13 3 7 3s7-1.34 7-3"/></svg></div>
           <h3>Database Solutions</h3>
           <p>Structured database-driven applications and data management systems.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY TMB TECH -->
+  <section class="section why">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Why TMB Tech</p>
+        <h2>One team, from the first screen to the database</h2>
+        <p>We design, build and maintain the whole stack ourselves, so the app, the portal and the backend are made to work together from day one.</p>
+      </div>
+
+      <div class="why-grid">
+        <div class="why-card reveal" data-tilt>
+          <div class="card-icon icon-grad-blue" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="20" height="14" rx="2"/><rect x="6" y="7" width="5" height="10" rx="1"/><line x1="8" y1="21" x2="16" y2="21"/></svg></div>
+          <h3>End-to-end delivery</h3>
+          <p>Mobile app, web portal, REST API and database, built by one team so nothing is stitched together later.</p>
+        </div>
+        <div class="why-card reveal" data-tilt>
+          <div class="card-icon icon-grad-teal" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></div>
+          <h3>Built from real workflows</h3>
+          <p>Every product starts from how the business actually runs: the billing counter, the delivery route, the jewellery tag.</p>
+        </div>
+        <div class="why-card reveal" data-tilt>
+          <div class="card-icon icon-grad-purple" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div>
+          <h3>Local language ready</h3>
+          <p>Products like GasOne ship with Tamil and English support, so the people using them every day are comfortable.</p>
+        </div>
+        <div class="why-card reveal" data-tilt>
+          <div class="card-icon icon-grad-orange" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 12v9H4v-9"/><rect x="2" y="7" width="20" height="5" rx="1"/><path d="M12 21V7M12 7H8a2 2 0 1 1 2-2c0 2 2 2 2 2zM12 7h4a2 2 0 1 0-2-2c0 2-2 2-2 2z"/></svg></div>
+          <h3>Try before you commit</h3>
+          <p>LedGo ERP and JB One come with a free trial, so you can see the software on your own data first.</p>
+        </div>
+        <div class="why-card reveal" data-tilt>
+          <div class="card-icon icon-grad-pink" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          <h3>Talk to the builder</h3>
+          <p>You speak directly with the founder who designs and writes the software, not a sales queue.</p>
+        </div>
+        <div class="why-card reveal" data-tilt>
+          <div class="card-icon icon-grad-indigo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <h3>Deployed and maintained</h3>
+          <p>We deploy the solution for real-world use and keep maintaining it after launch, not just hand over code.</p>
         </div>
       </div>
     </div>
@@ -303,7 +372,7 @@
 
       <div class="card-grid project-grid">
 
-        <article class="project-card reveal">
+        <article class="project-card reveal" data-tilt>
           <div class="card-icon icon-grad-orange" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1" y="7" width="14" height="10" rx="1"/><path d="M15 10h3l3 3v4h-6z"/><circle cx="6" cy="19" r="1.6"/><circle cx="17.5" cy="19" r="1.6"/></svg></div>
           <h3>Gro Shipper</h3>
           <p class="tagline">Online truck booking marketplace</p>
@@ -316,7 +385,7 @@
           <button type="button" class="btn btn-outline" data-modal-open="gro-shipper">View Details</button>
         </article>
 
-        <article class="project-card reveal">
+        <article class="project-card reveal" data-tilt>
           <div class="card-icon icon-grad-teal" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
           <h3>Gro Fleet</h3>
           <p class="tagline">Fleet management and vehicle interaction platform</p>
@@ -329,7 +398,7 @@
           <button type="button" class="btn btn-outline" data-modal-open="gro-fleet">View Details</button>
         </article>
 
-        <article class="project-card reveal">
+        <article class="project-card reveal" data-tilt>
           <div class="card-icon icon-grad-blue" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2"/><path d="M9 2h6M12 2v3"/></svg></div>
           <h3>Timekeeper Console</h3>
           <p class="tagline">Sports management application for ice hockey operations</p>
@@ -339,7 +408,7 @@
           <button type="button" class="btn btn-outline" data-modal-open="timekeeper">View Details</button>
         </article>
 
-        <article class="project-card reveal">
+        <article class="project-card reveal" data-tilt>
           <div class="card-icon icon-grad-pink" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M17 8l2 2 4-4"/></svg></div>
           <h3>Stellar</h3>
           <p class="tagline">Fleet / freight customer onboarding and employee attendance management</p>
@@ -461,6 +530,19 @@
           <p class="founder-role">Founder &amp; Developer, TMB Tech</p>
         </div>
         <a href="mailto:Bharathvsb3@gmail.com" class="founder-email">Bharathvsb3@gmail.com</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="cta-band">
+    <div class="cta-grid" aria-hidden="true"></div>
+    <div class="container cta-inner reveal">
+      <h2>Ready to move your workflow into software?</h2>
+      <p>Tell us how your business runs today. We'll show you how it can run on a system built for it.</p>
+      <div class="cta-actions">
+        <a href="#contact" class="btn btn-light">Start a conversation</a>
+        <a href="https://ledgoerp.runasp.net/website/index.html" class="btn btn-ghost-light" target="_blank" rel="noopener noreferrer">Try LedGo ERP</a>
       </div>
     </div>
   </section>
