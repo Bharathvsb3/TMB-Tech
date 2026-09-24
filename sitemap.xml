@@ -1,38 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://bharathvsb3.github.io/TMB-Tech/</loc>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-09-25</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/assets/og/tmb-tech.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/assets/logo/logo.png</image:loc></image:image>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/assets/products/ledgo.png</image:loc></image:image>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/assets/products/gasone.png</image:loc></image:image>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/assets/products/jbone.png</image:loc></image:image>
   </url>
   <url>
     <loc>https://bharathvsb3.github.io/TMB-Tech/ledgo-erp/</loc>
+    <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/ledgo-erp/assets/og.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/ledgo-erp/assets/ledgo-logo.png</image:loc></image:image>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/ledgo-erp/assets/app-screenshot-desktop.png</image:loc></image:image>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/ledgo-erp/assets/app-screenshot-mobile.png</image:loc></image:image>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/ledgo-erp/assets/feature-billing.png</image:loc></image:image>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/ledgo-erp/assets/feature-inventory.png</image:loc></image:image>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/ledgo-erp/assets/feature-storefront.png</image:loc></image:image>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/ledgo-erp/assets/feature-reports.png</image:loc></image:image>
   </url>
   <url>
     <loc>https://bharathvsb3.github.io/TMB-Tech/gasone/</loc>
+    <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/gasone/assets/og.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/gasone/assets/gasone-logo.png</image:loc></image:image>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/gasone/assets/screens/dashboard-web.webp</image:loc></image:image>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/gasone/assets/screens/denomination-web.webp</image:loc></image:image>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/gasone/assets/screens/reports-web.webp</image:loc></image:image>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/gasone/assets/screens/login-mobile.webp</image:loc></image:image>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/gasone/assets/screens/store-entry-mobile.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://bharathvsb3.github.io/TMB-Tech/jb-one/</loc>
+    <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://bharathvsb3.github.io/TMB-Tech/gasone/privacy-policy/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/jb-one/assets/og.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/jb-one/assets/jbone-logo.png</image:loc></image:image>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/jb-one/assets/screens/app-home.webp</image:loc></image:image>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/jb-one/assets/screens/app-label-design.webp</image:loc></image:image>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/jb-one/assets/screens/app-calculator.webp</image:loc></image:image>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/jb-one/assets/screens/web-shop-home.webp</image:loc></image:image>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/jb-one/assets/screens/web-product-grid.webp</image:loc></image:image>
+    <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/jb-one/assets/screens/web-admin-dashboard.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://bharathvsb3.github.io/TMB-Tech/gasone/guide/</loc>
+    <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://bharathvsb3.github.io/TMB-Tech/gasone/privacy-policy/</loc>
+    <lastmod>2026-09-25</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
   <url>
     <loc>https://bharathvsb3.github.io/TMB-Tech/jb-one/privacy-policy/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
+    <lastmod>2026-09-25</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
 </urlset>
