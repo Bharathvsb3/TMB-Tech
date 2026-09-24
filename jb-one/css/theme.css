@@ -1,0 +1,116 @@
+/* JB One brand tokens: the app's gold & rose-gold palette (lib/main.dart)
+   with the web catalogue's ivory paper (site.css). */
+:root {
+  --font-head: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Fira Code", ui-monospace, monospace;
+
+  --p: #96762f;
+  --a: #d4af37;
+  --on-p: #1a1206;
+  --p-text: #8b6914;
+  --p-soft: rgba(212, 175, 55, 0.16);
+  --p-line: rgba(150, 118, 47, 0.45);
+  --p-shadow: rgba(139, 105, 20, 0.55);
+  --grad: linear-gradient(135deg, #8b6914 0%, #d4af37 55%, #c4956a 100%);
+  --grad-text: linear-gradient(100deg, #edd17a 0%, #d4af37 45%, #c4956a 100%);
+
+  --bg: #faf9f6;
+  --bg-alt: #f3efe6;
+  --surface: #ffffff;
+  --text: #2a2521;
+  --heading: #1f1a15;
+  --muted: #6e6459;
+  --line: #e7e0d2;
+  --line-strong: #d8cdb8;
+  --radius: 16px;
+  --btn-radius: 12px;
+
+  --glass: rgba(28, 16, 24, 0.72);
+  --glass-line: rgba(237, 209, 122, 0.25);
+
+  --hdr-bg: rgba(20, 12, 16, 0.55);
+  --hdr-bg-solid: rgba(20, 12, 16, 0.92);
+  --hdr-line: rgba(237, 209, 122, 0.18);
+  --hdr-text: #fff8ee;
+  --hdr-muted: #cdbfa6;
+  --hdr-hover: rgba(237, 209, 122, 0.12);
+
+  --hero-bg: radial-gradient(90% 70% at 70% 10%, #2a1a22 0%, #1c1018 40%, #0b0808 100%);
+  --hero-text: #fff8ee;
+  --hero-muted: #d8cbb4;
+  --blob-1: rgba(212, 175, 55, 0.4);
+  --blob-2: rgba(196, 149, 106, 0.45);
+  --blob-3: rgba(139, 105, 20, 0.5);
+  --grid-line: rgba(237, 209, 122, 0.06);
+  --chip-bg: rgba(255, 248, 238, 0.06);
+  --chip-text: #f3e6c8;
+  --chip-line: rgba(237, 209, 122, 0.25);
+
+  --marquee-bg: #fffaf0;
+
+  --dark-bg: radial-gradient(110% 90% at 15% 0%, #2a1a22 0%, #1c1018 45%, #0b0808 100%);
+  --dark-text: #eadfca;
+  --dark-muted: #bfae92;
+  --dark-card: rgba(255, 248, 238, 0.05);
+  --dark-line: rgba(237, 209, 122, 0.16);
+
+  --foot-bg: #0b0808;
+  --foot-text: #d9ccb4;
+  --foot-muted: #a8977a;
+  --foot-line: rgba(237, 209, 122, 0.14);
+
+  --brand-track: 0.08em;
+}
+
+/* JB One-specific touches */
+.hero .eyebrow { color: #edd17a; }
+.hero .btn-g { background: rgba(255, 248, 238, 0.06); color: #fff8ee; border-color: rgba(237, 209, 122, 0.35); }
+.hero .btn-g:hover { border-color: #edd17a; }
+.float-card { color: #fff8ee; }
+.float-card small { color: #cdbfa6; }
+.float-icon { background: rgba(212, 175, 55, 0.18); color: #edd17a; }
+.brand img { background: #0b0808; }
+.nav-btn { color: #fff8ee; }
+.sec-dark .eyebrow { color: #edd17a; }
+.step::before { color: #edd17a; }
+.trial i { background: #edd17a; }
+.card-icon { color: #1a1206; }
+
+/* sparkle field in the hero */
+.sparkles { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.sparkles i {
+  position: absolute; width: 3px; height: 3px; border-radius: 50%;
+  background: #edd17a; box-shadow: 0 0 8px 2px rgba(237, 209, 122, 0.6);
+  animation: twinkle 3.6s ease-in-out infinite;
+}
+@keyframes twinkle { 0%, 100% { opacity: 0.15; transform: scale(0.6); } 50% { opacity: 1; transform: scale(1.2); } }
+
+/* printed tag preview in the hero float card */
+.tag-mini {
+  display: flex; align-items: center; height: 30px; border-radius: 6px; overflow: hidden;
+  background: #fff; color: #111; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700;
+  box-shadow: inset 0 0 0 1px #d8cdb8;
+}
+.tag-mini .tp { padding: 0 10px; line-height: 1.15; border-right: 1px dashed #b9ad97; }
+.tag-mini .tt { padding: 0 10px; background: #f1ede4; color: #555; font-size: 0.62rem; align-self: stretch; display: grid; place-items: center; }
+
+/* "Two parts" panels */
+.part-kicker { display: inline-flex; align-items: center; gap: 8px; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--p-text); }
+.part-kicker img { width: 28px; height: 28px; border-radius: 8px; }
+.panel .ticks { margin-bottom: 20px; }
+
+/* live shop callout */
+.live-shop {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 22px; align-items: center;
+  margin-top: 60px; padding: 26px 30px; border-radius: 20px;
+  background: var(--dark-bg); color: var(--dark-text); border: 1px solid var(--dark-line);
+  box-shadow: 0 30px 60px -36px rgba(0, 0, 0, 0.6);
+}
+.live-dot { width: 14px; height: 14px; border-radius: 50%; background: #d64545; box-shadow: 0 0 0 0 rgba(214, 69, 69, 0.6); animation: livePulse 1.8s ease-out infinite; }
+@keyframes livePulse { to { box-shadow: 0 0 0 14px rgba(214, 69, 69, 0); } }
+.live-shop h3 { color: #fff8ee; font-size: 1.3rem; margin-bottom: 4px; }
+.live-shop p { color: var(--dark-muted); font-size: 0.95rem; }
+@media (max-width: 760px) {
+  .live-shop { grid-template-columns: 1fr; gap: 14px; padding: 22px; }
+}
