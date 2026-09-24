@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GasOne User Guide | Every screen explained | TMB Tech</title>
+<meta name="description" content="The complete GasOne user guide: roles, dashboard, denomination entry, notes, expenses, store entry, reports, user management, products and rates, settings, permissions and troubleshooting.">
+<link rel="canonical" href="https://bharathvsb3.github.io/TMB-Tech/gasone/guide/">
+<link rel="icon" type="image/png" href="../assets/gasone-icon-192.png">
+<style>
+  .tmb-bar{position:sticky;top:0;z-index:1000;display:flex;align-items:center;gap:14px;padding:10px 18px;background:#072B5E;color:#fff;font:600 13px/1.4 "Segoe UI",Inter,Roboto,system-ui,sans-serif}
+  .tmb-bar a{color:#fff;text-decoration:none}
+  .tmb-bar span{opacity:.7}
+  .tmb-by{margin-left:auto;opacity:.9}
+  .tmb-by:hover,.tmb-back:hover{text-decoration:underline}
+  footer.doc-footer a{color:inherit}
+  /* keep wide diagrams inside the page on phones: they scroll on their own */
+  .shell > *{min-width:0}
+  @media (max-width:860px){.shell{display:block}}
+  figure.mock{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  figure.mock .mock-body{min-width:560px}
+  main table{display:block;overflow-x:auto;max-width:100%}
+</style>
+
+<style>
+  :root {
+    --blue: #0A5FD8;
+    --deep-blue: #072B5E;
+    --orange: #FF8A3D;
+    --bg: #F3F6FB;
+    --surface: #FFFFFF;
+    --ink: #191B23;
+    --ink-soft: #545a6b;
+    --border: #E1E6F0;
+    --success: #1E8E3E;
+    --success-bg: #E9F7EE;
+    --error: #D64545;
+    --error-bg: #FDECEC;
+    --radius: 14px;
+    --sidebar-w: 280px;
+  }
+  :root[data-theme="dark"] {
+    --bg: #0F1420;
+    --surface: #171D2C;
+    --ink: #EDEFF7;
+    --ink-soft: #9AA3B8;
+    --border: #2A3247;
+    --success-bg: #123320;
+    --error-bg: #3A1A1A;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0F1420;
+      --surface: #171D2C;
+      --ink: #EDEFF7;
+      --ink-soft: #9AA3B8;
+      --border: #2A3247;
+      --success-bg: #123320;
+      --error-bg: #3A1A1A;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+    font-size: 15.5px;
+  }
+  a { color: var(--blue); }
+
+  /* ---------- Layout ---------- */
+  .shell { display: grid; grid-template-columns: var(--sidebar-w) 1fr; min-height: 100vh; }
+  @media (max-width: 860px) {
+    .shell { grid-template-columns: 1fr; }
+    .sidebar { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+  }
+  .sidebar {
+    position: sticky; top: 0; height: 100vh; overflow-y: auto;
+    border-right: 1px solid var(--border); padding: 28px 20px 40px; background: var(--surface);
+  }
+  .brand { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+  .brand-mark {
+    width: 34px; height: 34px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--blue), var(--deep-blue));
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-weight: 800; font-size: 15px; flex: none;
+  }
+  .brand-name { font-weight: 800; font-size: 17px; letter-spacing: -0.01em; }
+  .brand-sub { color: var(--ink-soft); font-size: 12.5px; margin: 2px 0 22px 44px; }
+  nav.toc { display: flex; flex-direction: column; gap: 2px; }
+  .toc-group-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--ink-soft); margin: 18px 0 6px 10px;
+  }
+  .toc-group-label:first-child { margin-top: 0; }
+  nav.toc a {
+    display: flex; align-items: center; gap: 9px; padding: 7px 10px; border-radius: 9px;
+    color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 500;
+  }
+  nav.toc a:hover { background: var(--bg); }
+  nav.toc a .n {
+    width: 18px; height: 18px; border-radius: 50%; background: var(--border); color: var(--ink-soft);
+    font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex: none;
+  }
+  main { padding: 48px 56px 120px; max-width: 900px; }
+  @media (max-width: 640px) { main { padding: 32px 20px 80px; } }
+
+  /* ---------- Cover ---------- */
+  .cover { margin-bottom: 56px; }
+  .cover-eyebrow {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase; color: var(--blue); margin-bottom: 14px;
+  }
+  h1.cover-title { font-size: 40px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 12px; line-height: 1.1; color: var(--deep-blue); }
+  :root[data-theme="dark"] h1.cover-title { color: #DCE7FF; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) h1.cover-title { color: #DCE7FF; } }
+  .cover-desc { font-size: 17px; color: var(--ink-soft); max-width: 660px; margin: 0 0 28px; }
+  .role-legend { display: flex; flex-wrap: wrap; gap: 10px; }
+  .role-pill {
+    display: inline-flex; align-items: center; gap: 7px; padding: 7px 13px 7px 10px; border-radius: 999px;
+    font-size: 12.5px; font-weight: 700; border: 1px solid var(--border); background: var(--surface);
+  }
+  .role-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+  .role-admin .role-dot { background: var(--blue); }
+  .role-user .role-dot { background: #7C5CFC; }
+  .role-deliveryboy .role-dot { background: var(--orange); }
+  .role-storekeeper .role-dot { background: #12A594; }
+  .role-superadmin .role-dot { background: var(--deep-blue); }
+
+  /* ---------- Sections ---------- */
+  section { margin-bottom: 64px; scroll-margin-top: 24px; }
+  section > .section-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+  .section-num { font-size: 13px; font-weight: 800; color: var(--blue); font-variant-numeric: tabular-nums; }
+  h2 { font-size: 25px; font-weight: 800; letter-spacing: -0.015em; margin: 0; color: var(--deep-blue); }
+  :root[data-theme="dark"] h2 { color: #DCE7FF; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) h2 { color: #DCE7FF; } }
+  h3 { font-size: 16.5px; font-weight: 700; margin: 30px 0 10px; color: var(--ink); }
+  .section-roles { display: flex; gap: 6px; margin: 10px 0 20px; flex-wrap: wrap; }
+  .section-roles .role-pill { padding: 4px 10px 4px 8px; font-size: 11px; }
+  p { margin: 0 0 14px; color: var(--ink); }
+  p.lead { font-size: 16px; color: var(--ink-soft); margin-bottom: 22px; }
+
+  ol.steps { list-style: none; margin: 0 0 22px; padding: 0; counter-reset: step; }
+  ol.steps > li { counter-increment: step; position: relative; padding: 2px 0 16px 38px; border-left: 2px solid var(--border); margin-left: 13px; }
+  ol.steps > li:last-child { border-left-color: transparent; padding-bottom: 0; }
+  ol.steps > li::before {
+    content: counter(step); position: absolute; left: -13px; top: 0; width: 26px; height: 26px; border-radius: 50%;
+    background: var(--blue); color: white; font-size: 12.5px; font-weight: 800; display: flex; align-items: center; justify-content: center;
+  }
+  ol.steps > li strong { display: block; margin-bottom: 3px; font-size: 14.5px; }
+  ol.steps > li span.step-detail { color: var(--ink-soft); font-size: 14px; }
+  ul.plain { margin: 0 0 16px; padding-left: 20px; }
+  ul.plain li { margin-bottom: 6px; }
+
+  /* ---------- Callouts ---------- */
+  .callout { display: flex; gap: 12px; border-radius: 12px; padding: 14px 16px; margin: 18px 0; border: 1px solid var(--border); font-size: 14px; }
+  .callout .icon { flex: none; font-size: 17px; line-height: 1.3; }
+  .callout.tip { background: rgba(10,95,216,0.06); border-color: rgba(10,95,216,0.25); }
+  .callout.warn { background: var(--error-bg); border-color: rgba(214,69,69,0.3); }
+  .callout.success { background: var(--success-bg); border-color: rgba(30,142,62,0.3); }
+  .callout strong { display: block; margin-bottom: 2px; }
+
+  /* ---------- Reference table ---------- */
+  table.ref { width: 100%; border-collapse: collapse; margin: 14px 0 24px; font-size: 13.5px; }
+  table.ref th, table.ref td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  table.ref th { color: var(--ink-soft); font-weight: 700; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; background: rgba(10,95,216,0.1); color: var(--blue); white-space: nowrap; }
+  .badge.green { background: var(--success-bg); color: var(--success); }
+  .badge.red { background: var(--error-bg); color: var(--error); }
+  .badge.orange { background: rgba(255,138,61,0.15); color: #B85E1A; }
+  :root[data-theme="dark"] .badge.orange { color: var(--orange); }
+  code.key { background: var(--bg); border: 1px solid var(--border); border-radius: 5px; padding: 1px 6px; font-size: 12.5px; font-family: ui-monospace, "SF Mono", Consolas, monospace; }
+
+  figcaption.cap { padding: 0; margin: 8px 0 18px; font-size: 12.5px; color: var(--ink-soft); text-align: center; }
+
+  /* ================= UI MOCKUP SYSTEM ================= */
+  figure.mock {
+    margin: 20px 0 6px; border-radius: 14px; overflow: hidden; position: relative;
+    border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(15,25,55,0.10);
+    background: linear-gradient(135deg, #dbe7fb 0%, #eef2fb 45%, #fbe6d4 100%);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  .mock-topbar { display:flex; align-items:center; gap:6px; padding:8px 12px; background:rgba(255,255,255,0.55); border-bottom:1px solid rgba(0,0,0,0.06); }
+  .mock-topbar span { width:9px;height:9px;border-radius:50%; background:rgba(0,0,0,0.15); }
+  .mock-body { display:flex; min-height: 300px; font-size: 11.5px; color:#20242e; }
+  .mock-sb { width:176px; flex:none; background:rgba(255,255,255,0.82); padding:14px 10px; }
+  .mock-sb .app-name { font-weight:800; color:var(--blue); font-size:11.5px; line-height:1.25; margin: 2px 6px 14px; }
+  .mock-sb .item { display:flex; align-items:center; gap:8px; padding:6px 8px; border-radius:8px; margin-bottom:2px; color:#3a3f4d; }
+  .mock-sb .item .ic { width:14px; text-align:center; opacity:0.8; }
+  .mock-sb .item.active { background:var(--blue); color:#fff; font-weight:700; }
+  .mock-sb .bottom-icons { display:flex; flex-direction:column; align-items:center; gap:10px; margin-top:36px; opacity:0.7; }
+  .mock-main { flex:1; padding:14px 16px; position:relative; }
+  .mock-h1 { font-size:14px; font-weight:700; color:#1c2230; margin-bottom:10px; }
+  .mock-card { background:rgba(255,255,255,0.72); border-radius:10px; padding:8px 10px; margin-bottom:8px; }
+  .mock-pill-row { display:flex; gap:6px; margin-bottom:10px; }
+  .mock-pill { padding:4px 10px; border-radius:999px; background:rgba(255,255,255,0.6); font-size:10.5px; font-weight:600; }
+  .mock-pill.active { background:var(--blue); color:#fff; }
+  .mock-banner { background:rgba(255,138,61,0.18); border:1px solid rgba(255,138,61,0.4); color:#a15417; border-radius:8px; padding:6px 10px; font-size:10.5px; font-weight:600; margin-bottom:10px; }
+  .mock-grid4 { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+  .mock-stat { background:rgba(255,255,255,0.72); border-radius:10px; padding:8px; }
+  .mock-stat .lbl { font-size:8.5px; letter-spacing:0.03em; color:#6b7182; text-transform:uppercase; margin-top:8px; }
+  .mock-stat .val { font-size:12px; font-weight:800; color:var(--blue); }
+  .mock-table { width:100%; border-collapse:collapse; font-size:10px; background:rgba(255,255,255,0.55); border-radius:8px; overflow:hidden; }
+  .mock-table th { background:rgba(255,255,255,0.5); text-align:left; padding:5px 6px; font-weight:700; color:#4a5064; font-size:9px; }
+  .mock-table td { padding:5px 6px; border-top:1px solid rgba(0,0,0,0.06); }
+  .mock-field { background:rgba(255,255,255,0.75); border:1px solid rgba(0,0,0,0.08); border-radius:8px; padding:6px 9px; font-size:10px; color:#555; }
+  .mock-btn { display:inline-flex; align-items:center; justify-content:center; background:var(--blue); color:#fff; font-weight:700; border-radius:999px; padding:6px 14px; font-size:10.5px; }
+  .mock-icon-btn { width:22px;height:22px;border-radius:50%; background:var(--blue); color:#fff; display:flex; align-items:center; justify-content:center; font-size:10px; }
+  .mock-toggle { width:26px; height:14px; border-radius:999px; background:var(--blue); position:relative; display:inline-block; }
+  .mock-toggle::after { content:''; position:absolute; right:2px; top:2px; width:10px; height:10px; border-radius:50%; background:#fff; }
+  .mock-toggle.off { background:#c7cbd6; }
+  .mock-toggle.off::after { left:2px; right:auto; }
+
+  /* callout numbers overlaid on mockups */
+  .cn {
+    position:absolute; width:20px; height:20px; border-radius:50%; background:var(--orange); color:#fff;
+    font-size:10.5px; font-weight:800; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 2px 8px rgba(0,0,0,0.35), 0 0 0 2px #fff; z-index:6; transform:translate(-50%,-50%);
+  }
+
+  .legend { list-style:none; margin:0 0 26px; padding:0; }
+  .legend li { display:flex; gap:10px; padding:8px 0; border-bottom:1px solid var(--border); font-size:13.5px; }
+  .legend li:last-child { border-bottom:none; }
+  .legend .num {
+    width:20px; height:20px; border-radius:50%; background:var(--orange); color:#fff; font-size:10.5px; font-weight:800;
+    display:flex; align-items:center; justify-content:center; flex:none; margin-top:1px;
+  }
+  .legend .txt strong { display:block; }
+  .legend .txt span { color: var(--ink-soft); font-size: 13px; }
+
+  footer.doc-footer { margin-top:80px; padding-top:24px; border-top:1px solid var(--border); color:var(--ink-soft); font-size:12.5px; }
+</style>
+</head>
+<body>
+<div class="tmb-bar"><a href="../" class="tmb-back">&larr; GasOne</a><span>User Guide</span><a href="https://bharathvsb3.github.io/TMB-Tech/" target="_blank" rel="noopener" class="tmb-by">Powered by <b>TMB Tech</b></a></div>
+
+
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">G1</div><div class="brand-name">GasOne</div></div>
+    <div class="brand-sub">Complete User Guide</div>
+    <nav class="toc">
+      <div class="toc-group-label">Start here</div>
+      <a href="#getting-started"><span class="n">1</span>Getting Started &amp; Roles</a>
+      <a href="#dashboard"><span class="n">2</span>Dashboard</a>
+      <div class="toc-group-label">Daily work</div>
+      <a href="#denomination"><span class="n">3</span>Denomination Entry</a>
+      <a href="#notes"><span class="n">4</span>Notes</a>
+      <a href="#expense"><span class="n">5</span>Expense</a>
+      <a href="#store-entry"><span class="n">6</span>Store Entry</a>
+      <div class="toc-group-label">Review &amp; admin</div>
+      <a href="#reports"><span class="n">7</span>Reports</a>
+      <a href="#user-management"><span class="n">8</span>User Management</a>
+      <a href="#products"><span class="n">9</span>Products &amp; Rates</a>
+      <a href="#settings"><span class="n">10</span>Settings</a>
+      <a href="#permissions"><span class="n">11</span>Permissions</a>
+      <div class="toc-group-label">Reference</div>
+      <a href="#troubleshooting"><span class="n">12</span>Tips &amp; Troubleshooting</a>
+    </nav>
+  </aside>
+
+  <main>
+    <div class="cover">
+      <div class="cover-eyebrow">● User Guide</div>
+      <h1 class="cover-title">Everything GasOne does, in one place.</h1>
+      <p class="cover-desc">
+        A complete walkthrough of every screen and setting in GasOne — daily collection entry,
+        store stock register, reports, product rates, and admin configuration. Written in plain
+        English for anyone using the app for the first time. Every screen below is shown as a
+        labeled diagram with a numbered explanation for each button.
+      </p>
+      <div class="role-legend">
+        <span class="role-pill role-admin"><span class="role-dot"></span>Admin</span>
+        <span class="role-pill role-user"><span class="role-dot"></span>User</span>
+        <span class="role-pill role-deliveryboy"><span class="role-dot"></span>Delivery Boy</span>
+        <span class="role-pill role-storekeeper"><span class="role-dot"></span>Store Keeper</span>
+        <span class="role-pill role-superadmin"><span class="role-dot"></span>Super Admin</span>
+      </div>
+    </div>
+
+    <!-- ============ 1. GETTING STARTED ============ -->
+    <section id="getting-started">
+      <div class="section-head"><span class="section-num">01</span><h2>Getting Started &amp; Roles</h2></div>
+      <p class="lead">Every screen in GasOne is gated by role. Knowing which role you're using explains why a menu, button, or column might look different from a colleague's screen.</p>
+
+      <figure class="mock">
+        <div class="mock-topbar"><span></span><span></span><span></span></div>
+        <div class="mock-body" style="align-items:center; justify-content:center; padding:30px;">
+          <div style="background:rgba(255,255,255,0.85); border-radius:16px; padding:28px 34px; width:260px; text-align:center; position:relative;">
+            <div class="cn" style="top:-6px; right:-6px;">1</div>
+            <div style="width:46px;height:46px;border-radius:12px;background:var(--blue);margin:0 auto 10px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;">G1</div>
+            <div style="font-weight:800; font-size:15px; color:#1c2230;">GasOne</div>
+            <div style="color:#8a90a0; font-size:10px; margin-bottom:14px;">Sign in</div>
+            <div class="mock-field" style="text-align:left; margin-bottom:8px; position:relative;">Mobile Number<div class="cn" style="left:-10px; top:50%;">2</div></div>
+            <div class="mock-field" style="text-align:left; margin-bottom:10px; position:relative;">Password<div class="cn" style="left:-10px; top:50%;">3</div></div>
+            <div class="mock-btn" style="width:100%; position:relative;">Login<div class="cn" style="right:-10px; top:50%;">4</div></div>
+          </div>
+        </div>
+      </figure>
+      <figcaption class="cap">The Login screen</figcaption>
+
+      <ul class="legend">
+        <li><span class="num">1</span><div class="txt"><strong>App logo &amp; name</strong><span>Just branding — confirms you're on the right app.</span></div></li>
+        <li><span class="num">2</span><div class="txt"><strong>Mobile Number field</strong><span>Type the mobile number your Admin registered for you.</span></div></li>
+        <li><span class="num">3</span><div class="txt"><strong>Password field</strong><span>Tap the small eye icon inside it to reveal what you typed.</span></div></li>
+        <li><span class="num">4</span><div class="txt"><strong>Login button</strong><span>Tap after filling both fields. You'll land on the first screen your role allows.</span></div></li>
+      </ul>
+
+      <div class="callout tip">
+        <div class="icon">🔐</div>
+        <div><strong>Biometric login</strong> After your first password login on a device, you can turn on fingerprint/face unlock from the sidebar's fingerprint icon, so future logins skip typing the password.</div>
+      </div>
+
+      <h3>The five roles</h3>
+      <table class="ref">
+        <tr><th>Role</th><th>What they see</th></tr>
+        <tr><td><span class="badge">Admin</span></td><td>Everything for their own agency — Dashboard, Denomination, Store Entry, Reports, User Management, Products &amp; Rates, Settings, Permissions. The only role that can enter Expenses, edit Products/Rates, and unlock a Store Keeper's locked day.</td></tr>
+        <tr><td><span class="badge" style="background:rgba(124,92,252,0.12);color:#7C5CFC">User</span></td><td>A restricted view of the same agency — which menus they can see is controlled by Admin on the Permissions screen. Cannot see cash amounts if Admin has hidden them.</td></tr>
+        <tr><td><span class="badge orange">Delivery Boy</span></td><td>Confined to one screen: their own Denomination entry, always as themselves. Once saved, a day locks from further edits unless Admin grants a one-time re-edit.</td></tr>
+        <tr><td><span class="badge" style="background:rgba(18,165,148,0.12);color:#12A594">Store Keeper</span></td><td>Confined to one screen: today's Store Entry register. Locked after the first save, same one-time-unlock pattern.</td></tr>
+        <tr><td><span class="badge" style="background:rgba(7,43,94,0.12);color:var(--deep-blue)">Super Admin</span></td><td>Cross-agency — manages every Company account, not day-to-day operations for any single agency.</td></tr>
+      </table>
+    </section>
+
+    <!-- ============ 2. DASHBOARD ============ -->
+    <section id="dashboard">
+      <div class="section-head"><span class="section-num">02</span><h2>Dashboard</h2></div>
+      <div class="section-roles"><span class="role-pill role-admin"><span class="role-dot"></span>Admin</span><span class="role-pill role-user"><span class="role-dot"></span>User</span></div>
+      <p class="lead">The first thing Admin and User see after login — a live snapshot of the day, plus anything that needs attention right now.</p>
+
+      <figure class="mock">
+        <div class="mock-body">
+          <div class="mock-sb">
+            <div class="app-name">Your Agency Name</div>
+            <div class="item active"><span class="ic">▦</span>Dashboard</div>
+            <div class="item"><span class="ic">🧪</span>Denomination</div>
+            <div class="item"><span class="ic">🗄</span>Store Entry</div>
+            <div class="item"><span class="ic">📊</span>Reports</div>
+            <div class="item"><span class="ic">👤</span>User Management</div>
+            <div class="item"><span class="ic">⚙</span>Settings</div>
+            <div class="item"><span class="ic">🔒</span>Permissions</div>
+            <div class="bottom-icons"><span>🌐</span><span>👤</span><span>⏻</span></div>
+          </div>
+          <div class="mock-main">
+            <div class="mock-h1">Dashboard</div>
+            <div class="mock-pill-row" style="position:relative;">
+              <div class="mock-pill active">Today</div><div class="mock-pill">This Week</div><div class="mock-pill">This Month</div><div class="mock-pill">This Year</div>
+              <div class="cn" style="left:20px; top:50%;">1</div>
+            </div>
+            <div class="mock-banner" style="position:relative;">⚠ Store Keeper still not submitted<div class="cn" style="right:-8px; top:-8px;">2</div></div>
+            <div class="mock-grid4" style="position:relative;">
+              <div class="cn" style="left:0; top:-6px;">3</div>
+              <div class="mock-stat"><div class="val">₹0</div><div class="lbl">Today's Collection</div></div>
+              <div class="mock-stat"><div class="val">₹0</div><div class="lbl">Today's Gas Value</div></div>
+              <div class="mock-stat"><div class="val">0</div><div class="lbl">Gas Cylinder Count</div></div>
+              <div class="mock-stat"><div class="val">0</div><div class="lbl">Today's Transactions</div></div>
+              <div class="mock-stat"><div class="val">2</div><div class="lbl">Active Delivery Boys</div></div>
+              <div class="mock-stat"><div class="val">₹0</div><div class="lbl">Today's Expense</div></div>
+              <div class="mock-stat" style="position:relative;"><div class="val">₹0</div><div class="lbl">Today's Net Total</div><div class="cn" style="right:-8px; top:-6px;">4</div></div>
+            </div>
+          </div>
+        </div>
+      </figure>
+      <figcaption class="cap">Dashboard — Admin view</figcaption>
+
+      <ul class="legend">
+        <li><span class="num">1</span><div class="txt"><strong>Period selector</strong><span>Switches every card below between Today / This Week / This Month / This Year — nothing else needs re-opening.</span></div></li>
+        <li><span class="num">2</span><div class="txt"><strong>Store Keeper warning banner</strong><span>Only appears when today's Store Entry hasn't been saved yet — a nudge for Admin to follow up.</span></div></li>
+        <li><span class="num">3</span><div class="txt"><strong>Summary cards</strong><span>Collection, Gas Value, Cylinder Count, Transactions, Active Delivery Boys, Expense, and Net Total — see the table below for what each means.</span></div></li>
+        <li><span class="num">4</span><div class="txt"><strong>Today's Net Total</strong><span>Collection + Expense combined — the real bottom line after costs.</span></div></li>
+      </ul>
+
+      <table class="ref">
+        <tr><th>Card</th><th>What it shows</th></tr>
+        <tr><td>Collection</td><td>Total cash collected across every denomination entry in the period.</td></tr>
+        <tr><td>Gas Value</td><td>Cylinder quantity × current rate, summed — what the collection <em>should</em> add up to.</td></tr>
+        <tr><td>Gas Cylinder Count</td><td>Total cylinders delivered.</td></tr>
+        <tr><td>Transactions</td><td>Number of denomination entries saved.</td></tr>
+        <tr><td>Active Delivery Boys</td><td>Delivery boys with at least one entry.</td></tr>
+        <tr><td>Expense</td><td>Net of every Admin-entered expense — red if negative, green if positive.</td></tr>
+        <tr><td>Net Total</td><td>Collection + Expense — the actual bottom line.</td></tr>
+      </table>
+    </section>
+
+    <!-- ============ 3. DENOMINATION ============ -->
+    <section id="denomination">
+      <div class="section-head"><span class="section-num">03</span><h2>Denomination Entry</h2></div>
+      <div class="section-roles">
+        <span class="role-pill role-admin"><span class="role-dot"></span>Admin</span>
+        <span class="role-pill role-user"><span class="role-dot"></span>User</span>
+        <span class="role-pill role-deliveryboy"><span class="role-dot"></span>Delivery Boy</span>
+      </div>
+      <p class="lead">The daily heart of GasOne — recording how many cylinders each delivery boy delivered and the cash collected for it, broken down by note/coin.</p>
+
+      <figure class="mock">
+        <div class="mock-body">
+          <div class="mock-sb">
+            <div class="app-name">Your Agency Name</div>
+            <div class="item"><span class="ic">▦</span>Dashboard</div>
+            <div class="item active"><span class="ic">🧪</span>Denomination</div>
+            <div class="item"><span class="ic">🗄</span>Store Entry</div>
+            <div class="item"><span class="ic">📊</span>Reports</div>
+          </div>
+          <div class="mock-main">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div class="mock-h1" style="margin-bottom:0;">Denomination</div>
+              <div style="display:flex; gap:6px; position:relative;">⛶ ⟳<div class="cn" style="right:16px; top:8px;">1</div></div>
+            </div>
+            <div class="mock-field" style="width:150px; margin:8px 0 10px; position:relative;">📅 04 Aug 2026<div class="cn" style="left:-10px; top:50%;">2</div></div>
+            <table class="mock-table" style="position:relative;">
+              <tr><th>Delivery Boy</th><th>19Kg</th><th>10Kg C.</th><th>...</th><th>₹500</th><th>...</th><th>Grand Total</th><th>Gas Value</th><th></th></tr>
+              <tr><td style="position:relative;">Select De...<div class="cn" style="left:-10px; top:50%;">3</div></td><td style="position:relative;"><div class="cn" style="left:50%; top:-4px;">4</div></td><td></td><td>…</td><td style="position:relative;"><div class="cn" style="left:50%; top:-4px;">5</div></td><td>…</td><td style="position:relative;">₹0<div class="cn" style="right:-10px; top:50%;">6</div></td><td>₹0</td><td>✕</td></tr>
+            </table>
+            <div style="margin:8px 0; color:var(--blue); font-weight:700; font-size:10.5px; position:relative;">+ Add Row<div class="cn" style="left:-10px; top:50%;">7</div></div>
+            <div style="position:absolute; bottom:10px; left:16px; right:16px; display:flex; justify-content:space-between; align-items:center;">
+              <div style="font-size:9px; color:#666;">Grand Total<br><strong style="color:var(--blue); font-size:12px;">₹0</strong></div>
+              <div style="display:flex; gap:6px; align-items:center; position:relative;">
+                <div class="mock-icon-btn">📝</div><div class="mock-icon-btn">🧾</div><div class="mock-btn">Save</div>
+                <div class="cn" style="left:-2px; top:-10px;">8</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </figure>
+      <figcaption class="cap">Denomination entry grid</figcaption>
+
+      <ul class="legend">
+        <li><span class="num">1</span><div class="txt"><strong>Full screen &amp; Refresh</strong><span>Full screen (⛶, web only) hides the sidebar so the grid gets the whole width. Refresh (⟳) reloads the grid from the server, discarding unsaved changes.</span></div></li>
+        <li><span class="num">2</span><div class="txt"><strong>Select Date</strong><span>Defaults to today. Admin/User can pick any date; Delivery Boy is always on today.</span></div></li>
+        <li><span class="num">3</span><div class="txt"><strong>Delivery Boy picker</strong><span>Search and pick who this row belongs to — every quantity cell in the row stays locked until this is chosen.</span></div></li>
+        <li><span class="num">4</span><div class="txt"><strong>Cylinder-size columns</strong><span>One column per configured size — how many of that size this delivery boy delivered.</span></div></li>
+        <li><span class="num">5</span><div class="txt"><strong>Denomination columns</strong><span>One column per note/coin (₹500 down to ₹1) — how many of each were collected.</span></div></li>
+        <li><span class="num">6</span><div class="txt"><strong>Grand Total &amp; Gas Value</strong><span>Grand Total is the cash total for the row; Gas Value is what it should be worth. They turn green when they match, red when they don't.</span></div></li>
+        <li><span class="num">7</span><div class="txt"><strong>+ Add Row</strong><span>Adds a new blank row to enter another delivery boy's collection for this date.</span></div></li>
+        <li><span class="num">8</span><div class="txt"><strong>Notes, Expense &amp; Save</strong><span>The two round icons open Notes and Expense (Expense is Admin-only); Save commits every filled-in row.</span></div></li>
+      </ul>
+
+      <div class="callout success">
+        <div class="icon">✅</div>
+        <div><strong>Reading the match colors</strong> Cylinder value is compared against cash collected, rounded to the nearest rupee — the same rounding shown on screen. A logged Expense (see below) is netted in before this check, so a real cost never falsely turns it red.</div>
+      </div>
+
+      <h3>Full screen mode <span style="font-weight:400;color:var(--ink-soft);font-size:13px">(web only)</span></h3>
+      <p>The <strong>⛶</strong> icon hides the sidebar entirely so the grid can use the full browser width — tap it again to bring the sidebar back.</p>
+    </section>
+
+    <!-- ============ 4. NOTES ============ -->
+    <section id="notes">
+      <div class="section-head"><span class="section-num">04</span><h2>Notes</h2></div>
+      <div class="section-roles">
+        <span class="role-pill role-admin"><span class="role-dot"></span>Admin</span>
+        <span class="role-pill role-user"><span class="role-dot"></span>User</span>
+        <span class="role-pill role-deliveryboy"><span class="role-dot"></span>Delivery Boy</span>
+      </div>
+      <p class="lead">A free-form log for customer details that don't fit the denomination grid — open it from the notes icon on the Denomination screen's bottom bar.</p>
+      <ol class="steps">
+        <li><strong>Open Notes</strong> from the Denomination screen's bottom bar (before the Expense icon).</li>
+        <li><strong>Fill in any row</strong> — Customer ID, Customer Name, Gas Qty, and a free Remarks field. Nothing here is calculated; it's a plain log.</li>
+        <li><strong>Need more than ten lines?</strong> Tap <em>+ Add Line</em> for another blank row.</li>
+        <li><strong>Save once</strong> — a single Save button commits every filled-in row together, new and edited alike.</li>
+      </ol>
+      <div class="callout tip"><div class="icon">💡</div><div>Notes never affect the match indicator or Grand Total — it's purely a record of who was visited and what was noted for them.</div></div>
+    </section>
+
+    <!-- ============ 5. EXPENSE ============ -->
+    <section id="expense">
+      <div class="section-head"><span class="section-num">05</span><h2>Expense</h2></div>
+      <div class="section-roles"><span class="role-pill role-admin"><span class="role-dot"></span>Admin only</span></div>
+      <p class="lead">Real costs paid out of a day's collection — vehicle fuel, repairs, anything that reduces (or occasionally adds to) what's actually in hand.</p>
+      <ol class="steps">
+        <li><strong>Open Expense</strong> (Admin only) from the Denomination screen's bottom bar.</li>
+        <li><strong>Enter a description and amount.</strong><span class="step-detail">Negative (e.g. <code class="key">-200</code>) reduces the day's total; positive adds to it.</span></li>
+        <li><strong>Watch the total update as you type</strong> — no need to save first to see the running net.</li>
+        <li><strong>Save once</strong> for every filled-in line, same single-button pattern as Notes.</li>
+      </ol>
+      <div class="callout success"><div class="icon">✅</div><div><strong>How it affects the day</strong> The Grand Total becomes <em>Collected − Expense</em>, shown with a small breakdown line underneath. The match check still compares against the raw collected cash — a real, explained expense never turns it red.</div></div>
+      <p>Expense totals also appear on the <a href="#dashboard">Dashboard</a> and in <a href="#reports">Reports</a>, grouped by date.</p>
+    </section>
+
+    <!-- ============ 6. STORE ENTRY ============ -->
+    <section id="store-entry">
+      <div class="section-head"><span class="section-num">06</span><h2>Store Entry</h2></div>
+      <div class="section-roles">
+        <span class="role-pill role-admin"><span class="role-dot"></span>Admin</span>
+        <span class="role-pill role-storekeeper"><span class="role-dot"></span>Store Keeper</span>
+      </div>
+      <p class="lead">The cylinder stock register — full/empty counts by section, one sheet per day. Store Keeper fills in their own day; Admin can review or enter any date.</p>
+
+      <figure class="mock">
+        <div class="mock-body">
+          <div class="mock-sb">
+            <div class="app-name">Your Agency Name</div>
+            <div class="item"><span class="ic">▦</span>Dashboard</div>
+            <div class="item"><span class="ic">🧪</span>Denomination</div>
+            <div class="item active"><span class="ic">🗄</span>Store Entry</div>
+            <div class="item"><span class="ic">📊</span>Reports</div>
+          </div>
+          <div class="mock-main">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div class="mock-h1" style="margin-bottom:0;">Store Entry</div>
+              <div style="position:relative;">⬆ ⏱ ✎<div class="cn" style="right:-6px; top:-6px;">1</div></div>
+            </div>
+            <div class="mock-field" style="display:flex; justify-content:space-between; margin:8px 0; position:relative;">‹&nbsp;&nbsp;04 Aug 2026&nbsp;&nbsp;›<div class="cn" style="right:-10px; top:50%;">2</div></div>
+            <div class="mock-card" style="display:flex; gap:16px; position:relative;">
+              <div>Sl.No<br><strong>Not saved yet</strong></div><div>Created By<br><strong>—</strong></div>
+              <div class="cn" style="right:-8px; top:-8px;">3</div>
+            </div>
+            <div class="mock-card" style="display:flex; gap:8px; position:relative;">
+              <div class="mock-field" style="flex:1;">Invoice No. 1</div><div class="mock-field" style="flex:1;">Invoice No. 2</div>
+              <div class="cn" style="right:-8px; top:-8px;">4</div>
+            </div>
+            <div class="mock-card" style="position:relative;">
+              <strong style="font-size:10px;">10Kg Composite Filled Cylinders Sales Details:</strong>
+              <table class="mock-table" style="margin-top:6px;"><tr><th></th><th>Full</th><th>Empty</th></tr><tr><td>Opening Stock</td><td></td><td></td></tr><tr><td>Cylinder Received From IOC</td><td></td><td></td></tr><tr><td>Total Cylinders</td><td></td><td></td></tr></table>
+              <div class="cn" style="right:-8px; top:-8px;">5</div>
+            </div>
+          </div>
+        </div>
+      </figure>
+      <figcaption class="cap">Store Entry — Admin day view</figcaption>
+
+      <ul class="legend">
+        <li><span class="num">1</span><div class="txt"><strong>Export, History &amp; Edit-labels icons</strong><span>Export/Print the current sheet, search past entries by date, or (Admin only) rename a row label.</span></div></li>
+        <li><span class="num">2</span><div class="txt"><strong>Date navigation</strong><span>Previous/next-day arrows plus the date itself (tap to open a calendar) — Admin only, Store Keeper is locked to today.</span></div></li>
+        <li><span class="num">3</span><div class="txt"><strong>Sl.No / Created By</strong><span>Filled in automatically once the sheet is saved for the first time.</span></div></li>
+        <li><span class="num">4</span><div class="txt"><strong>Invoice numbers</strong><span>Optional reference numbers for this day's sheet.</span></div></li>
+        <li><span class="num">5</span><div class="txt"><strong>Section cards</strong><span>One card per cylinder-size section, each with Full/Empty columns for every stock-movement row (opening stock, received, sold, returned, closing stock, etc).</span></div></li>
+      </ul>
+
+      <h3>Store Keeper's flow</h3>
+      <ol class="steps">
+        <li><strong>Open Store Entry</strong> — always today, nothing else reachable from this login.</li>
+        <li><strong>Fill in Full/Empty counts</strong> for each row across every section.</li>
+        <li><strong>Save.</strong><span class="step-detail">A confirmation dialog warns this locks the sheet — every field goes read-only after.</span></li>
+      </ol>
+      <div class="callout warn"><div class="icon">🔒</div><div><strong>Locked after save</strong> Store Keeper cannot edit that day again unless Admin grants a one-time re-edit. Saving again after using that unlock re-locks it immediately.</div></div>
+      <h3>Admin's flow</h3>
+      <p>Admin can move to <strong>any</strong> date using the arrows/calendar and is never blocked by the lock — Admin's Save always goes through directly.</p>
+    </section>
+
+    <!-- ============ 7. REPORTS ============ -->
+    <section id="reports">
+      <div class="section-head"><span class="section-num">07</span><h2>Reports</h2></div>
+      <div class="section-roles"><span class="role-pill role-admin"><span class="role-dot"></span>Admin</span><span class="role-pill role-user"><span class="role-dot"></span>User</span></div>
+      <p class="lead">Every saved denomination entry, filterable by date range and delivery boy, with totals and export options.</p>
+
+      <figure class="mock">
+        <div class="mock-body">
+          <div class="mock-sb">
+            <div class="app-name">Your Agency Name</div>
+            <div class="item"><span class="ic">▦</span>Dashboard</div>
+            <div class="item"><span class="ic">🧪</span>Denomination</div>
+            <div class="item"><span class="ic">🗄</span>Store Entry</div>
+            <div class="item active"><span class="ic">📊</span>Reports</div>
+          </div>
+          <div class="mock-main">
+            <div class="mock-h1">Reports</div>
+            <div class="mock-card" style="display:flex; gap:8px; flex-wrap:wrap; position:relative;">
+              <div class="mock-field">From: 04 Aug 2026</div><div class="mock-field">To: 04 Aug 2026</div>
+              <div class="mock-field">All Delivery Boys ▾</div><div class="mock-field">All Users ▾</div><div class="mock-field">Approved ▾</div>
+              <div class="cn" style="right:-8px; top:-8px;">1</div>
+            </div>
+            <div style="display:flex; gap:10px; margin:8px 0; font-size:10px; color:var(--blue); font-weight:700; position:relative;">
+              📄 Export PDF &nbsp; 📊 Export Excel &nbsp; ↗ Share PDF &nbsp; ↗ Share Excel &nbsp; 🖨 Print
+              <div class="cn" style="left:-10px; top:50%;">2</div>
+            </div>
+            <div class="mock-card" style="text-align:center; color:#999; position:relative;">No data found<div class="cn" style="right:6px; top:6px;">3</div></div>
+          </div>
+        </div>
+      </figure>
+      <figcaption class="cap">Reports</figcaption>
+
+      <ul class="legend">
+        <li><span class="num">1</span><div class="txt"><strong>Filter bar</strong><span>Date range (Admin only — User is locked to today), Delivery Boy, Entered By, and Status (Approved / Pending / Rejected / All).</span></div></li>
+        <li><span class="num">2</span><div class="txt"><strong>Export row</strong><span>Export or Share as PDF/Excel, or Print directly — carries the same figures and expense breakdown shown on screen.</span></div></li>
+        <li><span class="num">3</span><div class="txt"><strong>Results table</strong><span>Every entry matching the filters above, with summary stat cards (Total Entries, Gas Cylinder Count, Total Amount, and for Admin, Expenses / Net Total) shown above it.</span></div></li>
+      </ul>
+    </section>
+
+    <!-- ============ 8. USER MANAGEMENT ============ -->
+    <section id="user-management">
+      <div class="section-head"><span class="section-num">08</span><h2>User Management</h2></div>
+      <div class="section-roles"><span class="role-pill role-admin"><span class="role-dot"></span>Admin</span></div>
+      <p class="lead">Manage everyone with a login, filtered by role, from one screen.</p>
+
+      <figure class="mock">
+        <div class="mock-body">
+          <div class="mock-sb">
+            <div class="app-name">Your Agency Name</div>
+            <div class="item"><span class="ic">▦</span>Dashboard</div>
+            <div class="item active"><span class="ic">👤</span>User Management</div>
+            <div class="item"><span class="ic">⚙</span>Settings</div>
+          </div>
+          <div class="mock-main">
+            <div class="mock-h1">User Management</div>
+            <div class="mock-field" style="margin-bottom:8px; position:relative;">🔍 Search by name, mobile, or role<div class="cn" style="right:-10px; top:50%;">1</div></div>
+            <div class="mock-pill-row" style="position:relative;">
+              <div class="mock-pill">All</div><div class="mock-pill active">✓ Admin</div><div class="mock-pill">User</div><div class="mock-pill">Store Keeper</div><div class="mock-pill">Delivery Boy</div>
+              <div class="cn" style="left:20px; top:50%;">2</div>
+            </div>
+            <div class="mock-card" style="display:flex; align-items:center; gap:8px; position:relative;">
+              <div style="width:22px;height:22px;border-radius:50%;background:var(--blue);"></div>
+              <div style="flex:1;">admin<br><span style="color:#888;">9876543210</span></div>
+              <div class="badge">admin</div> ✅ 🗑
+              <div class="cn" style="right:-8px; top:-8px;">3</div>
+            </div>
+            <div style="position:absolute; bottom:10px; right:16px;" class="mock-icon-btn">➕</div>
+          </div>
+        </div>
+      </figure>
+      <figcaption class="cap">User Management</figcaption>
+
+      <ul class="legend">
+        <li><span class="num">1</span><div class="txt"><strong>Search</strong><span>Find anyone by name, mobile number, or role.</span></div></li>
+        <li><span class="num">2</span><div class="txt"><strong>Role filter chips</strong><span>Narrow the list to just Admin, User, Store Keeper, or Delivery Boy accounts.</span></div></li>
+        <li><span class="num">3</span><div class="txt"><strong>Each account row</strong><span>Name, mobile number, role badge, an active/inactive indicator, and a delete icon.</span></div></li>
+      </ul>
+      <p>The round <strong>+</strong> button (bottom-right) creates a new account. A delivery boy doesn't need a login to appear in Denomination Entry's worker picker — creating one here is only needed if they'll use the app directly.</p>
+    </section>
+
+    <!-- ============ 9. PRODUCTS & RATES ============ -->
+    <section id="products">
+      <div class="section-head"><span class="section-num">09</span><h2>Products &amp; Rate Management</h2></div>
+      <div class="section-roles"><span class="role-pill role-admin"><span class="role-dot"></span>Admin</span></div>
+      <p class="lead">Defines every cylinder size sold and its current rate — this powers the Gas Value column everywhere else in the app. Open it from Settings → Cylinder Products.</p>
+
+      <figure class="mock">
+        <div class="mock-body">
+          <div class="mock-sb">
+            <div class="app-name">Your Agency Name</div>
+            <div class="item"><span class="ic">⚙</span>Settings</div>
+          </div>
+          <div class="mock-main">
+            <div class="mock-h1">← Cylinder Product Management</div>
+            <div class="mock-field" style="margin-bottom:8px;">🔍 Search by name or category</div>
+            <div style="display:flex; justify-content:space-between; font-size:9.5px; font-weight:700; color:#4a5064; position:relative;">Domestic&nbsp;4 <span>➕</span><div class="cn" style="right:-8px; top:-6px;">1</div></div>
+            <div class="mock-card" style="display:flex; align-items:center; gap:8px; margin-top:6px; position:relative;">
+              <div style="flex:1;">🔒 19Kg<br><span style="color:#888;">Domestic • 19Kg • ₹2,929</span></div> ⏱ 🗑 <span class="mock-toggle"></span> ≡
+              <div class="cn" style="right:-8px; top:-8px;">2</div>
+            </div>
+            <div class="mock-card" style="display:flex; align-items:center; gap:8px; opacity:0.55;">
+              <div style="flex:1;">🔒 10Kg<br><span style="color:#888;">Domestic • 10Kg • ₹0</span></div> ⏱ 🗑 <span class="mock-toggle off"></span> ≡
+            </div>
+            <div style="font-size:9.5px; font-weight:700; color:#4a5064; margin-top:6px; position:relative;">Non Domestic&nbsp;1<div class="cn" style="left:80px; top:-4px;">3</div></div>
+            <div class="mock-card" style="display:flex; align-items:center; gap:8px; margin-top:6px;"><div style="flex:1;">🔒 5Kg<br><span style="color:#888;">Non Domestic • 5Kg • ₹3,556</span></div> ⏱ 🗑 <span class="mock-toggle"></span> ≡</div>
+          </div>
+        </div>
+      </figure>
+      <figcaption class="cap">Cylinder Product Management</figcaption>
+
+      <ul class="legend">
+        <li><span class="num">1</span><div class="txt"><strong>Category header + add (➕)</strong><span>Products are grouped (e.g. Domestic, Non Domestic); tap ➕ to add a new size to that group.</span></div></li>
+        <li><span class="num">2</span><div class="txt"><strong>Each product row</strong><span>Name, category, size, and current rate. ⏱ shows its rate history, 🗑 deletes it, the toggle switches it active/inactive, and ≡ lets you drag to reorder — this order is what shows up as columns in Denomination Entry.</span></div></li>
+        <li><span class="num">3</span><div class="txt"><strong>Another category</strong><span>Each category is listed with its own count and products — a size like "10Kg" can exist in more than one category with different rates.</span></div></li>
+      </ul>
+
+      <div class="callout tip"><div class="icon">💡</div><div>Denomination Entry always uses the <strong>current</strong> rate for anything not yet saved. Only Reports and saved history show the rate that was actually locked in at save time — that's what the rate history (⏱) is for.</div></div>
+      <p>A greyed-out toggle (like "10Kg" above) means that size is switched off — it won't show up as a column for new entries, but its past data isn't deleted.</p>
+    </section>
+
+    <!-- ============ 10. SETTINGS ============ -->
+    <section id="settings">
+      <div class="section-head"><span class="section-num">10</span><h2>Settings</h2></div>
+      <div class="section-roles"><span class="role-pill role-admin"><span class="role-dot"></span>Admin</span></div>
+      <p class="lead">Agency-wide toggles that shape how the whole app behaves for everyone at your company.</p>
+
+      <figure class="mock">
+        <div class="mock-body">
+          <div class="mock-sb">
+            <div class="app-name">Your Agency Name</div>
+            <div class="item active"><span class="ic">⚙</span>Settings</div>
+          </div>
+          <div class="mock-main">
+            <div class="mock-h1">Settings</div>
+            <div class="mock-card" style="display:flex; justify-content:space-between; align-items:center; position:relative;">Dark theme <span class="mock-toggle off"></span><div class="cn" style="right:-8px; top:-8px;">1</div></div>
+            <div class="mock-card" style="position:relative;">Language<br>◉ English &nbsp; ○ Tamil<div class="cn" style="right:-8px; top:-8px;">2</div></div>
+            <div class="mock-card" style="display:flex; justify-content:space-between; align-items:center; position:relative;">🔒 Cylinder Product Management<br><span style="color:#888;font-size:9px;">Products, rates, active status, display order</span> ›<div class="cn" style="right:-8px; top:-8px;">3</div></div>
+            <div class="mock-card" style="display:flex; gap:8px; align-items:center; position:relative;">Delivery Boy Limit <div class="mock-field" style="width:50px;">20</div><div class="mock-btn">Save</div><div class="cn" style="right:-8px; top:-8px;">4</div></div>
+          </div>
+        </div>
+      </figure>
+      <figcaption class="cap">Settings</figcaption>
+
+      <ul class="legend">
+        <li><span class="num">1</span><div class="txt"><strong>Dark theme</strong><span>Switches the whole app's color scheme for this device.</span></div></li>
+        <li><span class="num">2</span><div class="txt"><strong>Language</strong><span>English or Tamil, applied app-wide immediately.</span></div></li>
+        <li><span class="num">3</span><div class="txt"><strong>Cylinder Product Management</strong><span>Opens the <a href="#products">Products &amp; Rates</a> screen.</span></div></li>
+        <li><span class="num">4</span><div class="txt"><strong>Delivery Boy Limit</strong><span>Caps how many delivery boy accounts this agency can have — Super Admin sets the ceiling, Admin can only lower it further unless allowed to raise it.</span></div></li>
+      </ul>
+
+      <table class="ref">
+        <tr><th>Other settings (not always visible)</th><th>Effect</th></tr>
+        <tr><td>Hide amount columns</td><td>Removes cash/denomination and Gas Value columns app-wide for non-Admin roles — for agencies that want counts-only entry.</td></tr>
+        <tr><td>Max amount digits</td><td>Caps how many digits can be typed into a single amount cell.</td></tr>
+        <tr><td>Daily line limit policy</td><td>Whether Admin can cap how many rows a delivery boy saves per day.</td></tr>
+        <tr><td>Export options policy</td><td>Whether Export/Share/Print buttons appear on Reports at all.</td></tr>
+        <tr><td>Transaction delete policy</td><td>Whether Admin can delete an already-saved denomination row outright.</td></tr>
+      </table>
+    </section>
+
+    <!-- ============ 11. PERMISSIONS ============ -->
+    <section id="permissions">
+      <div class="section-head"><span class="section-num">11</span><h2>Permissions</h2></div>
+      <div class="section-roles"><span class="role-pill role-admin"><span class="role-dot"></span>Admin</span></div>
+      <p class="lead">Controls which menu items a <strong>User</strong>-role account can see in the sidebar — Admin's own menu is never restricted here.</p>
+      <p>Toggle off any menu (Reports, Store Entry, Settings, etc.) to hide it for every User-role login at this agency. Delivery Boy and Store Keeper are unaffected — their confined single-screen access isn't controlled from here.</p>
+    </section>
+
+    <!-- ============ 12. TROUBLESHOOTING ============ -->
+    <section id="troubleshooting">
+      <div class="section-head"><span class="section-num">12</span><h2>Tips &amp; Troubleshooting</h2></div>
+      <h3>"Collection Mismatch" won't go green</h3>
+      <p>Check that a delivery boy is actually selected for every row with numbers in it — quantity cells only count once a worker is chosen. If an expense explains the gap, log it under <a href="#expense">Expense</a> rather than adjusting the cash entry to force a match.</p>
+      <h3>A delivery boy can't edit their saved row</h3>
+      <p>Expected — once a Delivery Boy saves, that day locks automatically. Admin can grant a one-time re-edit; it re-locks the moment they save again.</p>
+      <h3>Store Keeper's register is locked</h3>
+      <p>Same pattern — Admin unlocks it for one more edit from the Store Entry Admin view for that date.</p>
+      <h3>A screen or button is missing</h3>
+      <p>Check <a href="#permissions">Permissions</a> — Admin may have hidden that menu for the User role, or <a href="#settings">Settings</a> may have amount columns hidden agency-wide.</p>
+    </section>
+
+    <footer class="doc-footer">GasOne — Smart Collection Management for Gas Agencies. Diagrams above show the general layout — exact numbers, names, and colors on your screen will reflect your own agency's data. <br><br><a href="../">GasOne home</a> · <a href="../privacy-policy/">Privacy policy</a> · Powered by <a href="https://bharathvsb3.github.io/TMB-Tech/" target="_blank" rel="noopener">TMB Tech</a> · <a href="mailto:bharathvsb3@gmail.com">bharathvsb3@gmail.com</a> · <a href="tel:+917550356255">+91 75503 56255</a></footer>
+  </main>
+</div>
+
+</body>
+</html>

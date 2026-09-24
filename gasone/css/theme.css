@@ -1,0 +1,79 @@
+/* GasOne brand tokens, taken from the app's own theme (lib/core/theme). */
+:root {
+  --font-head: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --p: #0a5fd8;
+  --p-deep: #072b5e;
+  --a: #ff8a3d;
+  --on-p: #ffffff;
+  --p-text: #0a5fd8;
+  --p-soft: rgba(10, 95, 216, 0.12);
+  --p-line: rgba(10, 95, 216, 0.35);
+  --p-shadow: rgba(10, 95, 216, 0.55);
+  --grad: linear-gradient(135deg, #0a5fd8 0%, #0048aa 100%);
+  --grad-text: linear-gradient(100deg, #0a5fd8 10%, #ff8a3d 90%);
+
+  --bg: #f7f9fd;
+  --bg-alt: #eef3fb;
+  --surface: #ffffff;
+  --text: #191b23;
+  --heading: #0f1a33;
+  --muted: #545a6b;
+  --line: #e1e6f0;
+  --line-strong: #c9d2e2;
+  --radius: 20px;
+  --btn-radius: 999px;
+
+  --glass: rgba(255, 255, 255, 0.72);
+  --glass-line: rgba(255, 255, 255, 0.7);
+
+  --hdr-bg: rgba(255, 255, 255, 0.62);
+  --hdr-bg-solid: rgba(255, 255, 255, 0.92);
+  --hdr-line: rgba(255, 255, 255, 0.8);
+  --hdr-text: #0f1a33;
+  --hdr-muted: #545a6b;
+  --hdr-hover: rgba(10, 95, 216, 0.08);
+
+  --hero-bg: linear-gradient(135deg, #eaf2ff 0%, #e3f2fd 38%, #fff3e0 72%, #ffe7d6 100%);
+  --hero-text: #0f1a33;
+  --hero-muted: #454b5c;
+  --blob-1: rgba(10, 95, 216, 0.45);
+  --blob-2: rgba(255, 138, 61, 0.5);
+  --blob-3: rgba(66, 94, 147, 0.4);
+  --grid-line: rgba(10, 95, 216, 0.07);
+  --chip-bg: rgba(255, 255, 255, 0.7);
+  --chip-text: #0f1a33;
+  --chip-line: rgba(255, 255, 255, 0.9);
+
+  --marquee-bg: #ffffff;
+
+  --dark-bg: radial-gradient(120% 90% at 10% 0%, #0d3a7a 0%, #072b5e 45%, #051b3d 100%);
+  --dark-text: #dbe5f5;
+  --dark-muted: #a9b8d3;
+  --dark-card: rgba(255, 255, 255, 0.06);
+  --dark-line: rgba(255, 255, 255, 0.12);
+
+  --foot-bg: #051b3d;
+  --foot-text: #c9d6ec;
+  --foot-muted: #8fa3c4;
+  --foot-line: rgba(255, 255, 255, 0.1);
+}
+
+/* GasOne-specific touches */
+.brand img { background: #fff; }
+.status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+.match-ok { color: #2e7d32; }
+.match-bad { color: #d64545; }
+.pill-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.pill {
+  font-size: 0.74rem; font-weight: 800; padding: 5px 11px; border-radius: 999px; border: 1px solid;
+}
+.pill-pending { color: #c25e12; background: rgba(255, 138, 61, 0.14); border-color: rgba(255, 138, 61, 0.4); }
+.pill-approved { color: #2e7d32; background: rgba(46, 125, 50, 0.12); border-color: rgba(46, 125, 50, 0.4); }
+.pill-rejected { color: #d64545; background: rgba(214, 69, 69, 0.12); border-color: rgba(214, 69, 69, 0.4); }
+
+/* readable accents on the dark navy sections */
+.sec-dark .eyebrow, .foot h4 { color: #8fbcff; }
+.step::before { color: #ffb27a; }
