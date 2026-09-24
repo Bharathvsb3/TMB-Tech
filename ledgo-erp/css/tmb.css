@@ -1,0 +1,237 @@
+/* ==========================================================================
+   LedGo ERP site: additions for the Online Store walkthrough, the TMB Tech
+   company block and the "Powered by" footer credit. Reads the same tokens
+   as styles.css so it follows the theme swatches and dark mode.
+   ========================================================================== */
+
+/* ---------- Online Store ---------- */
+.os-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 3rem;
+  align-items: start;
+}
+.os-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.9rem; }
+.os-step {
+  display: flex;
+  gap: 1rem;
+  padding: 1.05rem 1.2rem;
+  background: var(--paper-panel);
+  border: 1px solid var(--paper-line);
+  border-radius: 0.8rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.os-step:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: rgb(var(--brand) / 0.35); }
+.os-num {
+  flex-shrink: 0;
+  width: 2.4rem;
+  height: 2.4rem;
+  display: grid;
+  place-items: center;
+  border-radius: 0.6rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #fff;
+  background: linear-gradient(135deg, rgb(var(--brand)), rgb(var(--brand-deep)));
+  box-shadow: 0 8px 18px -8px rgb(var(--brand) / 0.7);
+}
+.os-step h3 { font-size: 1.02rem; font-weight: 700; margin: 0.1rem 0 0.3rem; color: var(--text-on-paper); }
+.os-step p { margin: 0; font-size: 0.92rem; line-height: 1.55; color: var(--text-on-paper-muted); }
+
+.os-visual { position: sticky; top: 6rem; perspective: 1400px; }
+.os-stage {
+  position: relative;
+  padding: 2.2rem 1.4rem 3rem;
+  transform-style: preserve-3d;
+  transform: rotateY(-10deg) rotateX(6deg);
+  transition: transform 0.2s ease-out;
+}
+.os-card {
+  background: var(--paper-panel);
+  border: 1px solid var(--paper-line);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-lg);
+}
+.os-order { padding: 1.3rem 1.3rem 1.1rem; transform: translateZ(0); }
+.os-order-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 0.9rem; }
+.os-kicker { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-on-paper-muted); }
+.os-order-id { font-size: 1.3rem; font-weight: 800; color: var(--text-on-paper); }
+.os-pill {
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.os-pill-live { color: rgb(var(--brand-deep)); background: rgb(var(--brand) / 0.14); }
+.os-meta { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; font-size: 0.8rem; color: var(--text-on-paper-muted); margin-bottom: 1rem; }
+.os-meta b { color: var(--text-on-paper); font-weight: 700; margin-right: 0.3rem; }
+
+.os-timeline { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.3rem; margin-bottom: 1.1rem; position: relative; }
+.os-t { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.3rem; position: relative; font-size: 0.7rem; color: var(--text-on-paper-muted); }
+.os-t::before {
+  content: "";
+  position: absolute;
+  top: 0.45rem;
+  left: -50%;
+  width: 100%;
+  height: 2px;
+  background: var(--paper-line);
+  z-index: 0;
+}
+.os-t:first-child::before { display: none; }
+.os-t.done::before, .os-t.now::before { background: rgb(var(--brand)); }
+.os-t i {
+  width: 0.95rem;
+  height: 0.95rem;
+  border-radius: 50%;
+  border: 2px solid var(--paper-line);
+  background: var(--paper-panel);
+  position: relative;
+  z-index: 1;
+}
+.os-t.done i { background: rgb(var(--brand)); border-color: rgb(var(--brand)); }
+.os-t.now i { border-color: rgb(var(--brand)); box-shadow: 0 0 0 4px rgb(var(--brand) / 0.2); animation: osPulse 1.8s ease-in-out infinite; }
+.os-t span { font-weight: 700; color: var(--text-on-paper); line-height: 1.2; }
+.os-t em { font-style: normal; font-size: 0.64rem; }
+@keyframes osPulse { 50% { box-shadow: 0 0 0 7px rgb(var(--brand) / 0.08); } }
+
+.os-lines { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-bottom: 1rem; }
+.os-lines th { text-align: left; font-size: 0.64rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-on-paper-muted); padding: 0.45rem 0.4rem; background: var(--paper); }
+.os-lines td { padding: 0.5rem 0.4rem; border-bottom: 1px solid var(--paper-line); color: var(--text-on-paper); }
+.os-lines th:not(:first-child), .os-lines td:not(:first-child) { text-align: right; }
+.os-lines tfoot td { font-weight: 800; border-bottom: 0; }
+.os-actions { display: flex; justify-content: flex-end; gap: 0.5rem; }
+.os-btn {
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.55rem 0.9rem;
+  border-radius: 0.55rem;
+  color: #fff;
+  background: rgb(var(--brand-deep));
+}
+.os-btn-ghost { background: transparent; color: var(--text-on-paper); border: 1px solid var(--paper-line); }
+
+.os-toast {
+  position: absolute;
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  padding: 0.75rem 0.9rem;
+  width: min(290px, 78%);
+  font-size: 0.78rem;
+  line-height: 1.4;
+  animation: osFloat 5s ease-in-out infinite;
+}
+.os-toast b { display: block; color: var(--text-on-paper); font-size: 0.82rem; }
+.os-toast span { color: var(--text-on-paper-muted); }
+.os-toast-icon {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.55rem;
+  display: grid;
+  place-items: center;
+  background: rgb(var(--brand) / 0.14);
+  font-size: 1rem;
+}
+.os-toast-icon-cust { background: rgba(92, 42, 157, 0.12); }
+.os-toast-staff { top: -0.4rem; right: -1.2rem; transform: translateZ(70px); }
+.os-toast-customer { bottom: 0.2rem; left: -1.6rem; transform: translateZ(50px); animation-delay: -2.5s; }
+@keyframes osFloat { 50% { translate: 0 -8px; } }
+
+/* ---------- Free trial line in the CTA ---------- */
+.cta-trial {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0.4rem auto 1.6rem;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: rgb(var(--brand-deep));
+  background: rgb(var(--brand) / 0.12);
+}
+:root[data-mode="dark"] .cta-trial { color: rgb(var(--brand)); }
+.cta-trial-dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: rgb(var(--brand)); box-shadow: 0 0 0 4px rgb(var(--brand) / 0.25); }
+
+/* ---------- TMB Tech company block ---------- */
+.tmb-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 2.5rem;
+  padding: 2.4rem;
+  border-radius: 1.2rem;
+  background:
+    radial-gradient(120% 140% at 0% 0%, rgb(var(--brand) / 0.1), transparent 55%),
+    var(--paper-panel);
+  border: 1px solid var(--paper-line);
+  box-shadow: var(--shadow-lg);
+}
+.tmb-card-main .eyebrow { display: flex; }
+.tmb-logo-link { display: block; width: max-content; margin: 0.6rem 0 1rem; }
+.tmb-logo-link img { height: 48px; width: auto; display: block; }
+:root[data-mode="dark"] .tmb-logo-link img,
+:root[data-mode="dark"] .powered-by img { background: #fff; border-radius: 6px; padding: 4px 8px; }
+.tmb-card-main p { color: var(--text-on-paper-muted); line-height: 1.65; margin: 0 0 1.4rem; }
+.tmb-card-main strong { color: var(--text-on-paper); }
+.tmb-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+.tmb-contact {
+  padding: 1.4rem;
+  border-radius: 1rem;
+  background: var(--paper);
+  border: 1px solid var(--paper-line);
+}
+.tmb-person { display: flex; align-items: center; gap: 0.85rem; padding-bottom: 1rem; margin-bottom: 0.9rem; border-bottom: 1px solid var(--paper-line); }
+.tmb-person strong { display: block; font-size: 1.05rem; color: var(--text-on-paper); }
+.tmb-person div span { font-size: 0.85rem; color: var(--text-on-paper-muted); }
+.tmb-avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+}
+.tmb-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+.tmb-list li { display: flex; gap: 0.8rem; font-size: 0.9rem; min-width: 0; }
+.tmb-k { width: 4.6rem; flex-shrink: 0; color: var(--text-on-paper-muted); font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding-top: 0.1rem; }
+.tmb-list a { color: var(--text-on-paper); font-weight: 600; text-decoration: none; overflow-wrap: anywhere; }
+.tmb-list a:hover { color: rgb(var(--brand-on-surface)); text-decoration: underline; }
+
+/* ---------- Powered by TMB Tech ---------- */
+.powered-by {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: inherit;
+  text-decoration: none;
+  font-size: 0.8rem;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+.powered-by:hover { opacity: 1; }
+.powered-by img { height: 21px; width: auto; display: block; }
+
+@media (max-width: 960px) {
+  .os-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .os-visual { position: relative; top: 0; order: -1; }
+  .os-stage { transform: none; padding: 2.4rem 0.4rem 2.6rem; }
+  .os-toast-staff { right: 0; }
+  .os-toast-customer { left: 0; }
+  .tmb-card { grid-template-columns: 1fr; padding: 1.6rem; gap: 1.6rem; }
+}
+@media (max-width: 480px) {
+  .os-t span { font-size: 0.62rem; }
+  .os-t em { display: none; }
+  .os-toast { width: 86%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .os-toast, .os-t.now i { animation: none; }
+}

@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="390"
+     height="120"
+     viewBox="0 0 390 120">
+
+  <defs>
+    <linearGradient id="erpGradient"
+                    x1="0%" y1="50%"
+                    x2="100%" y2="50%">
+      <stop offset="0%"   stop-color="#0754B8"/>
+      <stop offset="25%"  stop-color="#087ACD"/>
+      <stop offset="50%"  stop-color="#0799C5"/>
+      <stop offset="75%"  stop-color="#079D91"/>
+      <stop offset="100%" stop-color="#07965F"/>
+    </linearGradient>
+
+    <linearGradient id="erpShine"
+                    x1="0%" y1="0%"
+                    x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+
+    <filter id="shadow"
+            x="-10%"
+            y="-10%"
+            width="120%"
+            height="130%">
+      <feDropShadow
+          dx="0"
+          dy="2"
+          stdDeviation="2"
+          flood-color="#000000"
+          flood-opacity="0.20"/>
+    </filter>
+  </defs>
+
+  <!-- LedGo -->
+  <text
+      x="8"
+      y="88"
+      font-family="Arial, Helvetica, sans-serif"
+      font-size="70"
+      font-weight="700"
+      letter-spacing="-3">
+    <tspan fill="#06448D">Led</tspan><tspan fill="#078C51">Go</tspan>
+  </text>
+
+  <!-- ERP : exactly one-space gap after Go -->
+  <rect
+      x="255"
+      y="29"
+      width="125"
+      height="58"
+      rx="11"
+      fill="url(#erpGradient)"
+      filter="url(#shadow)"/>
+
+  <rect
+      x="255"
+      y="29"
+      width="125"
+      height="58"
+      rx="11"
+      fill="url(#erpShine)"/>
+
+  <text
+      x="317.5"
+      y="71"
+      text-anchor="middle"
+      font-family="Arial, Helvetica, sans-serif"
+      font-size="38"
+      font-weight="700"
+      letter-spacing="-2"
+      fill="#FFFFFF">
+    ERP
+  </text>
+
+</svg>

@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="green">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LedGo ERP — One Screen. Every Shop Operation.</title>
+<meta name="description" content="LedGo ERP is the shop-management software for Indian agri, hardware, and general trade retailers — billing, inventory, GST, your own customer app, all in one place." />
+
+<link rel="icon" href="assets/favicon.png" type="image/png" />
+<link rel="icon" href="assets/icon-192.png" sizes="192x192" type="image/png" />
+<link rel="icon" href="assets/icon-512.png" sizes="512x512" type="image/png" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+<link rel="canonical" href="https://bharathvsb3.github.io/TMB-Tech/ledgo-erp/" />
+<meta name="theme-color" content="#00522D" />
+<meta name="author" content="TMB Tech" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="LedGo ERP — One Screen. Every Shop Operation." />
+<meta property="og:description" content="LedGo ERP is the shop-management software for Indian agri, hardware, and general trade retailers — billing, inventory, GST, your own customer app, all in one place." />
+<meta property="og:image" content="https://bharathvsb3.github.io/TMB-Tech/ledgo-erp/assets/ledgo-logo.png" />
+<meta property="og:url" content="https://bharathvsb3.github.io/TMB-Tech/ledgo-erp/" />
+<meta property="og:site_name" content="LedGo ERP by TMB Tech" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="LedGo ERP — One Screen. Every Shop Operation." />
+<meta name="twitter:description" content="LedGo ERP is the shop-management software for Indian agri, hardware, and general trade retailers — billing, inventory, GST, your own customer app, all in one place." />
+<meta name="twitter:image" content="https://bharathvsb3.github.io/TMB-Tech/ledgo-erp/assets/ledgo-logo.png" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "LedGo ERP",
+  "description": "Shop-management software for Indian agri, hardware and general trade retailers: billing, inventory, GST, purchases, accounts, reports and the shop's own online store.",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web, Android",
+  "url": "https://bharathvsb3.github.io/TMB-Tech/ledgo-erp/",
+  "image": "https://bharathvsb3.github.io/TMB-Tech/ledgo-erp/assets/ledgo-logo.png",
+  "author": {
+    "@type": "Organization",
+    "name": "TMB Tech",
+    "url": "https://bharathvsb3.github.io/TMB-Tech/",
+    "email": "bharathvsb3@gmail.com",
+    "founder": { "@type": "Person", "name": "Bharath Sankar" }
+  }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/styles.css" />
+<link rel="stylesheet" href="css/tmb.css" />
+</head>
+<body>
+
+<!-- ---- thin scroll-progress bar: fixed above the header, fills left-to-right
+     as the page scrolls (0% at top, 100% at page bottom). Purely a scroll
+     readout, not a decorative animation, so it isn't gated behind
+     prefers-reduced-motion the way the hero parallax/spotlight are - same
+     reasoning as initHeaderScroll()'s own unconditional box-shadow toggle
+     just below. See initScrollProgress() in main.js. ---- -->
+<div class="scroll-progress" aria-hidden="true"><div class="scroll-progress-bar" id="scrollProgressBar"></div></div>
+
+<!-- ============================= HEADER ============================= -->
+<header class="site-header">
+  <div class="wrap">
+    <a href="#top" class="brand">
+      <img class="brand-mark" src="assets/ledgo-logo.png" width="32" height="32" alt="" />
+      <img class="brand-wordmark" src="assets/ledgo-erp-wordmark.svg" alt="LedGo ERP" />
+    </a>
+
+    <nav class="nav-links">
+      <a href="#features" data-i18n="nav.features">Features</a>
+      <a href="#online-store">Online Store</a>
+      <a href="#devices" data-i18n="nav.devices">Everywhere You Work</a>
+      <a href="#faq" data-i18n="nav.faq">FAQ</a>
+      <a href="#company">Company</a>
+    </nav>
+
+    <div class="nav-right">
+      <div class="swatches" role="group" aria-label="Preview a theme color">
+        <button class="swatch swatch-green" data-theme-btn="green" aria-pressed="true" aria-label="AgriPro Green"></button>
+        <button class="swatch swatch-teal" data-theme-btn="teal" aria-pressed="false" aria-label="Ocean Teal"></button>
+        <button class="swatch swatch-purple" data-theme-btn="purple" aria-pressed="false" aria-label="Royal Purple"></button>
+        <button class="swatch swatch-orange" data-theme-btn="orange" aria-pressed="false" aria-label="Sunset Orange"></button>
+        <button class="swatch swatch-blue" data-theme-btn="blue" aria-pressed="false" aria-label="Baby Blue"></button>
+        <button class="swatch swatch-indigo" data-theme-btn="indigo" aria-pressed="false" aria-label="Deep Indigo"></button>
+      </div>
+      <button class="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11z" /></svg>
+      </button>
+      <select class="lang-select" aria-label="Choose language">
+        <option value="en">English</option>
+        <option value="ta">தமிழ்</option>
+        <option value="hi">हिन्दी</option>
+        <option value="kn">ಕನ್ನಡ</option>
+        <option value="te">తెలుగు</option>
+      </select>
+      <a href="#cta" class="btn btn-ghost btn-sm" data-i18n="nav.getStarted">Get Started</a>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="Toggle menu"><span></span></button>
+    </div>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#features" data-i18n="nav.features">Features</a>
+    <a href="#online-store">Online Store</a>
+    <a href="#devices" data-i18n="nav.devices">Everywhere You Work</a>
+    <a href="#themes" data-i18n="nav.themes">Make It Yours</a>
+    <a href="#faq" data-i18n="nav.faq">FAQ</a>
+    <a href="#company">Company</a>
+    <div class="swatches" role="group" aria-label="Preview a theme color">
+      <button class="swatch swatch-green" data-theme-btn="green" aria-pressed="true" aria-label="AgriPro Green"></button>
+      <button class="swatch swatch-teal" data-theme-btn="teal" aria-pressed="false" aria-label="Ocean Teal"></button>
+      <button class="swatch swatch-purple" data-theme-btn="purple" aria-pressed="false" aria-label="Royal Purple"></button>
+      <button class="swatch swatch-orange" data-theme-btn="orange" aria-pressed="false" aria-label="Sunset Orange"></button>
+      <button class="swatch swatch-blue" data-theme-btn="blue" aria-pressed="false" aria-label="Baby Blue"></button>
+      <button class="swatch swatch-indigo" data-theme-btn="indigo" aria-pressed="false" aria-label="Deep Indigo"></button>
+    </div>
+    <div class="mobile-controls">
+      <button class="mode-toggle" aria-pressed="false" aria-label="Toggle dark mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11z" /></svg>
+      </button>
+      <select class="lang-select" aria-label="Choose language">
+        <option value="en">English</option>
+        <option value="ta">தமிழ்</option>
+        <option value="hi">हिन्दी</option>
+        <option value="kn">ಕನ್ನಡ</option>
+        <option value="te">తెలుగు</option>
+      </select>
+    </div>
+  </div>
+</header>
+
+<div id="top"></div>
+
+<!-- ============================= HERO ============================= -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy reveal in">
+      <div class="eyebrow" style="justify-content:flex-start" data-i18n="hero.eyebrow">Built for the shop counter</div>
+      <h1 data-i18n-html="hero.title">Run your <span class="accent">whole shop.</span><br />From one screen.</h1>
+      <p class="hero-sub" data-i18n="hero.sub">Billing, inventory, GST, purchases, and your own customer-facing store — LedGo ERP replaces the notebook, the calculator, and the three different apps your shop has been stitching together.</p>
+      <div class="hero-ctas">
+        <a href="#cta" class="btn btn-solid" data-i18n="hero.cta.primary">See it in action</a>
+        <a href="#features" class="btn btn-ghost" data-i18n="hero.cta.secondary">Explore features</a>
+      </div>
+      <div class="hero-trust">
+        <div class="hero-trust-item"><span class="num mono count-up">10+</span><span class="label" data-i18n="hero.trust.modules">Modules</span></div>
+        <div class="hero-trust-item"><span class="num mono count-up">5</span><span class="label" data-i18n="hero.trust.languages">Languages</span></div>
+        <div class="hero-trust-item"><span class="num mono count-fade">AI</span><span class="label" data-i18n="hero.trust.aiVoice">Voice &amp; Invoice</span></div>
+        <div class="hero-trust-item"><span class="num mono count-fade">₹</span><span class="label" data-i18n="hero.trust.gst">GST Built In</span></div>
+      </div>
+    </div>
+
+    <div class="device-cluster reveal in">
+      <div class="device device-laptop">
+        <div class="mock-screen">
+          <img src="assets/app-screenshot-desktop.png" data-product-shot="desktop" alt="LedGo ERP dashboard on desktop" loading="lazy" />
+        </div>
+      </div>
+      <div class="device device-tablet">
+        <div class="mock-screen">
+          <img src="assets/app-screenshot-tablet.png" data-product-shot="tablet" alt="LedGo ERP dashboard on tablet" loading="lazy" />
+        </div>
+      </div>
+      <div class="device device-phone">
+        <div class="mock-screen">
+          <img src="assets/app-screenshot-mobile.png" data-product-shot="mobile" alt="LedGo ERP dashboard on mobile" loading="lazy" />
+        </div>
+      </div>
+
+      <!-- ---- 4th mockup: a live-looping thermal receipt printer, purely
+           decorative (fake bill content, not a real screenshot) - aria-hidden
+           so assistive tech doesn't read fabricated store/price text. ---- -->
+      <div class="device-printer" aria-hidden="true">
+        <div class="printer-housing">
+          <span class="printer-led"></span>
+          <span class="printer-slot"></span>
+        </div>
+        <div class="printer-receipt-outer">
+          <div class="printer-receipt">
+            <div class="pr-store">LedGo ERP</div>
+            <div class="pr-line"><span>Confidor 1LTR</span><span>₹1000</span></div>
+            <div class="pr-line"><span>NPK 20-20-13</span><span>₹1150</span></div>
+            <div class="pr-divider"></div>
+            <div class="pr-total"><span>TOTAL</span><span>₹2,150</span></div>
+            <svg class="pr-qr" viewBox="0 0 10 10" focusable="false">
+              <rect x="0" y="0" width="10" height="10" fill="#fff" />
+              <rect x="0" y="0" width="3" height="3" fill="#181818" />
+              <rect x="1" y="1" width="1" height="1" fill="#fff" />
+              <rect x="7" y="0" width="3" height="3" fill="#181818" />
+              <rect x="8" y="1" width="1" height="1" fill="#fff" />
+              <rect x="0" y="7" width="3" height="3" fill="#181818" />
+              <rect x="1" y="8" width="1" height="1" fill="#fff" />
+              <rect x="4" y="0" width="1" height="1" fill="#181818" />
+              <rect x="5" y="1" width="1" height="1" fill="#181818" />
+              <rect x="4" y="3" width="1" height="1" fill="#181818" />
+              <rect x="6" y="4" width="1" height="1" fill="#181818" />
+              <rect x="4" y="5" width="1" height="1" fill="#181818" />
+              <rect x="5" y="5" width="1" height="1" fill="#181818" />
+              <rect x="4" y="6" width="1" height="1" fill="#181818" />
+              <rect x="6" y="6" width="1" height="1" fill="#181818" />
+              <rect x="4" y="8" width="1" height="1" fill="#181818" />
+              <rect x="5" y="9" width="1" height="1" fill="#181818" />
+              <rect x="8" y="4" width="1" height="1" fill="#181818" />
+              <rect x="9" y="5" width="1" height="1" fill="#181818" />
+              <rect x="7" y="6" width="1" height="1" fill="#181818" />
+              <rect x="8" y="8" width="1" height="1" fill="#181818" />
+              <rect x="9" y="9" width="1" height="1" fill="#181818" />
+            </svg>
+            <div class="pr-barcode">
+              <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <div class="pr-thanks">Thank you!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---- scroll-cue: a gently bouncing chevron inviting the visitor to keep
+       scrolling, fixed to the bottom of the hero section itself (not the
+       viewport) - see initScrollCue() in main.js, which fades it out once
+       the visitor has actually scrolled past it (~180px), and the matching
+       .scroll-cue rules in styles.css for the bounce keyframe. Purely
+       decorative/aria-hidden, same treatment as the hero's printer mockup
+       above. ---- -->
+  <div class="scroll-cue" id="scrollCue" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M6 9l6 6 6-6" /></svg>
+  </div>
+</section>
+
+<!-- ============================= STATS BAND ============================= -->
+<section class="stats-band on-paper">
+  <div class="wrap">
+    <!-- ---- count-up on scroll-into-view: same .count-up/.count-fade mechanism
+         (initHeroStats() in main.js) that already animates the smaller
+         hero-trust stats near the CTA buttons, just applied to this separate,
+         further-down band. "24/7" isn't a clean number to count, so it stays
+         .count-fade like the hero row's own non-numeric "AI"/"₹" items. ---- -->
+    <div class="stats-grid">
+      <div class="reveal"><div class="num mono count-up">10+</div><div class="label" data-i18n="stats.modules">Core Modules</div></div>
+      <div class="reveal"><div class="num mono count-up">5</div><div class="label" data-i18n="stats.languages">Indian Languages</div></div>
+      <div class="reveal"><div class="num mono count-up">9</div><div class="label" data-i18n="stats.themes">Theme Presets</div></div>
+      <div class="reveal"><div class="num mono count-up">2</div><div class="label">Android Apps</div></div>
+      <div class="reveal"><div class="num mono count-fade">24/7</div><div class="label" data-i18n="stats.always">Runs On Your Terms</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= FEATURES ============================= -->
+<section id="features" class="section-pad on-ink">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow" data-i18n="features.eyebrow">What's inside</div>
+      <h2 data-i18n="features.heading">Everything a shop counter actually needs</h2>
+      <p data-i18n="features.sub">Not a generic accounting tool bent into shape — built around how an Indian agri, hardware, or general-trade shop really runs its day.</p>
+    </div>
+
+    <div class="feature-row reveal">
+      <div class="feature-copy">
+        <div class="feature-tag">01</div>
+        <h3 data-i18n="f1.title">Billing that keeps up with the counter</h3>
+        <p data-i18n="f1.body">Search, scan, or speak a product in — GST splits itself into CGST+SGST or IGST on every line, automatically, and a UPI QR sits on every bill so the balance clears itself the moment it's paid.</p>
+        <ul class="feature-list">
+          <li data-i18n="f1.li1">Thermal receipt &amp; label printing on real shop hardware</li>
+          <li data-i18n="f1.li2">Sales Orders, Returns, and on-account credit — tracked to the rupee</li>
+          <li data-i18n="f1.li3">Batch &amp; expiry aware, oldest stock sells first, automatically</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="visual-window">
+          <div class="visual-titlebar"><span></span><span></span><span></span></div>
+          <div class="visual-body">
+            <img src="assets/feature-billing.png" data-feature-shot="billing" alt="LedGo ERP Sales Billing screen with product search and live GST bill summary" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-row flip reveal">
+      <div class="feature-copy">
+        <div class="feature-tag">02</div>
+        <h3 data-i18n="f2.title">Inventory that never loses track</h3>
+        <p data-i18n="f2.body">Every batch carries its own expiry date. Run one shop or ten locations, each with their own warehouses, and move stock between them with a real audit trail.</p>
+        <ul class="feature-list">
+          <li data-i18n="f2.li1">Locations, Godowns, and Stock Transfer between them</li>
+          <li data-i18n="f2.li2">FIFO, LIFO, or Weighted Average costing — chosen per company</li>
+          <li data-i18n="f2.li3">Dead stock, fast movers, and reorder suggestions, one report away</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="visual-window">
+          <div class="visual-titlebar"><span></span><span></span><span></span></div>
+          <div class="visual-body">
+            <img src="assets/feature-inventory.png" data-feature-shot="inventory" alt="LedGo ERP Current Stock screen showing batch expiry, low stock alerts, and dead stock" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-row reveal">
+      <div class="feature-copy">
+        <div class="feature-tag">AI</div>
+        <h3 data-i18n="f3.title">Say it, snap it, done</h3>
+        <p data-i18n="f3.body">Speak a sale out loud and watch the cart fill itself. Photograph a vendor's paper invoice and get back a fully filled purchase entry — lines, rates, and all.</p>
+        <ul class="feature-list">
+          <li data-i18n="f3.li1">Voice Ordering matches spoken words to real products</li>
+          <li data-i18n="f3.li2">AI Invoice Import reads a photographed or scanned bill</li>
+          <li data-i18n="f3.li3">Runs on Anthropic, Gemini, or OpenAI — whichever a shop trusts</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="visual-window">
+          <div class="visual-titlebar"><span></span><span></span><span></span></div>
+          <div class="visual-body">
+            <img src="assets/feature-ai.png" data-feature-shot="ai" alt="LedGo ERP Voice Order modal listening for a spoken sale on the billing screen" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-row flip reveal">
+      <div class="feature-copy">
+        <div class="feature-tag">03</div>
+        <h3 data-i18n="f4.title">A storefront that's actually yours</h3>
+        <p data-i18n="f4.body">Every shop gets its own branded ordering website — customers browse the real catalogue and place real orders — plus a dedicated Android app with its own name, icon, and colours, not a shared marketplace listing.</p>
+        <ul class="feature-list">
+          <li data-i18n="f4.li1">Custom domains — yourshop.com, not someone else's subdomain</li>
+          <li data-i18n="f4.li2">Push notifications the moment an order status changes</li>
+          <li data-i18n="f4.li3">Orders flow straight into the same billing and stock engine</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="visual-window">
+          <div class="visual-titlebar"><span></span><span></span><span></span></div>
+          <div class="visual-body">
+            <img src="assets/feature-storefront.png" data-feature-shot="storefront" alt="A shop's own branded LedGo public storefront with live catalogue and promotional banner" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-row reveal">
+      <div class="feature-copy">
+        <div class="feature-tag">04</div>
+        <h3 data-i18n="f5.title">Reports that answer the real question</h3>
+        <p data-i18n="f5.body">Full ledgers, GST-ready summaries, and a Profit &amp; Loss statement built from the same bills already in the system — plus dead stock, fast movers, and what to reorder next, one click away.</p>
+        <ul class="feature-list">
+          <li data-i18n="f5.li1">Sales &amp; Purchase Register, GST Summary, and Party Ledger — export-ready in one click</li>
+          <li data-i18n="f5.li2">Dead Stock, Fast/Slow Movers, and Purchase Planning suggest exactly what to reorder</li>
+          <li data-i18n="f5.li3">Outstanding &amp; Aging — who owes what, at a glance, filterable by location</li>
+          <li data-i18n="f5.li4">Financial Year close, and reopen, without losing a figure</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="visual-window">
+          <div class="visual-titlebar"><span></span><span></span><span></span></div>
+          <div class="visual-body">
+            <img src="assets/feature-reports.png" data-feature-shot="reports" alt="LedGo ERP Inventory Dashboard report with stock-value-by-category chart and risk KPIs" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-row flip reveal">
+      <div class="feature-copy">
+        <div class="feature-tag">05</div>
+        <h3 data-i18n="f6.title">One platform, every shop you run</h3>
+        <p data-i18n="f6.body">A Super Admin control tower oversees every company on the platform — agri, hardware, and general-trade shops alike — with feature-by-feature switches per shop: turn on exactly what each one needs, nothing forced on anyone.</p>
+        <ul class="feature-list">
+          <li data-i18n="f6.li1">Trial windows, licensing, and automated backups, built in</li>
+          <li data-i18n="f6.li2">A platform-wide audit trail — every action, attributed, forever</li>
+          <li data-i18n="f6.li3">Role-based permissions down to the individual action</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="visual-window">
+          <div class="visual-titlebar"><span></span><span></span><span></span></div>
+          <div class="visual-body">
+            <img src="assets/feature-platform.png" data-feature-shot="platform" alt="Super Admin control tower Companies list overseeing every shop on the platform" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-row reveal">
+      <div class="feature-copy">
+        <div class="feature-tag">06</div>
+        <h3 data-i18n="f7.title">Purchase, tracked from order to payment</h3>
+        <p data-i18n="f7.body">Raise a Purchase Order, receive it as a real stock-in entry with batch and expiry captured line by line, and track Cash or Credit payment against every vendor — the same rigor as billing, pointed the other way.</p>
+        <ul class="feature-list">
+          <li data-i18n="f7.li1">Purchase Orders that convert straight into a real stock-in entry</li>
+          <li data-i18n="f7.li2">Vendor payments — Cash or Credit, Paid and Balance tracked to the rupee</li>
+          <li data-i18n="f7.li3">Purchase Returns reverse stock and ledger cleanly, no manual adjustment</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="visual-window">
+          <div class="visual-titlebar"><span></span><span></span><span></span></div>
+          <div class="visual-body">
+            <img src="assets/feature-purchase.png" data-feature-shot="purchase" alt="LedGo ERP Purchase Entry screen with vendor, batch, and expiry captured line by line" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-row flip reveal">
+      <div class="feature-copy">
+        <div class="feature-tag">07</div>
+        <h3 data-i18n="f8.title">Built for the hardware already on your counter</h3>
+        <p data-i18n="f8.body">Thermal receipt and label printers, barcode scanners, and UPI QR codes — LedGo ERP talks to the machines a shop already owns, not a proprietary device you have to buy.</p>
+        <ul class="feature-list">
+          <li data-i18n="f8.li1">Thermal receipts and product labels print directly, no PDF middle-man</li>
+          <li data-i18n="f8.li2">Barcode scan-to-add during billing and purchase entry alike</li>
+          <li data-i18n="f8.li3">A UPI QR sits on every bill — the balance clears itself the moment it's scanned</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="visual-window">
+          <div class="visual-titlebar"><span></span><span></span><span></span></div>
+          <div class="visual-body">
+            <img src="assets/feature-hardware.png" data-feature-shot="hardware" alt="A real LedGo ERP thermal receipt showing a scannable UPI QR code and barcode" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-row reveal">
+      <div class="feature-copy">
+        <div class="feature-tag">08</div>
+        <h3 data-i18n="f9.title">Every customer relationship, tracked</h3>
+        <p data-i18n="f9.body">Inquiries, crop plantings, and care-schedule reminders — CRM that understands an agri shop's actual sales cycle, not a generic contact list bent into shape.</p>
+        <ul class="feature-list">
+          <li data-i18n="f9.li1">Inquiries tracked from first call to closed sale</li>
+          <li data-i18n="f9.li2">Crop Plantings link a customer's field to what they'll need next season</li>
+          <li data-i18n="f9.li3">Care Schedule Templates fire reminders automatically, right on time</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="visual-window">
+          <div class="visual-titlebar"><span></span><span></span><span></span></div>
+          <div class="visual-body">
+            <img src="assets/feature-crm.png" data-feature-shot="crm" alt="LedGo ERP Customer Inquiries screen logging a walk-in or phone inquiry" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-row flip reveal">
+      <div class="feature-copy">
+        <div class="feature-tag">09</div>
+        <h3 data-i18n="f10.title">Security that holds up to scrutiny</h3>
+        <p data-i18n="f10.body">Role-based permissions down to the individual action, and a platform-wide audit trail that attributes every change, forever — nothing silent, nothing untraceable.</p>
+        <ul class="feature-list">
+          <li data-i18n="f10.li1">Every action logged — who, what, and when, permanently</li>
+          <li data-i18n="f10.li2">Permissions set per role, per module, per action</li>
+          <li data-i18n="f10.li3">Automated backups run on schedule, with Super Admin oversight</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="visual-window">
+          <div class="visual-titlebar"><span></span><span></span><span></span></div>
+          <div class="visual-body">
+            <img src="assets/feature-security.png" data-feature-shot="security" alt="LedGo ERP Audit Log screen attributing every override and sensitive action to who, what, and when" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= ONLINE STORE ============================= -->
+<section id="online-store" class="section-pad on-paper online-store">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">LedGo Online Store</div>
+      <h2>Your shop, open online. Orders land at the counter.</h2>
+      <p>Switch on online ordering and your shop gets its own ordering website on its own web address. Customers browse your live catalogue and place orders; your staff confirm, pack and deliver from the same LedGo ERP they bill from.</p>
+    </div>
+
+    <div class="os-grid">
+      <ol class="os-steps">
+        <li class="os-step reveal">
+          <span class="os-num mono">01</span>
+          <div>
+            <h3>Switch it on</h3>
+            <p>Online ordering is turned on for your shop, on its own subdomain or your own domain. The site carries your shop name, logo and live catalogue, grouped by category, with special offers up top.</p>
+          </div>
+        </li>
+        <li class="os-step reveal">
+          <span class="os-num mono">02</span>
+          <div>
+            <h3>Customers order</h3>
+            <p>They search (even by voice), add to cart and see GST and their discount worked out. At checkout they give a delivery address with a map pin, or choose pickup at the shop, and pay by Cash on Delivery or UPI.</p>
+          </div>
+        </li>
+        <li class="os-step reveal">
+          <span class="os-num mono">03</span>
+          <div>
+            <h3>You hear about it straight away</h3>
+            <p>"New Online Order" appears in the notification bell, a push notification reaches your staff's phones, and a chat message lands in the ERP.</p>
+          </div>
+        </li>
+        <li class="os-step reveal">
+          <span class="os-num mono">04</span>
+          <div>
+            <h3>Confirm, and it becomes a real bill</h3>
+            <p>One tap turns the order into a sales bill: stock is deducted batch by batch, oldest expiry first, and GST and the ledger are posted. If an item is short, LedGo tells you exactly how many are in stock.</p>
+          </div>
+        </li>
+        <li class="os-step reveal">
+          <span class="os-num mono">05</span>
+          <div>
+            <h3>Pack and send it out</h3>
+            <p>Mark it Packed, then Out for Delivery. Staff see the customer's address and can open the pin in Google Maps.</p>
+          </div>
+        </li>
+        <li class="os-step reveal">
+          <span class="os-num mono">06</span>
+          <div>
+            <h3>Delivered and settled</h3>
+            <p>Record the amount received and the payment mode. Anything unpaid stays on the customer's outstanding. The customer gets a push at every stage, from Confirmed to Delivered.</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="os-visual reveal" aria-hidden="true">
+        <div class="os-stage" id="osStage">
+          <div class="os-card os-order">
+            <div class="os-order-head">
+              <div>
+                <div class="os-kicker mono">Online Orders</div>
+                <div class="os-order-id">Order #1024</div>
+              </div>
+              <span class="os-pill os-pill-live">Out for Delivery</span>
+            </div>
+            <div class="os-meta">
+              <span><b>Payment</b> Cash on Delivery</span>
+              <span><b>Pincode</b> 600 001</span>
+            </div>
+            <div class="os-timeline">
+              <div class="os-t done"><i></i><span>Placed</span><em class="mono">10:12 AM</em></div>
+              <div class="os-t done"><i></i><span>Confirmed</span><em class="mono">10:15 AM</em></div>
+              <div class="os-t done"><i></i><span>Packed</span><em class="mono">10:40 AM</em></div>
+              <div class="os-t now"><i></i><span>Out for Delivery</span><em class="mono">11:05 AM</em></div>
+              <div class="os-t"><i></i><span>Delivered</span><em class="mono">—</em></div>
+            </div>
+            <table class="os-lines">
+              <thead><tr><th>Product</th><th>Qty</th><th>Rate</th><th>Total</th></tr></thead>
+              <tbody>
+                <tr><td>Confidor 1 LTR</td><td class="mono">1</td><td class="mono">1,000</td><td class="mono">1,000</td></tr>
+                <tr><td>NPK 20-20-13</td><td class="mono">1</td><td class="mono">1,150</td><td class="mono">1,150</td></tr>
+              </tbody>
+              <tfoot><tr><td colspan="3">Sub Total</td><td class="mono">₹2,150</td></tr></tfoot>
+            </table>
+            <div class="os-actions">
+              <span class="os-btn os-btn-ghost">Open in Maps</span>
+              <span class="os-btn">Mark as Delivered</span>
+            </div>
+          </div>
+
+          <div class="os-card os-toast os-toast-staff">
+            <span class="os-toast-icon">🔔</span>
+            <div><b>New Online Order</b><span>Order #1024 was just placed - review it in Online Orders.</span></div>
+          </div>
+
+          <div class="os-card os-toast os-toast-customer">
+            <span class="os-toast-icon os-toast-icon-cust">📦</span>
+            <div><b>Order Out for Delivery</b><span>Your order #1024 is on its way.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= DEVICE SHOWCASE ============================= -->
+<section id="devices" class="section-pad on-paper">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow" data-i18n="devices.eyebrow">Works everywhere you do</div>
+      <h2 data-i18n="devices.heading">Phone at the counter. Tablet on the floor. Desktop in the back office.</h2>
+      <p data-i18n="devices.sub">The same screen, genuinely responsive — not a cramped desktop layout squeezed onto a small screen.</p>
+    </div>
+
+    <div class="demo-pager reveal">
+      <div class="demo-pager-viewing" id="demoViewingLabel" aria-live="polite">
+        <span data-i18n="devices.viewing">Now viewing:</span>
+        <strong id="demoViewingName">Dashboard</strong>
+      </div>
+      <div class="page-tabs-scroll">
+        <div class="page-tabs" role="tablist" aria-label="Preview an app page" id="pageTabs">
+          <button class="page-tab" role="tab" data-page="dashboard" aria-selected="true"><span data-i18n="devices.page.dashboard">Dashboard</span></button>
+          <button class="page-tab" role="tab" data-page="billing" aria-selected="false"><span data-i18n="devices.page.billing">Billing</span></button>
+          <button class="page-tab" role="tab" data-page="inventory" aria-selected="false"><span data-i18n="devices.page.inventory">Inventory</span></button>
+          <button class="page-tab" role="tab" data-page="purchase" aria-selected="false"><span data-i18n="devices.page.purchase">Purchase</span></button>
+          <button class="page-tab" role="tab" data-page="reports" aria-selected="false"><span data-i18n="devices.page.reports">Reports</span></button>
+          <button class="page-tab" role="tab" data-page="storefront" aria-selected="false"><span data-i18n="devices.page.storefront">Storefront</span></button>
+          <button class="page-tab" role="tab" data-page="platform" aria-selected="false"><span data-i18n="devices.page.platform">Platform</span></button>
+          <button class="page-tab" role="tab" data-page="hardware" aria-selected="false"><span data-i18n="devices.page.hardware">Hardware</span></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="device-tabs reveal" role="tablist" aria-label="Preview device size" id="deviceTabs">
+      <button class="device-tab" role="tab" data-device="mobile" aria-selected="false">📱 <span data-i18n="devices.tab.mobile">Mobile</span></button>
+      <button class="device-tab" role="tab" data-device="tablet" aria-selected="false">📋 <span data-i18n="devices.tab.tablet">Tablet</span></button>
+      <button class="device-tab" role="tab" data-device="desktop" aria-selected="true">🖥 <span data-i18n="devices.tab.desktop">Desktop</span></button>
+    </div>
+
+    <div class="device-stage reveal">
+      <div class="stage-frame active" data-frame="desktop">
+        <div class="stage-screen">
+          <img src="assets/app-screenshot-desktop.png" data-product-shot="desktop" alt="LedGo ERP dashboard on desktop" loading="lazy" />
+        </div>
+      </div>
+      <div class="stage-frame" data-frame="tablet">
+        <div class="stage-screen">
+          <img src="assets/app-screenshot-tablet.png" data-product-shot="tablet" alt="LedGo ERP dashboard on tablet" loading="lazy" />
+        </div>
+      </div>
+      <div class="stage-frame" data-frame="mobile">
+        <div class="stage-screen">
+          <img src="assets/app-screenshot-mobile.png" data-product-shot="mobile" alt="LedGo ERP dashboard on mobile" loading="lazy" />
+        </div>
+      </div>
+      <div class="stage-frame" data-frame="page">
+        <div class="stage-screen page-shot-stack">
+          <img class="page-shot" data-page-shot="billing" data-feature-shot="billing" src="assets/feature-billing.png" alt="LedGo ERP Sales Billing screen" loading="lazy" />
+          <img class="page-shot" data-page-shot="inventory" data-feature-shot="inventory" src="assets/feature-inventory.png" alt="LedGo ERP Current Stock screen" loading="lazy" />
+          <img class="page-shot" data-page-shot="purchase" data-feature-shot="purchase" src="assets/feature-purchase.png" alt="LedGo ERP Purchase Entry screen" loading="lazy" />
+          <img class="page-shot" data-page-shot="reports" data-feature-shot="reports" src="assets/feature-reports.png" alt="LedGo ERP Reports screen" loading="lazy" />
+          <img class="page-shot" data-page-shot="storefront" data-feature-shot="storefront" src="assets/feature-storefront.png" alt="LedGo ERP public storefront" loading="lazy" />
+          <img class="page-shot" data-page-shot="platform" data-feature-shot="platform" src="assets/feature-platform.png" alt="LedGo ERP Super Admin platform screen" loading="lazy" />
+          <img class="page-shot" data-page-shot="hardware" data-feature-shot="hardware" src="assets/feature-hardware.png" alt="LedGo ERP hardware and thermal receipt screen" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= THEME SHOWCASE ============================= -->
+<section id="themes" class="section-pad on-ink">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow" data-i18n="themes.eyebrow">Make it yours</div>
+      <h2 data-i18n="themes.heading">Every shop picks its own look</h2>
+      <p data-i18n="themes.sub">Nine theme presets and a real dark mode — the whole app switches with it. This page is running on the same engine. Try it.</p>
+    </div>
+
+    <div class="theme-showcase reveal">
+      <div class="theme-picker-list" role="group" aria-label="Choose a theme to preview">
+        <button class="theme-option" data-theme-btn="green" aria-pressed="true">
+          <span class="dot swatch-green"></span>
+          <span class="theme-option-text"><span class="name">AgriPro Green</span><br /><span class="sub" data-i18n="theme.sub.green">The default — confident, agricultural</span></span>
+        </button>
+        <button class="theme-option" data-theme-btn="teal" aria-pressed="false">
+          <span class="dot swatch-teal"></span>
+          <span class="theme-option-text"><span class="name">Ocean Teal</span><br /><span class="sub" data-i18n="theme.sub.teal">Calm and modern</span></span>
+        </button>
+        <button class="theme-option" data-theme-btn="purple" aria-pressed="false">
+          <span class="dot swatch-purple"></span>
+          <span class="theme-option-text"><span class="name">Royal Purple</span><br /><span class="sub" data-i18n="theme.sub.purple">Premium, distinctive</span></span>
+        </button>
+        <button class="theme-option" data-theme-btn="orange" aria-pressed="false">
+          <span class="dot swatch-orange"></span>
+          <span class="theme-option-text"><span class="name">Sunset Orange</span><br /><span class="sub" data-i18n="theme.sub.orange">Warm and energetic</span></span>
+        </button>
+        <button class="theme-option" data-theme-btn="blue" aria-pressed="false">
+          <span class="dot swatch-blue"></span>
+          <span class="theme-option-text"><span class="name">Baby Blue</span><br /><span class="sub" data-i18n="theme.sub.blue">Light and approachable</span></span>
+        </button>
+        <button class="theme-option" data-theme-btn="indigo" aria-pressed="false">
+          <span class="dot swatch-indigo"></span>
+          <span class="theme-option-text"><span class="name">Deep Indigo</span><br /><span class="sub" data-i18n="theme.sub.indigo">Bold and focused</span></span>
+        </button>
+      </div>
+
+      <div class="theme-preview-card">
+        <div class="theme-preview-top">
+          <strong class="display" style="font-size:1.1rem;text-transform:uppercase" data-i18n="themes.preview.dashboard">Dashboard</strong>
+          <span class="theme-preview-badge mono" id="themeBadge">AgriPro Green</span>
+        </div>
+        <div class="theme-preview-kpis">
+          <div class="tp-kpi tp-kpi-brand"><div class="tp-label" data-i18n="themes.preview.todaySales">Today's Sales</div><div class="tp-val">₹ 18,240</div></div>
+          <div class="tp-kpi"><div class="tp-label" data-i18n="themes.preview.lowStock">Low Stock</div><div class="tp-val">4 SKUs</div></div>
+          <div class="tp-kpi"><div class="tp-label" data-i18n="themes.preview.collections">Collections</div><div class="tp-val">₹ 9,050</div></div>
+        </div>
+        <!-- reveal + reveal-scale: a scale-in+fade entrance (see styles.css), triggered once
+             via the same .reveal IntersectionObserver as everything else on the page
+             (initReveal() in main.js already picks up any .reveal element automatically) -
+             not a from-scratch retrofit into an SVG donut ring, since this mockup is a
+             bar/area chart shape, not circular, and forcing a donut into that footprint
+             would be a bigger, riskier rework than this small decorative element warrants. -->
+        <div class="mock-card reveal reveal-scale" style="margin-bottom:1rem"><div class="mock-bar" style="width:30%"></div><div class="mock-chart"></div></div>
+        <div class="theme-preview-btn" data-i18n="themes.preview.newSale">New Sale</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= FAQ ============================= -->
+<section id="faq" class="section-pad on-paper">
+  <div class="wrap" style="max-width:48rem">
+    <div class="section-head reveal">
+      <div class="eyebrow" data-i18n="faq.eyebrow">Questions</div>
+      <h2 data-i18n="faq.heading">Good to know</h2>
+    </div>
+    <div class="reveal" style="display:flex;flex-direction:column;gap:0.9rem">
+      <details class="faq-item" style="background:var(--paper-panel);border:1px solid var(--paper-line);border-radius:0.7rem;padding:1.1rem 1.3rem">
+        <summary style="font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:0.75rem"><span data-i18n="faq.q1">Does this work for shops that aren't agricultural?</span><svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" /></svg></summary>
+        <p style="margin-top:0.7rem;color:var(--text-on-paper-muted);line-height:1.6" data-i18n="faq.a1">Yes. The same billing, GST, batch, and inventory engine reconfigures for hardware stores and general trade retailers just as well as it does for agri-input shops — the underlying logic doesn't change, only the vocabulary does.</p>
+      </details>
+      <details class="faq-item" style="background:var(--paper-panel);border:1px solid var(--paper-line);border-radius:0.7rem;padding:1.1rem 1.3rem">
+        <summary style="font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:0.75rem"><span data-i18n="faq.q2">Can my staff use it in Tamil, Hindi, or another language?</span><svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" /></svg></summary>
+        <p style="margin-top:0.7rem;color:var(--text-on-paper-muted);line-height:1.6" data-i18n="faq.a2">Yes — English, Tamil, Hindi, Kannada, and Telugu are all supported natively, not machine-translated on the fly.</p>
+      </details>
+      <details class="faq-item" style="background:var(--paper-panel);border:1px solid var(--paper-line);border-radius:0.7rem;padding:1.1rem 1.3rem">
+        <summary style="font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:0.75rem"><span data-i18n="faq.q3">Do I need to be technical to run this?</span><svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" /></svg></summary>
+        <p style="margin-top:0.7rem;color:var(--text-on-paper-muted);line-height:1.6" data-i18n="faq.a3">No. It's built to be run by shop staff on the counter, not an IT team — the same reason billing, printing, and stock updates are designed to take one click, not five.</p>
+      </details>
+      <details class="faq-item" style="background:var(--paper-panel);border:1px solid var(--paper-line);border-radius:0.7rem;padding:1.1rem 1.3rem">
+        <summary style="font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:0.75rem"><span data-i18n="faq.q4">What if I run more than one shop?</span><svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" /></svg></summary>
+        <p style="margin-top:0.7rem;color:var(--text-on-paper-muted);line-height:1.6" data-i18n="faq.a4">Each company gets its own isolated data and its own theme, with a Super Admin view that oversees all of them from one place — nothing about one shop's data ever crosses into another's.</p>
+      </details>
+      <details class="faq-item" style="background:var(--paper-panel);border:1px solid var(--paper-line);border-radius:0.7rem;padding:1.1rem 1.3rem">
+        <summary style="font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:0.75rem"><span data-i18n="faq.q5">Does this work for shops that aren't agricultural — like hardware or general trade?</span><svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" /></svg></summary>
+        <p style="margin-top:0.7rem;color:var(--text-on-paper-muted);line-height:1.6" data-i18n="faq.a5">Yes. A Super Admin switches on only the modules a shop actually needs, per company — a hardware or general-trade store runs on the same billing, GST, and inventory engine everyone else does, without agri-specific screens like Crop Plantings or Care Schedule Templates ever showing up on its menu.</p>
+      </details>
+      <details class="faq-item" style="background:var(--paper-panel);border:1px solid var(--paper-line);border-radius:0.7rem;padding:1.1rem 1.3rem">
+        <summary style="font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:0.75rem"><span data-i18n="faq.q6">What happens if I switch how stock cost is calculated later?</span><svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" /></svg></summary>
+        <p style="margin-top:0.7rem;color:var(--text-on-paper-muted);line-height:1.6" data-i18n="faq.a6">LedGo ERP supports FIFO, LIFO, or Weighted Average costing, chosen per company. Switching is a Super Admin-gated setting that applies going forward — it doesn't rewrite or disturb any past transaction, so your historical figures stay exactly as they were recorded.</p>
+      </details>
+      <details class="faq-item" style="background:var(--paper-panel);border:1px solid var(--paper-line);border-radius:0.7rem;padding:1.1rem 1.3rem">
+        <summary style="font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:0.75rem"><span data-i18n="faq.q7">Is my data backed up automatically?</span><svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" /></svg></summary>
+        <p style="margin-top:0.7rem;color:var(--text-on-paper-muted);line-height:1.6" data-i18n="faq.a7">Yes — scheduled automatic backups run on their own with Super Admin oversight, and you're alerted if a scheduled backup ever fails, so protection isn't something you have to remember to do yourself.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= CTA ============================= -->
+<section id="cta" class="cta-band">
+  <div class="wrap">
+    <div class="farm-scene-wrap">
+      <svg class="farm-scene" viewBox="0 0 800 200" preserveAspectRatio="xMidYMax meet" aria-hidden="true" focusable="false">
+        <defs>
+          <symbol id="cropPlant" viewBox="0 0 20 34">
+            <path d="M10 34V15" stroke="rgb(var(--brand-deep))" stroke-width="2.4" stroke-linecap="round" />
+            <path d="M10 21c-6-3-8-9-6-15" stroke="rgb(var(--brand))" stroke-width="2.2" stroke-linecap="round" fill="none" />
+            <path d="M10 17c6-3 8-9 6-15" stroke="rgb(var(--brand))" stroke-width="2.2" stroke-linecap="round" fill="none" />
+          </symbol>
+        </defs>
+
+        <circle class="farm-sun-glow" cx="130" cy="55" r="46" fill="rgb(var(--brand-glow) / 0.35)" />
+        <circle cx="130" cy="55" r="24" fill="rgb(var(--brand))" />
+
+        <g class="farm-cloud-1" fill="var(--text-on-ink)" opacity="0.14">
+          <ellipse cx="500" cy="42" rx="42" ry="15" />
+          <ellipse cx="533" cy="35" rx="27" ry="13" />
+          <ellipse cx="475" cy="36" rx="22" ry="11" />
+        </g>
+        <g class="farm-cloud-2" fill="var(--text-on-ink)" opacity="0.11">
+          <ellipse cx="660" cy="66" rx="34" ry="12" />
+          <ellipse cx="684" cy="60" rx="21" ry="10" />
+        </g>
+
+        <g>
+          <rect x="628" y="86" width="42" height="76" rx="8" fill="var(--ink-3)" stroke="var(--ink-line-strong)" />
+          <path d="M624 86 L649 64 L674 86 Z" fill="rgb(var(--brand))" />
+        </g>
+
+        <path d="M0 138 Q100 118 200 136 T400 134 T600 138 T800 132 V200 H0 Z" fill="rgb(var(--brand) / 0.16)" />
+        <path d="M0 162 Q120 144 260 160 T520 158 T800 164 V200 H0 Z" fill="rgb(var(--brand) / 0.3)" />
+
+        <use href="#cropPlant" class="farm-crop" x="30" y="168" width="18" height="30" style="animation-delay:0s" />
+        <use href="#cropPlant" class="farm-crop" x="68" y="170" width="18" height="30" style="animation-delay:0.3s" />
+        <use href="#cropPlant" class="farm-crop" x="106" y="167" width="18" height="30" style="animation-delay:0.6s" />
+        <use href="#cropPlant" class="farm-crop" x="144" y="171" width="18" height="30" style="animation-delay:0.15s" />
+        <use href="#cropPlant" class="farm-crop" x="182" y="168" width="18" height="30" style="animation-delay:0.45s" />
+        <use href="#cropPlant" class="farm-crop" x="220" y="172" width="18" height="30" style="animation-delay:0.75s" />
+        <use href="#cropPlant" class="farm-crop" x="258" y="169" width="18" height="30" style="animation-delay:0.25s" />
+        <use href="#cropPlant" class="farm-crop" x="296" y="173" width="18" height="30" style="animation-delay:0.55s" />
+        <use href="#cropPlant" class="farm-crop" x="334" y="170" width="18" height="30" style="animation-delay:0.1s" />
+        <use href="#cropPlant" class="farm-crop" x="372" y="174" width="18" height="30" style="animation-delay:0.4s" />
+      </svg>
+    </div>
+
+    <div class="eyebrow" style="justify-content:center" data-i18n="cta.eyebrow">Ready when you are</div>
+    <h2 data-i18n="cta.heading">Bring your shop onto one screen.</h2>
+    <p data-i18n="cta.sub">No credit card, no sales call required to see if it fits — just a look at whether it actually matches how your shop runs.</p>
+    <p class="cta-trial"><span class="cta-trial-dot"></span>Free trial available. Ask us to set up your shop.</p>
+
+    <form id="contactForm" class="contact-form" novalidate>
+      <div class="form-row">
+        <div class="field">
+          <label for="cf-name" data-i18n="cta.form.name">Name</label>
+          <input type="text" id="cf-name" name="name" required autocomplete="name" />
+          <span class="field-error" id="cf-name-error"></span>
+        </div>
+        <div class="field">
+          <label for="cf-email" data-i18n="cta.form.email">Email</label>
+          <input type="email" id="cf-email" name="email" required autocomplete="email" />
+          <span class="field-error" id="cf-email-error"></span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="cf-phone" data-i18n="cta.form.phone">Phone (optional)</label>
+        <input type="tel" id="cf-phone" name="phone" autocomplete="tel" data-i18n-placeholder="cta.form.phonePlaceholder" placeholder="10-digit mobile number" />
+      </div>
+      <div class="field">
+        <label for="cf-message" data-i18n="cta.form.message">Message</label>
+        <textarea id="cf-message" name="message" rows="4" required></textarea>
+        <span class="field-error" id="cf-message-error"></span>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-solid" id="cf-submit"><span data-i18n="cta.form.submit">Send message</span></button>
+        <span class="form-status" id="cf-status" role="status" aria-live="polite"></span>
+      </div>
+    </form>
+
+    <div class="contact-success" id="contactSuccess" hidden>
+      <svg class="success-check" viewBox="0 0 52 52" aria-hidden="true" focusable="false">
+        <circle class="success-check-circle" cx="26" cy="26" r="24" fill="none" />
+        <path class="success-check-mark" fill="none" d="M15 27 L22 34 L37 18" />
+      </svg>
+      <p data-i18n="cta.form.successMsg">Your email app should open with your message ready — just press Send.</p>
+    </div>
+
+    <p class="cta-alt-contact"><span data-i18n="cta.form.orEmail">Prefer email? Write to us at</span> <a href="mailto:bharathvsb3@gmail.com">bharathvsb3@gmail.com</a></p>
+
+    <div class="cta-buttons">
+      <a href="#features" class="btn btn-ghost" data-i18n="cta.secondary">Explore features again</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= TMB TECH ============================= -->
+<section id="company" class="section-pad on-ink tmb-company">
+  <div class="wrap">
+    <div class="tmb-card reveal">
+      <div class="tmb-card-main">
+        <div class="eyebrow" style="justify-content:flex-start">Built &amp; supported by</div>
+        <a href="https://bharathvsb3.github.io/TMB-Tech/" class="tmb-logo-link" target="_blank" rel="noopener">
+          <img src="assets/tmb-logo.png" alt="TMB Tech" width="220" height="51" />
+        </a>
+        <p>LedGo ERP is a product of <strong>TMB Tech</strong>, a software company that builds business applications end to end: mobile apps, web portals, backend APIs and databases. The same team that builds LedGo sets it up for your shop and supports it.</p>
+        <div class="tmb-actions">
+          <a href="https://bharathvsb3.github.io/TMB-Tech/" class="btn btn-solid" target="_blank" rel="noopener">Visit TMB Tech</a>
+          <a href="https://bharathvsb3.github.io/TMB-Tech/#products" class="btn btn-ghost" target="_blank" rel="noopener">All products</a>
+        </div>
+      </div>
+      <div class="tmb-contact">
+        <div class="tmb-person">
+          <span class="tmb-avatar" aria-hidden="true">BS</span>
+          <div><strong>Bharath Sankar</strong><span>Founder &amp; Developer, TMB Tech</span></div>
+        </div>
+        <ul class="tmb-list">
+          <li><span class="tmb-k">Email</span><a href="mailto:bharathvsb3@gmail.com">bharathvsb3@gmail.com</a></li>
+          <li><span class="tmb-k">Phone</span><a href="tel:+917550356255">+91 75503 56255</a></li>
+          <li><span class="tmb-k">LinkedIn</span><a href="https://www.linkedin.com/in/bharath-s-52266620b" target="_blank" rel="noopener">bharath-s-52266620b</a></li>
+          <li><span class="tmb-k">GitHub</span><a href="https://github.com/Bharathvsb3/" target="_blank" rel="noopener">Bharathvsb3</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= FOOTER ============================= -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#top" class="brand">
+          <img class="brand-mark" src="assets/ledgo-logo.png" width="32" height="32" alt="" />
+          <img class="brand-wordmark" src="assets/ledgo-erp-wordmark.svg" alt="LedGo ERP" />
+        </a>
+        <p data-i18n="footer.tagline">Shop-management software for Indian agri, hardware, and general trade retailers — one screen for billing, inventory, GST, and your own customer app.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4 data-i18n="footer.col.product">Product</h4>
+          <ul>
+            <li><a href="#features" data-i18n="nav.features">Features</a></li>
+            <li><a href="#devices" data-i18n="nav.devices">Everywhere You Work</a></li>
+            <li><a href="#themes" data-i18n="nav.themes">Make It Yours</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer.col.company">Company</h4>
+          <ul>
+            <li><a href="https://bharathvsb3.github.io/TMB-Tech/">TMB Tech</a></li>
+            <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
+            <li><a href="#cta" data-i18n="footer.link.contact">Contact</a></li>
+            <li><a href="mailto:bharathvsb3@gmail.com">bharathvsb3@gmail.com</a></li>
+            <li><a href="tel:+917550356255">+91 75503 56255</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>More from TMB Tech</h4>
+          <ul>
+            <li><a href="https://bharathvsb3.github.io/TMB-Tech/gasone/">GasOne</a></li>
+            <li><a href="https://bharathvsb3.github.io/TMB-Tech/jb-one/">JB One</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> LedGo ERP. <span data-i18n="footer.rights">All rights reserved.</span></span>
+      <a class="powered-by" href="https://bharathvsb3.github.io/TMB-Tech/" target="_blank" rel="noopener"><span>Powered by</span> <img src="assets/tmb-logo.png" alt="TMB Tech" width="90" height="21" /></a>
+      <span class="mono"><span data-i18n="footer.previewing">Currently previewing:</span> <span id="footerTheme">AgriPro Green</span></span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/tmb.js"></script>
+</body>
+</html>

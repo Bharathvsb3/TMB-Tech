@@ -1,0 +1,2540 @@
+/* ==========================================================================
+   LedGo ERP — Marketing Website
+   Design system: dark "control room" base + a swappable brand-accent theme
+   engine (mirrors the real product's own per-shop theming - pick a seed
+   color, everything else follows). Big Shoulders Display for headlines
+   (bold, condensed, workhorse-signboard energy), Public Sans for body,
+   IBM Plex Mono for data/stat figures - same type family as LedGo's other
+   brand materials.
+   ========================================================================== */
+
+:root {
+  /* ---- structural tokens (theme-independent, LIGHT mode - the default) ----
+     Light/dark is a separate axis from the brand-accent theme below (mirrors
+     the real LedGo ERP app's own architecture). The bare :root is the LIGHT
+     palette; [data-mode="dark"] further down overrides every one of these
+     same custom properties with a dark palette. Component CSS everywhere
+     else in this file only ever reads these token names, never a literal
+     color, so the whole page repaints correctly from just these two blocks. */
+  --ink: #ffffff;
+  --ink-2: #f5f4ef;
+  --ink-3: #eae8e0;
+  --ink-line: rgba(15, 21, 28, 0.08);
+  --ink-line-strong: rgba(15, 21, 28, 0.16);
+  --text-on-ink: #16202c;
+  --text-on-ink-muted: #5c6773;
+
+  --paper: #f4f2ec;
+  --paper-panel: #ffffff;
+  --paper-line: rgba(15, 21, 28, 0.1);
+  --text-on-paper: #16202c;
+  --text-on-paper-muted: #5c6773;
+
+  /* chrome surfaces that were hardcoded literals before - now mode-aware */
+  --header-bg: rgba(255, 255, 255, 0.78);
+  --footer-bg: #f3f1ea;
+  --hero-dot: rgba(15, 21, 28, 0.055);
+
+  --success: #2f8a5c;
+  --danger: #c0392b;
+  --shadow-lg: 0 30px 60px -20px rgba(15, 21, 28, 0.16);
+  --shadow-md: 0 16px 32px -14px rgba(15, 21, 28, 0.12);
+
+  /* brand-glow is tuned per-mode too - the same glow opacity that reads as
+     an atmospheric wash on a dark hero looks like a muddy stain on white */
+  --glow-hero-opacity: 0.14;
+  --glow-cta-opacity: 0.12;
+
+  /* ---- theme-swappable brand accent (default: AgriPro Green) ---- */
+  --brand: 46 155 92;
+  --brand-glow: 46 155 92;
+  --brand-deep: 27 105 61;
+  --brand-name: "AgriPro Green";
+
+  /* the brand tone to use for text sitting directly on an --ink/--paper
+     surface: the deep/darkened variant reads on a LIGHT surface, the bright
+     variant would wash out - see the dark-mode override below */
+  --brand-on-surface: var(--brand-deep);
+}
+
+/* ---- dark mode (explicit opt-in via the toggle; separate axis from theme) ---- */
+:root[data-mode="dark"] {
+  --ink: #0c121a;
+  --ink-2: #131b25;
+  --ink-3: #1a2431;
+  --ink-line: rgba(232, 234, 237, 0.1);
+  --ink-line-strong: rgba(232, 234, 237, 0.22);
+  --text-on-ink: #e9ebee;
+  --text-on-ink-muted: #9aa5b3;
+
+  --paper: #1c232c;
+  --paper-panel: #232b36;
+  --paper-line: rgba(232, 234, 237, 0.12);
+  --text-on-paper: #e9ebee;
+  --text-on-paper-muted: #9aa5b3;
+
+  --header-bg: rgba(12, 18, 26, 0.72);
+  --footer-bg: #090d13;
+  --hero-dot: rgba(233, 235, 238, 0.07);
+
+  --success: #4caf7d;
+  --danger: #ff6b6b;
+  --shadow-lg: 0 30px 60px -20px rgba(0, 0, 0, 0.45);
+  --shadow-md: 0 16px 32px -14px rgba(0, 0, 0, 0.35);
+
+  --glow-hero-opacity: 0.22;
+  --glow-cta-opacity: 0.18;
+
+  /* on a DARK surface, the bright theme color reads; the deep variant would
+     nearly disappear into the dark background */
+  --brand-on-surface: var(--brand);
+}
+
+:root[data-theme="teal"] {
+  --brand: 30 156 151;
+  --brand-glow: 30 156 151;
+  --brand-deep: 16 104 100;
+  --brand-name: "Ocean Teal";
+}
+:root[data-theme="purple"] {
+  --brand: 124 92 252;
+  --brand-glow: 124 92 252;
+  --brand-deep: 82 58 189;
+  --brand-name: "Royal Purple";
+}
+:root[data-theme="orange"] {
+  --brand: 242 135 74;
+  --brand-glow: 242 135 74;
+  --brand-deep: 189 91 36;
+  --brand-name: "Sunset Orange";
+}
+:root[data-theme="blue"] {
+  --brand: 62 147 242;
+  --brand-glow: 62 147 242;
+  --brand-deep: 33 99 181;
+  --brand-name: "Baby Blue";
+}
+:root[data-theme="indigo"] {
+  --brand: 74 95 217;
+  --brand-glow: 74 95 217;
+  --brand-deep: 45 58 156;
+  --brand-name: "Deep Indigo";
+}
+
+/* ---- reset-adjacent basics ---- */
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+  /* Scrolling itself stays fully functional (wheel/touch/keyboard/programmatic
+     all still work) - only the visible scrollbar chrome is hidden, since a
+     narrow desktop-width Chrome window renders it as a bulky classic
+     Windows-style bar with up/down arrow buttons that clashes with this
+     page's own design. */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* legacy Edge/IE */
+}
+html::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Edge Chromium */
+}
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--text-on-ink);
+  font-family: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  text-wrap: balance;
+}
+p {
+  margin: 0;
+}
+button {
+  font: inherit;
+  cursor: pointer;
+}
+::selection {
+  background: rgb(var(--brand));
+  color: #fff;
+}
+:focus-visible {
+  outline: 2px solid rgb(var(--brand));
+  outline-offset: 3px;
+}
+
+.display {
+  font-family: "Big Shoulders Display", system-ui, sans-serif;
+}
+.mono {
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  font-size: 0.78rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 600;
+  /* --brand-on-surface, not raw --brand - this label sits directly on an
+     --ink/--paper surface, so it needs the same mode-aware deep/bright swap
+     as .stats-grid .num and .tp-kpi-brand .tp-val already use (see that
+     variable's own definition comment up top). Found in a verification
+     pass: the raw --brand color read fine in dark mode but washed out to as
+     low as 2.29:1 contrast in LIGHT mode for the brighter themes (Orange,
+     Blue, Teal) - this uppercase label sits above nearly every section
+     heading on the page, so it was one of the most visible instances. */
+  color: rgb(var(--brand-on-surface));
+}
+.eyebrow::before {
+  content: "";
+  width: 1.6rem;
+  height: 1px;
+  background: rgb(var(--brand));
+  opacity: 0.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   Scroll-progress bar (thin strip fixed above the header)
+   ========================================================================== */
+/* z-index above .site-header (100) so it always reads as a persistent thin
+   strip sitting right at the very top edge of the viewport, never tucked
+   under the header's own translucent/blurred surface. main.js
+   (initScrollProgress()) writes the child bar's width as a 0-100% readout of
+   real scroll position, throttled via requestAnimationFrame - the same
+   throttling pattern initHeroParallax() already uses for its own scroll
+   listener. Not gated behind prefers-reduced-motion: this isn't a decorative
+   animation, it's a 1:1 reflection of scroll position (same reasoning as
+   initHeaderScroll()'s unconditional box-shadow toggle just below), so a
+   reduced-motion visitor still gets an accurate, just not eased, readout. */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 101;
+  background: transparent;
+  pointer-events: none;
+}
+.scroll-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: rgb(var(--brand));
+  /* A short transition smooths out the small per-frame jumps of a fast
+     fling-scroll without introducing any lag against a normal scroll speed;
+     the global prefers-reduced-motion block up top already forces this to
+     ~0s, which only makes the readout snappier, never less accurate. */
+  transition: width 0.12s linear;
+}
+
+/* ==========================================================================
+   Header / nav
+   ========================================================================== */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--ink-line);
+  transition: background 0.3s ease;
+  /* Quick slide-down + fade-in the moment the page first paints, so it
+     doesn't feel static the instant it appears. Runs once on load only -
+     nothing else on the page ever toggles a class on .site-header itself
+     (initHeaderScroll() in main.js sets an inline box-shadow directly, not
+     a class), so this animation-name is never re-triggered later. Plain
+     CSS animation, so the global prefers-reduced-motion block up top
+     already covers it (animation-duration forced to 0.001ms). */
+  animation: header-entrance 0.4s ease-out;
+}
+@keyframes header-entrance {
+  from {
+    transform: translateY(-16px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 4.25rem;
+  transition: height 0.3s ease;
+}
+/* ---- compact-on-scroll ----
+   initHeaderScroll() (main.js) already has one scroll listener toggling the
+   header's box-shadow inline - this reuses that exact same listener/handler
+   to also toggle this class once the visitor has scrolled past ~120px,
+   rather than standing up a second, competing scroll listener. A subtle
+   ~15% height reduction plus a touch of logo scale-down - this is a
+   persistent, always-visible element, so an aggressive size swing here would
+   be an annoyance repeated on every single scroll, not a delight. Smoothly
+   reverses back to full size on the way back up via the same transitions. */
+.site-header.is-compact .wrap {
+  height: 3.6rem;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-on-ink);
+}
+.site-header .brand {
+  transform-origin: left center;
+  transition: transform 0.3s ease;
+}
+.site-header.is-compact .brand {
+  transform: scale(0.88);
+}
+.brand-mark {
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+/* The real, fixed-color ledgo-erp-wordmark.svg asset - "LedGo" + the gradient "ERP" badge are
+   baked into this one file exactly as designed. Deliberately NOT theme-reactive (no
+   rgb(var(--brand)) anywhere here) - it's the same fixed brand mark the real LedGo ERP app
+   itself shows in its own sidebar/login header, regardless of a company's chosen accent color. */
+.brand-wordmark {
+  height: 1.7rem;
+  width: auto;
+  flex-shrink: 0;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-on-ink-muted);
+}
+.nav-links a {
+  transition: color 0.2s ease;
+  position: relative;
+}
+.nav-links a:hover {
+  color: var(--text-on-ink);
+}
+/* ---- animated underline sweep ----
+   A thin bar grows from the center outward under the link on hover/focus,
+   via transform: scaleX (compositor-only, no layout cost) rather than
+   animating width. `@media (hover: hover) and (pointer: fine)` scopes the
+   :hover trigger to devices that support a real, sustained hover (mouse/
+   trackpad) - on a touchscreen this whole block simply never matches, so a
+   tap can never leave a "stuck" hover-triggered underline behind the way a
+   bare `:hover` rule could on some touch browsers. Keyboard users still get
+   the same underline via :focus-visible below, unconditionally. */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.4rem;
+  height: 2px;
+  border-radius: 1px;
+  background: rgb(var(--brand));
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.25s ease;
+  pointer-events: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .nav-links a:hover::after {
+    transform: scaleX(1);
+  }
+}
+.nav-links a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.4rem;
+  border-radius: 0.6rem;
+  font-weight: 700;
+  font-size: 0.92rem;
+  border: 1px solid transparent;
+  transition: transform 0.1s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  white-space: nowrap;
+}
+/* Tactile press feedback - identical for a real mouse click and a touch tap
+   (:active applies for both), so every .btn on the page gives the same
+   satisfying little squish either way. Fast (~100ms, matching the
+   transform duration above) so it reads as immediate press feedback rather
+   than a lingering animation. */
+.btn:active {
+  transform: scale(0.95);
+}
+.btn-solid {
+  background: rgb(var(--brand));
+  color: #0c121a;
+  box-shadow: 0 8px 22px -8px rgb(var(--brand-glow) / 0.7);
+}
+.btn-solid:hover {
+  box-shadow: 0 10px 28px -6px rgb(var(--brand-glow) / 0.85);
+}
+/* Slow, tasteful glow pulse on the hero's primary CTA only (not every .btn-solid on the
+   page, e.g. the contact form's submit button) - draws the eye without being flashy. Same
+   box-shadow property the plain/hover states above already use, just breathing between two
+   glow strengths; :hover still wins in the moment a visitor is actually on the button since
+   the browser keeps recalculating this animation's own value every frame regardless, and a
+   slightly-mismatched glow mid-pulse during hover reads as a natural continuation, not a
+   glitch. Covered by the global prefers-reduced-motion block (animation-duration forced to
+   0.001ms), same as every other keyframe animation on this page. */
+.hero-ctas .btn-solid {
+  animation: cta-glow-pulse 3.6s ease-in-out infinite;
+  position: relative;
+  /* Establishes a local stacking context so the ::before spotlight below
+     (z-index:-1) is scoped to sit just above this button's own solid
+     background but stays behind its text - without this, an ancestor's
+     stacking context would be used instead and z-index:-1 could drop the
+     spotlight behind unrelated page content entirely. */
+  isolation: isolate;
+}
+@keyframes cta-glow-pulse {
+  0%,
+  100% {
+    box-shadow: 0 8px 22px -8px rgb(var(--brand-glow) / 0.7);
+  }
+  50% {
+    box-shadow: 0 10px 34px 2px rgb(var(--brand-glow) / 0.9);
+  }
+}
+/* ---- cursor-following spotlight ----
+   main.js (initCtaSpotlight()) tracks mousemove over the button and writes
+   the pointer position into --x/--y as percentages; this radial-gradient
+   layer just reads them. Only attached/shown on devices with a real,
+   sustained hover (mouse/trackpad) - `@media (hover:hover) and
+   (pointer:fine)` gates the reveal here, and main.js additionally never
+   attaches the mousemove listener at all on a touch device, so there's
+   nothing half-working to see there either. z-index:-1 (see .btn-solid's
+   own isolation:isolate comment above) keeps it under the button's text but
+   above its solid brand-color fill. */
+.hero-ctas .btn-solid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(circle 120px at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.4), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .hero-ctas .btn-solid:hover::before {
+    opacity: 1;
+  }
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--text-on-ink);
+  border-color: var(--ink-line-strong);
+}
+.btn-ghost:hover {
+  border-color: rgb(var(--brand));
+  color: rgb(var(--brand));
+}
+.btn-sm {
+  padding: 0.5rem 1.05rem;
+  font-size: 0.82rem;
+}
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-on-ink);
+  width: 2.4rem;
+  height: 2.4rem;
+  align-items: center;
+  justify-content: center;
+}
+.nav-toggle span,
+.nav-toggle span::before,
+.nav-toggle span::after {
+  content: "";
+  display: block;
+  width: 1.3rem;
+  height: 2px;
+  background: currentColor;
+  position: relative;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.nav-toggle span::before {
+  position: absolute;
+  top: -0.4rem;
+}
+.nav-toggle span::after {
+  position: absolute;
+  top: 0.4rem;
+}
+.nav-toggle[aria-expanded="true"] span {
+  background: transparent;
+}
+.nav-toggle[aria-expanded="true"] span::before {
+  transform: translateY(0.4rem) rotate(45deg);
+}
+.nav-toggle[aria-expanded="true"] span::after {
+  transform: translateY(-0.4rem) rotate(-45deg);
+}
+
+/* ==========================================================================
+   Theme swatch picker (header mini version + full section version)
+   ========================================================================== */
+.swatches {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.swatch {
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+  padding: 0;
+  position: relative;
+}
+.swatch:hover {
+  transform: scale(1.18);
+}
+/* Declared AFTER :hover so it wins the cascade (equal specificity, source
+   order tie-break) whenever a mouse is both hovering AND pressed - a quick
+   squish down from the hovered size, not a fight between the two. Fast
+   ~100ms transform, same as .btn:active above; on a touch tap (no
+   persistent hover) it eases back from this pressed size straight to the
+   resting size instead. */
+.swatch:active {
+  transform: scale(0.95);
+  transition: transform 0.1s ease;
+}
+.swatch[aria-pressed="true"] {
+  border-color: var(--text-on-ink);
+}
+/* ---- click ring ----
+   A brief expanding-and-fading ring confirms a click/tap registered,
+   independent of the color-swap it triggers. The `.ping` class is toggled
+   by JS on click (initTheme() in main.js) and removed again once the
+   keyframe below finishes (`animationend`), so repeated clicks never leave
+   extra state behind. `background-color: inherit` picks up each swatch's
+   own color (.swatch-green/.swatch-teal/etc.) without repeating every hex
+   value here. This is a plain CSS animation, so it's already covered by the
+   global prefers-reduced-motion block up top like everything else in this
+   file - main.js additionally skips adding the class at all in that case,
+   so there's nothing to clean up either. */
+.swatch::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-color: inherit;
+  opacity: 0;
+  pointer-events: none;
+}
+.swatch.ping::after {
+  animation: swatch-ping 450ms ease-out;
+}
+@keyframes swatch-ping {
+  from {
+    transform: scale(0);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+/* ---- hover name tooltip ----
+   initSwatchTooltips() (main.js) writes each swatch's display name (read
+   from the same THEME_NAMES map the theme engine itself uses, not a second
+   hardcoded copy) into a `data-tip` attribute; this ::before just renders
+   it via attr() - no extra per-swatch markup needed. Gated the same way as
+   the nav-link underline sweep and the hero CTA spotlight: `(hover: hover)
+   and (pointer: fine)` so a touch tap never leaves a stuck label behind, and
+   main.js additionally never writes the attribute at all on a touch device.
+
+   `bottom: 50%`, not `bottom: 100%` - the header itself is only ~3.6-4.25rem
+   tall with the swatch vertically centered inside it, leaving under ~20px of
+   real headroom above the swatch's own top edge (measured directly via
+   Playwright in a verification pass) - a fully-legible label anchored at
+   `100%` (flush above the swatch) computed out to 6-13px ABOVE y=0 of the
+   browser viewport itself, i.e. invisibly clipped off the top of the page,
+   worse still once the header's own compact-on-scroll shrinks that headroom
+   further. Anchoring at the swatch's own vertical MIDPOINT instead keeps the
+   label's top edge a comfortable few px clear of the viewport top in both
+   the full-size and compact header states, at the cost of the label
+   overlapping the swatch's own top half while shown - a normal, common
+   small-tooltip trade-off, and only visible for the moment it's hovered. */
+.swatch[data-tip]::before {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  white-space: nowrap;
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0.3rem 0.55rem;
+  border-radius: 0.4rem;
+  background: var(--ink-2);
+  color: var(--text-on-ink);
+  border: 1px solid var(--ink-line-strong);
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 20;
+}
+@media (hover: hover) and (pointer: fine) {
+  .swatch[data-tip]:hover::before {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+.swatch-green {
+  background: #2e9b5c;
+}
+.swatch-teal {
+  background: #1e9c97;
+}
+.swatch-purple {
+  background: #7c5cfc;
+}
+.swatch-orange {
+  background: #f2874a;
+}
+.swatch-blue {
+  background: #3e93f2;
+}
+.swatch-indigo {
+  background: #4a5fd9;
+}
+
+/* ==========================================================================
+   Light/dark mode toggle + language switcher
+   ========================================================================== */
+.mode-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 50%;
+  border: 1px solid var(--ink-line-strong);
+  background: transparent;
+  color: var(--text-on-ink);
+  flex-shrink: 0;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease, transform 0.1s ease;
+}
+.mode-toggle:hover {
+  border-color: rgb(var(--brand));
+  color: rgb(var(--brand));
+}
+.mode-toggle:active {
+  transform: scale(0.95);
+}
+/* ---- sun/moon crossfade ----
+   Both icons stay mounted and stacked (position:absolute, centered) rather
+   than the old display:none/block instant swap - display can't be
+   transitioned, so a toggle used to just pop from one icon to the other with
+   no in-between frame. Rotating in opposite directions as they cross-fade
+   (sun exits clockwise, moon enters from a counter-clockwise start, and
+   vice-versa) sells the "turning over" feel in ~300ms. Already covered by
+   the global prefers-reduced-motion block up top (transition-duration
+   forced to 0.001ms) like every other transition on the page. */
+.mode-toggle svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(0deg) scale(1);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.mode-toggle .icon-moon {
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(-90deg) scale(0.5);
+}
+:root[data-mode="dark"] .mode-toggle .icon-sun {
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(90deg) scale(0.5);
+}
+:root[data-mode="dark"] .mode-toggle .icon-moon {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(0deg) scale(1);
+}
+
+.lang-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: 1px solid var(--ink-line-strong);
+  color: var(--text-on-ink);
+  border-radius: 999px;
+  padding: 0.4rem 1.7rem 0.4rem 0.85rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 12px) 55%, calc(100% - 7px) 55%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.lang-select:hover {
+  border-color: rgb(var(--brand));
+}
+.lang-select option {
+  color: #16202c;
+  background: #fff;
+}
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+.hero {
+  position: relative;
+  padding: 9.5rem 0 6rem;
+  background: radial-gradient(ellipse 70% 55% at 50% -10%, rgb(var(--brand-glow) / var(--glow-hero-opacity)), transparent 60%), var(--ink);
+  overflow: hidden;
+  transition: background 0.4s ease;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, var(--hero-dot) 1px, transparent 0);
+  background-size: 28px 28px;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse 60% 60% at 50% 20%, black, transparent 75%);
+}
+.hero-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 3rem;
+  align-items: center;
+}
+.hero-copy h1 {
+  font-family: "Big Shoulders Display", sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.7rem, 5.2vw, 4.4rem);
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin: 1.1rem 0 1.3rem;
+}
+.hero-copy h1 .accent {
+  /* --brand-on-surface - same fix and reasoning as .eyebrow above; this is
+     the single most prominent piece of text on the page (the headline
+     highlight word), so a washed-out Orange/Blue/Teal accent here in light
+     mode was the most visible instance of this bug (found in a
+     verification pass). */
+  color: rgb(var(--brand-on-surface));
+  transition: color 0.3s ease;
+}
+.hero-sub {
+  font-size: clamp(1.02rem, 1.4vw, 1.18rem);
+  line-height: 1.65;
+  color: var(--text-on-ink-muted);
+  max-width: 34rem;
+}
+.hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 2.1rem;
+}
+.hero-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+  margin-top: 2.6rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--ink-line);
+}
+.hero-trust-item {
+  display: flex;
+  flex-direction: column;
+}
+.hero-trust-item .num {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 600;
+  font-size: 1.3rem;
+  /* --brand-on-surface - same fix as .eyebrow/.accent above. */
+  color: rgb(var(--brand-on-surface));
+  transition: color 0.3s ease;
+}
+.hero-trust-item .label {
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-on-ink-muted);
+  margin-top: 0.15rem;
+}
+
+/* ---- hero device cluster (pure CSS/HTML mockups, no image assets) ---- */
+.device-cluster {
+  position: relative;
+  height: 30rem;
+}
+.device {
+  position: absolute;
+  background: var(--ink-3);
+  border: 1px solid var(--ink-line-strong);
+  border-radius: 1.1rem;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.device-laptop {
+  width: 27rem;
+  max-width: 88vw;
+  aspect-ratio: 16 / 10.4;
+  top: 3.4rem;
+  left: 0;
+  border-radius: 0.8rem;
+  animation: float-laptop 7s ease-in-out infinite;
+}
+.device-laptop::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0.55rem;
+  background: var(--ink-2);
+  border-top: 1px solid var(--ink-line-strong);
+}
+.device-tablet {
+  width: 10.5rem;
+  aspect-ratio: 3 / 4;
+  right: 1rem;
+  top: -1rem;
+  border-radius: 1rem;
+  transform: rotate(6deg);
+  animation: float-tablet 8s ease-in-out infinite;
+}
+.device-phone {
+  width: 7.4rem;
+  aspect-ratio: 9 / 19;
+  right: 5.5rem;
+  bottom: -1.2rem;
+  border-radius: 1.3rem;
+  transform: rotate(-8deg);
+  border-width: 3px;
+  animation: float-phone 6.5s ease-in-out infinite;
+}
+@keyframes float-laptop {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes float-tablet {
+  0%,
+  100% {
+    transform: rotate(6deg) translateY(0);
+  }
+  50% {
+    transform: rotate(6deg) translateY(-14px);
+  }
+}
+@keyframes float-phone {
+  0%,
+  100% {
+    transform: rotate(-8deg) translateY(0);
+  }
+  50% {
+    transform: rotate(-8deg) translateY(-8px);
+  }
+}
+
+/* ---- 4th hero mockup: a live-looping thermal receipt printer ----
+   Deliberately not built on the shared `.device` rule (background/border/
+   overflow:hidden) - unlike the flat laptop/tablet/phone panels this is a
+   composite shape (a small housing + a paper strip that grows out from
+   under it), so it needs its own box model. `z-index: 4` (siblings are all
+   z-index:auto) guarantees it paints in front of the other three regardless
+   of DOM order, echoing how the phone already sits in front of the tablet/
+   laptop at the opposite corner. `aria-hidden` on the element in the markup
+   keeps its fabricated bill text out of assistive tech, since (unlike the
+   other 3) there's no real alt-text screenshot underneath it. */
+.device-printer {
+  position: absolute;
+  left: 0.4rem;
+  /* `top`, not `bottom` - the housing must stay rock-solid in place while
+     only the receipt grows underneath it. A bottom-anchored box would keep
+     its BOTTOM edge fixed instead and let its TOP edge (the housing) climb
+     upward every time the receipt grew taller, since this element's total
+     height is the housing plus the animated receipt - exactly backwards
+     from how a real printer looks while feeding paper out (found in a
+     verification pass: the whole unit visibly rose several rem over each
+     print cycle instead of the housing staying put). `top` pins the
+     housing's own position once and for all; the flex column then only
+     ever grows further down from there as the receipt lengthens. */
+  top: 20.2rem;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: float-printer 7.4s ease-in-out infinite;
+}
+@keyframes float-printer {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+/* ---- hero scroll-cue ----
+   A small bouncing "keep scrolling" chevron pinned to the bottom of the hero
+   SECTION itself (not the viewport) - .hero is already `position: relative`
+   (see its own rule above), so this is its containing block. initScrollCue()
+   (main.js) toggles `.is-hidden` once the visitor has actually scrolled past
+   it, rather than leaving it lingering after they're clearly already
+   underway. The bounce is a plain CSS animation, already covered by the
+   global prefers-reduced-motion block up top (animation-duration forced to
+   0.001ms) - same freeze-in-place treatment as the device float animations
+   just above, rather than removing the element outright. */
+.scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 1.4rem;
+  transform: translateX(-50%);
+  z-index: 2;
+  width: 2.2rem;
+  height: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--ink-line-strong);
+  color: var(--text-on-ink-muted);
+  opacity: 1;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.scroll-cue.is-hidden {
+  opacity: 0;
+}
+.scroll-cue svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  animation: scroll-cue-bounce 1.8s ease-in-out infinite;
+}
+@keyframes scroll-cue-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+}
+.printer-housing {
+  position: relative;
+  z-index: 2;
+  width: 7rem;
+  height: 3.1rem;
+  background: var(--ink-3);
+  border: 1px solid var(--ink-line-strong);
+  border-radius: 0.65rem 0.65rem 0.4rem 0.4rem;
+  box-shadow: var(--shadow-lg);
+}
+.printer-slot {
+  position: absolute;
+  left: 50%;
+  bottom: 0.55rem;
+  transform: translateX(-50%);
+  width: 5.7rem;
+  height: 0.3rem;
+  border-radius: 2px;
+  background: var(--ink);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+/* the "is it on?" LED - continuous pulse sells the printer as powered on
+   and actively working, independent of exactly which phase the print cycle
+   below is in (keeping the two animations independent is simpler and just
+   as convincing as hand-syncing them). rgb(var(--brand)) so it recolors
+   with the same swatch picker as every other accent on the page. */
+.printer-led {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.6rem;
+  width: 0.36rem;
+  height: 0.36rem;
+  border-radius: 50%;
+  background: rgb(var(--brand));
+  box-shadow: 0 0 6px 1px rgb(var(--brand) / 0.8);
+  animation: printer-led-pulse 1.1s ease-in-out infinite;
+}
+@keyframes printer-led-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.32;
+  }
+}
+/* ---- the receipt itself ----
+   .printer-receipt-outer is the "slot" viewport: overflow:hidden with an
+   animated `height`. Its child, .printer-receipt, is a normal-flow block
+   pinned to the top and taller than the outer box ever needs to be at rest
+   - so as the outer box's height grows from 0, more of the (already fully
+   laid out) paper becomes visible from the top down, exactly like paper
+   actually feeding out from under a fixed slot. A single `--pr-full-h`
+   custom property is the one source of truth both the animation's target
+   height and the paper's own fixed height read from, so they can never
+   drift out of sync (the exact class of bug flagged in this project's own
+   "Display Number Single-Source Gotcha" note, applied here to a length
+   instead of a formatted string).
+   z-index: 1 (behind .printer-housing's z-index: 2) so the housing's own
+   bottom edge visually masks the seam where the paper meets the slot. */
+.printer-receipt-outer {
+  --pr-full-h: 8.6rem;
+  position: relative;
+  z-index: 1;
+  width: 5.7rem;
+  margin-top: -0.5rem;
+  overflow: hidden;
+  /* Base/rest value matches the animation's 0%/100% keyframe exactly (see
+     printer-print-cycle below) - this is deliberate, not redundant: under
+     prefers-reduced-motion the global rule at the top of this file forces
+     animation-duration to ~0 and iteration-count to 1, so the element
+     effectively snaps straight to this base value. Making that value the
+     FULLY-PRINTED state (not the empty one) is what satisfies "show a
+     static, fully-printed receipt" for reduced-motion visitors without
+     needing a second, component-specific reduced-motion override block -
+     every other animated piece on this page relies on that same single
+     global block rather than adding its own. */
+  height: var(--pr-full-h);
+  opacity: 1;
+  animation: printer-print-cycle 5.5s linear infinite;
+}
+/* Keyframe percentages are hand-placed (not evenly spaced) to fake an
+   ease-out feed followed by a flat hold and a near-instant retract, all
+   under one `linear` timing-function - deliberately phase-shifted so 0%/
+   100% land on the FULLY-PRINTED hold (matching the base rule above) rather
+   than on the empty/reset state; since the animation loops forever this
+   shift is invisible to a motion-enabled visitor; it only matters for the
+   reduced-motion snapshot. Real-time mapping @ 5.5s/cycle: 0-19% hold full
+   (~1s), 19-25% quick fade + snap back into the slot (~0.3s), 25-44% stays
+   retracted/reset (~1s), 44-100% feeds back out to full (~3.1s). */
+@keyframes printer-print-cycle {
+  0% {
+    height: var(--pr-full-h);
+    opacity: 1;
+  }
+  19% {
+    height: var(--pr-full-h);
+    opacity: 1;
+  }
+  24% {
+    height: var(--pr-full-h);
+    opacity: 0;
+  }
+  25% {
+    height: 0;
+    opacity: 0;
+  }
+  44% {
+    height: 0;
+    opacity: 0;
+  }
+  44.5% {
+    height: 0;
+    opacity: 1;
+  }
+  50% {
+    height: calc(var(--pr-full-h) * 0.05);
+  }
+  58% {
+    height: calc(var(--pr-full-h) * 0.16);
+  }
+  68% {
+    height: calc(var(--pr-full-h) * 0.34);
+  }
+  80% {
+    height: calc(var(--pr-full-h) * 0.56);
+  }
+  92% {
+    height: calc(var(--pr-full-h) * 0.78);
+  }
+  100% {
+    height: var(--pr-full-h);
+    opacity: 1;
+  }
+}
+/* The paper itself - always laid out at its full height (--pr-full-h,
+   inherited from .printer-receipt-outer above); it's the parent's animated
+   height/overflow that determines how much of it is actually visible. Fixed
+   white background regardless of site theme/dark-mode - real thermal paper
+   is white/cream no matter what accent color or mode a shop has picked, the
+   same reason the real feature-hardware.png receipt screenshot elsewhere on
+   this page doesn't recolor either. */
+.printer-receipt {
+  height: var(--pr-full-h);
+  background: #fdfdfa;
+  border-top: 3px solid rgb(var(--brand));
+  box-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.35);
+  padding: 0.5rem 0.5rem 0.75rem;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  /* jagged torn-edge bottom, like a real thermal receipt torn off the roll -
+     the zigzag sits within the bottom ~8% of the height, which is exactly
+     what .pr-thanks's own padding-bottom buffer below leaves clear, so the
+     torn edge never actually clips into real text. */
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 92%,
+    91% 100%,
+    82% 92%,
+    73% 100%,
+    64% 92%,
+    55% 100%,
+    46% 92%,
+    37% 100%,
+    28% 92%,
+    19% 100%,
+    10% 92%,
+    0 100%
+  );
+}
+.pr-store {
+  font-size: 0.46rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-align: center;
+  text-transform: uppercase;
+  color: #181818;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pr-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.3rem;
+  margin-top: 0.28rem;
+  font-size: 0.4rem;
+  line-height: 1.4;
+  color: #4a4a4a;
+  white-space: nowrap;
+}
+.pr-divider {
+  margin: 0.32rem 0;
+  border-top: 1px dashed #bab6a9;
+}
+.pr-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.46rem;
+  font-weight: 700;
+  /* --brand-deep, not --brand - this sits on the receipt's own fixed white
+     paper background (see .printer-receipt above), not on --ink/--paper, so
+     it needs the darker variant for contrast against white regardless of
+     site mode, the same reasoning as --brand-on-surface elsewhere just
+     applied to a surface that's white unconditionally rather than mode-
+     aware. */
+  color: rgb(var(--brand-deep));
+}
+.pr-qr {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0.4rem auto 0;
+}
+.pr-barcode {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1px;
+  height: 0.5rem;
+  margin: 0.3rem auto 0;
+  width: 82%;
+}
+.pr-barcode span {
+  display: block;
+  height: 100%;
+  background: #181818;
+}
+.pr-barcode span:nth-child(4n + 1) {
+  width: 2px;
+}
+.pr-barcode span:nth-child(4n + 2) {
+  width: 1px;
+}
+.pr-barcode span:nth-child(4n + 3) {
+  width: 3px;
+}
+.pr-barcode span:nth-child(4n) {
+  width: 1px;
+}
+.pr-thanks {
+  margin-top: 0.3rem;
+  padding-bottom: 0.35rem;
+  font-size: 0.4rem;
+  font-style: italic;
+  text-align: center;
+  color: #6b6b6b;
+}
+
+/* real product screenshot inside each device frame (cropped to fill, frame chrome unchanged) */
+.mock-screen {
+  position: absolute;
+  inset: 0.5rem;
+  border-radius: 0.5rem;
+  background: var(--ink-2);
+  overflow: hidden;
+}
+.mock-screen img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+.mock-topbar {
+  height: 0.5rem;
+  width: 40%;
+  border-radius: 3px;
+  background: rgb(var(--brand) / 0.9);
+  transition: background 0.3s ease;
+}
+.mock-row {
+  display: flex;
+  gap: 0.4rem;
+  flex: 1;
+}
+.mock-card {
+  flex: 1;
+  border-radius: 0.4rem;
+  background: var(--ink-3);
+  border: 1px solid var(--ink-line);
+  padding: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.mock-bar {
+  height: 0.3rem;
+  border-radius: 2px;
+  background: var(--ink-line-strong);
+}
+.mock-bar.accent {
+  background: rgb(var(--brand) / 0.85);
+  width: 60%;
+  transition: background 0.3s ease;
+}
+.mock-chart {
+  flex: 1;
+  border-radius: 0.35rem;
+  background: linear-gradient(180deg, rgb(var(--brand) / 0.28), transparent);
+  position: relative;
+  overflow: hidden;
+}
+.mock-chart::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 55%;
+  background: linear-gradient(90deg, transparent 0%, rgb(var(--brand) / 0.5) 40%, transparent 100%);
+  clip-path: polygon(0 60%, 15% 40%, 30% 55%, 45% 20%, 60% 45%, 75% 15%, 90% 35%, 100% 10%, 100% 100%, 0 100%);
+}
+
+/* ==========================================================================
+   Section scaffolding
+   ========================================================================== */
+section {
+  position: relative;
+}
+.section-pad {
+  padding: 6rem 0;
+}
+.on-paper {
+  background: var(--paper);
+  color: var(--text-on-paper);
+}
+.on-ink {
+  background: var(--ink);
+  color: var(--text-on-ink);
+}
+.section-head {
+  max-width: 42rem;
+  margin: 0 auto 3.2rem;
+  text-align: center;
+}
+.section-head h2 {
+  font-family: "Big Shoulders Display", sans-serif;
+  font-weight: 800;
+  font-size: clamp(2rem, 3.6vw, 2.9rem);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin-top: 0.8rem;
+}
+.section-head p {
+  margin-top: 1rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+.on-paper .section-head p {
+  color: var(--text-on-paper-muted);
+}
+.on-ink .section-head p {
+  color: var(--text-on-ink-muted);
+}
+.on-paper .eyebrow,
+.on-ink .eyebrow {
+  justify-content: center;
+}
+
+/* reveal-on-scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- count-up / fade-scale-in stat animation ----
+   Numeric stats ("10+", "5", "9", "2") count up from 0 via JS (initHeroStats()
+   in main.js); non-numeric ones ("AI", "₹", "24/7") just fade+scale in instead -
+   both triggered once, the first time their row scrolls into view (or
+   immediately, since the hero-trust row normally sits above the fold on first
+   paint). Used by both the hero-trust row near the CTA buttons AND the separate
+   stats band further down the page - not scoped to .hero-trust-item, since it's
+   the exact same visual treatment either place a .count-fade number appears. The
+   global prefers-reduced-motion block above already zeroes this transition's
+   duration; JS additionally skips the requestAnimationFrame count loop entirely
+   in that case, so the number just appears at its final value with no animated
+   counting either. */
+.num.count-fade {
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.num.count-fade.in {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ---- reveal-scale ----
+   A scale-in variant of the plain .reveal fade-up above, for a small handful
+   of compact/decorative elements (currently just the "Make It Yours" theme-
+   preview-card's little chart mockup) where a scale reads better than a
+   vertical slide. Picked up automatically by the exact same .reveal
+   IntersectionObserver in initReveal() (main.js) - only the transform value
+   differs, so no JS changes were needed to wire this up. */
+.reveal.reveal-scale {
+  transform: scale(0.9);
+}
+.reveal.reveal-scale.in {
+  transform: scale(1);
+}
+
+/* ---- staggered feature-list bullet reveal ----
+   Each <li> starts hidden/offset and is flipped to .in by the SAME initReveal()
+   IntersectionObserver that already reveals the whole .feature-row - see main.js's
+   staggerReveal(), which also assigns each li a slightly later transition-delay so
+   they cascade in one after another instead of all at once. transition-delay isn't
+   touched by the reduced-motion block's transition-duration override, so main.js
+   itself skips assigning any delay when prefers-reduced-motion is set - otherwise a
+   visible pause-then-instant-pop would slip through even with motion "disabled". */
+.feature-list li {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.feature-list li.in {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ---- FAQ: staggered item reveal + rotating chevron ----
+   .faq-item gets the identical cascade treatment as .feature-list li just
+   above (same staggerReveal() in main.js, same .reveal parent it's nested
+   inside) - a touch more offset/delay since each <details> is a much bigger
+   block than a one-line bullet, so a slower, more deliberate cascade reads
+   better here than the quick bullet-flick. */
+.faq-item {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.faq-item.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Native <details>/<summary> markers can't be animated directly, so the
+   default disclosure triangle is hidden (list-style:none covers Firefox's
+   ::marker rendering, ::-webkit-details-marker covers older Chromium/Safari)
+   and replaced with a plain chevron SVG (index.html) that rotates via the
+   [open] attribute selector instead - a transform transition, unlike the
+   native marker, actually has something to animate. Covered by the global
+   prefers-reduced-motion block up top like every other transition on this
+   page (forced to ~0s), so it still flips instantly rather than sweeping. */
+#faq summary {
+  list-style: none;
+}
+#faq summary::-webkit-details-marker {
+  display: none;
+}
+.faq-chevron {
+  flex-shrink: 0;
+  color: var(--text-on-paper-muted);
+  transition: transform 0.3s ease;
+}
+#faq details[open] .faq-chevron {
+  transform: rotate(180deg);
+}
+
+/* ==========================================================================
+   Stats band
+   ========================================================================== */
+.stats-band {
+  padding: 3rem 0;
+  border-top: 1px solid var(--paper-line);
+  border-bottom: 1px solid var(--paper-line);
+}
+.stats-grid {
+  display: grid;
+  /* minmax(0, 1fr), not a bare 1fr - see .theme-showcase's own comment for
+     why a plain fr track can't shrink below its content's min-content width
+     (the exact bug found twice already in this file during verification). */
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1.5rem;
+  text-align: center;
+}
+.stats-grid > * {
+  min-width: 0;
+}
+.stats-grid .num {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 600;
+  font-size: 2rem;
+  color: rgb(var(--brand-on-surface));
+  transition: color 0.3s ease;
+}
+.stats-grid .label {
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: var(--text-on-paper-muted);
+  margin-top: 0.3rem;
+}
+
+/* ==========================================================================
+   Feature stories (alternating image/text rows)
+   ========================================================================== */
+.feature-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 3.5rem;
+  align-items: center;
+  padding: 3.2rem 0;
+}
+.feature-row:not(:last-child) {
+  border-bottom: 1px solid var(--ink-line);
+}
+.feature-row.flip .feature-visual {
+  order: 2;
+}
+.feature-tag {
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 0.6rem;
+  background: rgb(var(--brand) / 0.14);
+  border: 1px solid rgb(var(--brand) / 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 700;
+  font-size: 0.78rem;
+  /* --brand-on-surface - same fix as .eyebrow above; the translucent 14%
+     background tint is faint enough that this number still effectively
+     sits on the underlying ink/paper surface color, so it needs the same
+     mode-aware swap. */
+  color: rgb(var(--brand-on-surface));
+  margin-bottom: 1.1rem;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+.feature-copy h3 {
+  font-family: "Big Shoulders Display", sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+  margin-bottom: 0.8rem;
+}
+.feature-copy p {
+  color: var(--text-on-ink-muted);
+  line-height: 1.65;
+  font-size: 1rem;
+}
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.1rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.feature-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-size: 0.92rem;
+  color: var(--text-on-ink-muted);
+}
+.feature-list li::before {
+  content: "";
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: rgb(var(--brand));
+  flex-shrink: 0;
+  transform: translateY(-2px);
+  transition: background 0.3s ease;
+}
+
+.feature-visual {
+  background: var(--ink-2);
+  border: 1px solid var(--ink-line-strong);
+  border-radius: 1rem;
+  padding: 1.4rem;
+  box-shadow: var(--shadow-md);
+}
+.visual-window {
+  border-radius: 0.6rem;
+  overflow: hidden;
+  border: 1px solid var(--ink-line);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+/* Purely decorative hover lift on the browser-chrome-framed screenshots - hovering
+   anywhere on the padded .feature-visual card (not just the window itself) scales the
+   window up a touch and lifts its shadow, same easing as the hero device float. Transform
+   only, so it never affects layout/reflow of anything around it. */
+.feature-visual:hover .visual-window {
+  transform: scale(1.02);
+  box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.4);
+}
+.visual-titlebar {
+  height: 1.8rem;
+  background: var(--ink-3);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0 0.7rem;
+  border-bottom: 1px solid var(--ink-line);
+}
+.visual-titlebar span {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--ink-line-strong);
+}
+.visual-body {
+  background: var(--ink);
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+/* real product screenshot filling the browser-chrome frame - same object-fit:cover +
+   object-position:top-center pattern as .mock-screen img (hero) and .stage-screen img
+   (device showcase) above, so all three "real screenshot in a frame" spots on the page
+   behave identically. */
+.visual-body img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* ==========================================================================
+   Device showcase (mobile / tablet / desktop tabs)
+   ========================================================================== */
+.device-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2.4rem;
+}
+/* flex-wrap above handles the common case (3 pills dropping to a second
+   line at narrow widths), but a flex item's default min-width:auto still
+   refuses to shrink below its own unbreakable label - Tamil's "Desktop"
+   translation (a single, space-less compound word) doesn't have a natural
+   break point, so at 390px it held the flex row to its full unwrapped
+   width and pushed the third pill 33px past the viewport edge even before
+   flex-wrap could act (found in a verification pass: reproduced only after
+   switching language to Tamil at 390px, not on a fresh English load).
+   min-width:0 + overflow-wrap on the label lets a single pill itself
+   shrink/break as a last resort if a future translation is ever wider than
+   the viewport alone. */
+.device-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  padding: 0.65rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid var(--paper-line);
+  background: var(--paper-panel);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text-on-paper-muted);
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+}
+.device-tab span {
+  overflow-wrap: break-word;
+}
+.device-tab[aria-selected="true"] {
+  background: rgb(var(--brand));
+  border-color: rgb(var(--brand));
+  /* #0c121a, not #fff - matches the dark text already used on every other
+     rgb(var(--brand)) solid-fill surface on the page (.btn-solid,
+     .theme-preview-btn). White text here measured as low as 2.52:1 against
+     the Orange theme's brand color (fails even the large-text 3:1 minimum) -
+     dark text stays a comfortable >=3.5:1 across all 6 themes (found in a
+     verification pass). */
+  color: #0c121a;
+}
+.device-tab:active {
+  transform: scale(0.95);
+}
+.device-stage {
+  display: flex;
+  justify-content: center;
+  min-height: 30rem;
+  align-items: flex-end;
+  position: relative;
+}
+.stage-frame {
+  background: #1a1f26;
+  border: 10px solid #1a1f26;
+  border-radius: 1.4rem;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(24px) scale(0.98);
+  /* opacity at ~250ms drives the actual crossfade between the outgoing and
+     incoming frame when initDeviceTabs() (main.js) toggles .active - all 3
+     frames stay in the DOM simultaneously (this one just at opacity:0,
+     position:absolute) so the fade genuinely overlaps rather than cutting.
+     transform kept a touch longer so the incoming frame's settle-into-place
+     reads as one continuous motion instead of finishing early. */
+  transition: opacity 0.25s ease, transform 0.35s ease;
+  position: absolute;
+  bottom: 0;
+}
+.stage-frame.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  position: relative;
+}
+.stage-frame[data-frame="desktop"] {
+  width: 46rem;
+  max-width: 92vw;
+  aspect-ratio: 16 / 9.6;
+  border-width: 12px;
+  border-radius: 0.8rem;
+}
+.stage-frame[data-frame="tablet"] {
+  width: 22rem;
+  aspect-ratio: 3 / 4;
+}
+.stage-frame[data-frame="mobile"] {
+  width: 15.5rem;
+  aspect-ratio: 9 / 18.5;
+  border-width: 8px;
+  border-radius: 1.8rem;
+}
+.stage-screen {
+  width: 100%;
+  height: 100%;
+  background: var(--ink);
+  overflow: hidden;
+}
+.stage-screen img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* ---- "page" stage frame (the 7 non-Dashboard feature screenshots) ----
+   Same footprint as the desktop dashboard frame - all 7 captures share the
+   same 960x600 size, so one frame does for all of them; which one shows is
+   just which .page-shot inside carries .active-shot (see .page-shot below). */
+.stage-frame[data-frame="page"] {
+  width: 46rem;
+  max-width: 92vw;
+  aspect-ratio: 16 / 9.6;
+  border-width: 12px;
+  border-radius: 0.8rem;
+}
+.page-shot-stack {
+  position: relative;
+}
+/* All 7 images stay mounted and stacked directly on top of one another
+   (position:absolute, same inset) - only .active-shot is visible. This is
+   what makes page-to-page clicks (e.g. Billing -> Reports) crossfade at the
+   IMAGE level: the frame itself never becomes inactive (data-frame="page"
+   stays .active the whole time), so the frame-level crossfade the desktop/
+   tablet/mobile frames already use wouldn't fire for this case - this inner
+   opacity transition is what covers it instead. Switching TO or FROM this
+   frame (e.g. Dashboard -> Billing) still also gets the outer .stage-frame
+   crossfade for free, unchanged from the existing device-tab mechanism. */
+.page-shot {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.page-shot.active-shot {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ==========================================================================
+   Device showcase - "page" pager (Dashboard/Billing/Inventory/... pills)
+   ========================================================================== */
+.demo-pager {
+  margin-bottom: 1.6rem;
+}
+.demo-pager-viewing {
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-on-paper-muted);
+  margin-bottom: 1rem;
+}
+.demo-pager-viewing strong {
+  color: rgb(var(--brand-on-surface));
+}
+/* Toggled by JS (initDemoPager() in main.js) every time the selected page
+   changes - removed and re-added (with a forced reflow) so a rapid run of
+   clicks restarts the animation each time rather than only playing once.
+   Same remove/reflow/add pattern as the swatch click-ring above; the global
+   prefers-reduced-motion block already zeroes the animation-duration, and
+   main.js additionally skips adding the class at all in that case. */
+.demo-pager-viewing.pop {
+  animation: viewing-label-pop 0.4s ease;
+}
+@keyframes viewing-label-pop {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.page-tabs-scroll {
+  position: relative;
+}
+.page-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.page-tab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid var(--paper-line);
+  background: var(--paper-panel);
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--text-on-paper-muted);
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+}
+.page-tab span {
+  overflow-wrap: break-word;
+}
+.page-tab[aria-selected="true"] {
+  background: rgb(var(--brand));
+  border-color: rgb(var(--brand));
+  /* #0c121a, not #fff - same contrast fix as .device-tab[aria-selected="true"] above. */
+  color: #0c121a;
+}
+.page-tab:active {
+  transform: scale(0.95);
+}
+/* ---- pulsing selection ring ----
+   A distinct animation from the hero CTA's box-shadow "breathing" glow
+   (cta-glow-pulse further up) - this one is an expanding-and-fading ring
+   drawn with a pseudo-element border, closer to the swatch click-ring than
+   the CTA glow, but continuous/looping rather than a single-shot click
+   response. Purely decorative (aria-hidden via pointer-events:none, and it
+   duplicates information already carried by aria-selected), so it's exactly
+   the kind of thing the global prefers-reduced-motion block up top should
+   swallow entirely - which it already does (animation-duration forced to
+   0.001ms), no extra JS gating needed. */
+.page-tab[aria-selected="true"]::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  border: 2px solid rgb(var(--brand));
+  opacity: 0.6;
+  pointer-events: none;
+  animation: page-tab-ring 2.2s ease-out infinite;
+}
+@keyframes page-tab-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  70%,
+  100% {
+    transform: scale(1.16);
+    opacity: 0;
+  }
+}
+/* ---- narrow-viewport treatment: horizontally-scrollable pill strip ----
+   8 pills genuinely can't fit one row at 375-390px even after wrapping
+   without looking cramped across 3+ rows - a swipeable chip strip (a common,
+   well-understood mobile pattern) reads cleaner than a tall pill block above
+   the stage. The right-edge gradient hints there's more to scroll to; it
+   fades into --paper since this section (#devices) is always .on-paper. */
+@media (max-width: 640px) {
+  .page-tabs {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    padding: 0.15rem 0.15rem 0.5rem;
+  }
+  .page-tab {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+  .page-tabs-scroll::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0.5rem;
+    width: 2.4rem;
+    background: linear-gradient(90deg, transparent, var(--paper) 82%);
+    pointer-events: none;
+  }
+}
+/* While a non-Dashboard page is selected, the device-size tabs no longer
+   apply (every non-Dashboard capture only exists at one size) - hidden
+   outright rather than left clickable-but-inert, so there's nothing to be
+   confused by. initDemoPager() (main.js) toggles this class on #deviceTabs;
+   re-selecting Dashboard removes it again. */
+.device-tabs.demo-hidden {
+  display: none;
+}
+
+/* ==========================================================================
+   Theme showcase ("Make it yours")
+   ========================================================================== */
+.theme-showcase {
+  display: grid;
+  /* minmax(0, ...) not a bare fr - an implicit grid track's minimum size
+     defaults to "auto" (the largest min-content of anything inside it), not
+     0, so without this a track can never shrink below its widest child's
+     natural content width. That's exactly what still overflowed the page by
+     30px at mobile width even after theme-option itself got min-width:0 -
+     the OTHER column, .theme-preview-card, was the one holding the track
+     open (found in a verification pass). */
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 3rem;
+  align-items: center;
+}
+.theme-picker-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.theme-option {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.85rem 1rem;
+  border-radius: 0.7rem;
+  border: 1px solid var(--ink-line);
+  background: var(--ink-2);
+  text-align: left;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.1s ease;
+  color: var(--text-on-ink);
+  /* A flex item's default min-width is auto (its content's min-content size),
+     not 0 - the "sub" description text's min-content width was wider than
+     the available column at narrow viewports, so the whole row refused to
+     shrink and forced a real page-wide horizontal scrollbar at 390px
+     (found in a verification pass). min-width:0 lets it actually shrink to
+     fit; overflow-wrap on the text span (below) lets long words wrap
+     instead of overflowing once it does. */
+  min-width: 0;
+  width: 100%;
+}
+.theme-option-text {
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+.theme-option:hover {
+  border-color: var(--ink-line-strong);
+}
+.theme-option:active {
+  transform: scale(0.95);
+}
+.theme-option[aria-pressed="true"] {
+  border-color: rgb(var(--brand));
+  background: rgb(var(--brand) / 0.1);
+}
+.theme-option .dot {
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.theme-option .name {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.theme-option .sub {
+  font-size: 0.78rem;
+  color: var(--text-on-ink-muted);
+}
+.theme-preview-card {
+  background: var(--ink-2);
+  border: 1px solid var(--ink-line-strong);
+  border-radius: 1rem;
+  padding: 1.6rem;
+  box-shadow: var(--shadow-md);
+  min-width: 0;
+}
+.theme-preview-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+}
+.theme-preview-badge {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.75rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  background: rgb(var(--brand) / 0.16);
+  /* --brand-on-surface - same fix as .eyebrow above; measured as low as
+     2.29:1 in light mode (Orange theme) against this card's --ink-2
+     surface, found in a verification pass. */
+  color: rgb(var(--brand-on-surface));
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.theme-preview-kpis {
+  display: grid;
+  /* minmax(0,1fr) - the "Collections ₹ 9,050" mono figure's min-content
+     width held this track open past the viewport edge at 390px even after
+     .theme-preview-card itself got min-width:0 (found in a verification
+     pass - fixing the parent card wasn't enough, this nested grid needed
+     the identical fix one level deeper). */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+.tp-kpi {
+  background: var(--ink-3);
+  border: 1px solid var(--ink-line);
+  border-radius: 0.6rem;
+  padding: 0.8rem;
+  min-width: 0;
+}
+.tp-kpi .tp-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-on-ink-muted);
+}
+.tp-kpi .tp-val {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 600;
+  font-size: 1.15rem;
+  color: var(--text-on-ink);
+  margin-top: 0.3rem;
+}
+/* tp-kpi-brand, NOT tp-kpi.brand - the bare .brand class already means
+   something completely different (the header/footer logo lockup's own
+   flex-row layout, css/styles.css's own .brand rule) and matching it here
+   by name collision silently flipped this KPI box into a squashed flex row,
+   overflowing its own value text into the next box (found in a
+   verification pass - the number rendered as "₹ 18,2" with "40" hidden
+   under the neighboring card). Renamed to a name that can't collide with
+   anything else on the page. */
+.tp-kpi-brand .tp-val {
+  color: rgb(var(--brand-on-surface));
+  transition: color 0.3s ease;
+}
+.theme-preview-btn {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 0.6rem;
+  background: rgb(var(--brand));
+  color: #0c121a;
+  font-weight: 700;
+  text-align: center;
+  transition: background 0.3s ease;
+}
+
+/* ==========================================================================
+   CTA + footer
+   ========================================================================== */
+.cta-band {
+  padding: 5.5rem 0;
+  text-align: center;
+  background: radial-gradient(ellipse 60% 100% at 50% 100%, rgb(var(--brand-glow) / var(--glow-cta-opacity)), transparent 70%), var(--ink);
+  transition: background 0.4s ease;
+}
+.cta-band h2 {
+  font-family: "Big Shoulders Display", sans-serif;
+  font-weight: 800;
+  font-size: clamp(2rem, 4vw, 3rem);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+.cta-band p {
+  margin: 1rem auto 2rem;
+  max-width: 34rem;
+  color: var(--text-on-ink-muted);
+  font-size: 1.05rem;
+}
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ---- farm-scene decorative illustration (CTA band only) ----
+   Pure CSS-animated inline SVG (no SMIL) so the existing global
+   prefers-reduced-motion block up top - which forces every CSS animation's
+   duration to 0.001ms - freezes this too, automatically, the same way it
+   already freezes the hero's floating device mockups. */
+.farm-scene-wrap {
+  max-width: 44rem;
+  margin: 0 auto 2rem;
+}
+.farm-scene {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.farm-sun-glow {
+  transform-origin: 140px 60px;
+  animation: farm-sun-pulse 4s ease-in-out infinite;
+}
+.farm-cloud-1 {
+  animation: farm-cloud-drift 15s ease-in-out infinite;
+}
+.farm-cloud-2 {
+  animation: farm-cloud-drift 19s ease-in-out infinite reverse;
+}
+.farm-crop {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation: farm-crop-sway 3.4s ease-in-out infinite;
+}
+@keyframes farm-sun-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(1.08);
+  }
+}
+@keyframes farm-cloud-drift {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-22px);
+  }
+}
+@keyframes farm-crop-sway {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+}
+
+/* ---- contact form ---- */
+.contact-form {
+  max-width: 34rem;
+  margin: 0 auto;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+/* [hidden] on its own would normally win via the UA stylesheet, but an
+   author rule that sets `display` (like the flex above) beats a UA rule at
+   equal specificity regardless of source order - so the plain [hidden]
+   attribute alone does NOT hide an element that also has its own display
+   rule. Needs an explicit, higher-specificity override here (found in a
+   verification pass - the success state and the form both rendered at the
+   same time because of this exact conflict). */
+.contact-form[hidden] {
+  display: none;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.1rem;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+}
+.field label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-on-ink-muted);
+}
+.field input,
+.field textarea {
+  width: 100%;
+  border-radius: 0.6rem;
+  border: 1px solid var(--ink-line-strong);
+  background: var(--ink-2);
+  color: var(--text-on-ink);
+  padding: 0.7rem 0.9rem;
+  font: inherit;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease;
+}
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: rgb(var(--brand));
+}
+.field textarea {
+  resize: vertical;
+  min-height: 6rem;
+}
+.field-error {
+  display: block;
+  min-height: 1.1em;
+  font-size: 0.8rem;
+  color: var(--danger);
+}
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.form-status {
+  font-size: 0.88rem;
+  color: var(--text-on-ink-muted);
+}
+.form-status.is-error {
+  color: var(--danger);
+}
+.cta-alt-contact {
+  margin: 1.6rem 0 0;
+  font-size: 0.9rem;
+  color: var(--text-on-ink-muted);
+}
+.cta-alt-contact a {
+  /* --brand-on-surface - same fix as .eyebrow above; this is real contact
+     info (the fallback email address), so a washed-out light-mode Orange/
+     Blue/Teal link here is a genuine usability issue, not just a cosmetic
+     one. */
+  color: rgb(var(--brand-on-surface));
+  font-weight: 600;
+}
+.cta-alt-contact a:hover {
+  text-decoration: underline;
+}
+
+/* ---- contact success state ---- */
+.contact-success {
+  max-width: 28rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+/* see the matching comment on .contact-form[hidden] above - same fix. */
+.contact-success[hidden] {
+  display: none;
+}
+.contact-success p {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-on-ink);
+}
+.success-check {
+  width: 4rem;
+  height: 4rem;
+}
+.success-check-circle {
+  stroke: var(--success);
+  stroke-width: 3;
+  stroke-dasharray: 151;
+  stroke-dashoffset: 151;
+  animation: success-circle-draw 0.6s ease forwards;
+}
+.success-check-mark {
+  stroke: var(--success);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 40;
+  stroke-dashoffset: 40;
+  animation: success-mark-draw 0.4s ease 0.5s forwards;
+}
+@keyframes success-circle-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes success-mark-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.site-footer {
+  background: var(--footer-bg);
+  padding: 3.5rem 0 2rem;
+  border-top: 1px solid var(--ink-line);
+}
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding-bottom: 2.2rem;
+  border-bottom: 1px solid var(--ink-line);
+}
+.footer-brand p {
+  color: var(--text-on-ink-muted);
+  font-size: 0.9rem;
+  max-width: 22rem;
+  margin-top: 0.8rem;
+  line-height: 1.6;
+}
+.footer-cols {
+  display: flex;
+  gap: 3.5rem;
+  flex-wrap: wrap;
+}
+.footer-col h4 {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-on-ink-muted);
+  margin-bottom: 0.9rem;
+}
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.footer-col a {
+  font-size: 0.88rem;
+  color: var(--text-on-ink);
+  transition: color 0.2s ease;
+}
+.footer-col a:hover {
+  color: rgb(var(--brand));
+}
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  padding-top: 1.6rem;
+  font-size: 0.8rem;
+  color: var(--text-on-ink-muted);
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (max-width: 960px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+  .device-cluster {
+    height: 22rem;
+    margin-top: 1rem;
+  }
+  .feature-row {
+    grid-template-columns: 1fr;
+    gap: 1.8rem;
+  }
+  .feature-row.flip .feature-visual {
+    order: 0;
+  }
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.8rem 1rem;
+  }
+  .theme-showcase {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .footer-top {
+    flex-direction: column;
+  }
+}
+/* Nav/hamburger cutover gets its OWN, wider breakpoint - the full nav (4 links
+   + 6 theme swatches + a Get Started button) genuinely needs close to 1024px
+   to lay out without crowding. A prior version tied this to the same 720px
+   breakpoint as the device-mockup size tweaks below, leaving a real "dead
+   zone" from ~721-870px where the desktop nav no longer fit but the
+   hamburger hadn't kicked in yet - "GO" touching "Features", "FAQ" touching
+   the first swatch, uneven line-wrapping (found in a verification pass). */
+@media (max-width: 1024px) {
+  .nav-links,
+  .nav-right .btn-ghost,
+  .nav-right .swatches,
+  .nav-right .mode-toggle,
+  .nav-right .lang-select {
+    display: none;
+  }
+  .nav-toggle {
+    display: flex;
+  }
+  .mobile-menu {
+    display: flex;
+  }
+}
+@media (min-width: 1025px) {
+  .mobile-menu {
+    display: none !important;
+  }
+}
+@media (max-width: 720px) {
+  .hero {
+    padding-top: 7.5rem;
+  }
+  .device-laptop {
+    width: 20rem;
+  }
+  .device-tablet {
+    width: 8rem;
+  }
+  .device-phone {
+    width: 6rem;
+  }
+  /* Same ~78% scale-down as the laptop/tablet/phone rules just above,
+     applied to the printer's own housing/receipt dimensions and font sizes
+     instead of a blanket transform:scale() - keeps text crisp and the torn-
+     edge clip-path proportions correct rather than just shrinking a raster
+     of them. */
+  .device-printer {
+    left: 0.2rem;
+    top: 13rem;
+  }
+  .printer-housing {
+    width: 5.5rem;
+    height: 2.5rem;
+  }
+  .printer-slot {
+    width: 4.4rem;
+    height: 0.24rem;
+    bottom: 0.42rem;
+  }
+  .printer-led {
+    width: 0.3rem;
+    height: 0.3rem;
+    top: 0.38rem;
+    right: 0.46rem;
+  }
+  .printer-receipt-outer,
+  .printer-receipt {
+    --pr-full-h: 6.8rem;
+  }
+  .printer-receipt-outer {
+    width: 4.4rem;
+  }
+  .pr-store,
+  .pr-total {
+    font-size: 0.38rem;
+  }
+  .pr-line,
+  .pr-thanks {
+    font-size: 0.34rem;
+  }
+  .pr-qr {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+  .pr-barcode {
+    height: 0.4rem;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Toggled on <body> for as long as the mobile drawer is open (js/main.js
+   initMobileNav) - stops the page behind it from scrolling, which previously
+   let the body's own scrollbar track show/compete with the drawer's edge. */
+body.menu-open {
+  overflow: hidden;
+}
+
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.5rem 1.5rem 1.4rem;
+  border-bottom: 1px solid var(--ink-line);
+  /* Positioned OUT of .site-header's own normal flow (top:100%, anchored to
+     the fixed header's own containing block) rather than as a flow sibling
+     of .wrap - toggling this used to grow/shrink the fixed, backdrop-
+     blurred header's own box on every open/close, and Chromium doesn't
+     always recomposite a blurred fixed box cleanly when its bounds change
+     via a JS display toggle - reproduced as the swatch row rendering as
+     clipped slivers with page text bleeding through, in both headless AND
+     headed Chromium (found in a verification pass). A solid (non-blurred)
+     background of its own sidesteps the same bug class entirely, and the
+     header bar itself now stays a constant height whether the menu is open
+     or not. */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: calc(100vh - 4.25rem);
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  background: var(--ink-2);
+  box-shadow: var(--shadow-md);
+}
+.mobile-menu::-webkit-scrollbar {
+  display: none;
+}
+/* :not(.swatch) - without this, the 6 theme-color swatch buttons nested
+   inside .mobile-menu .swatches also matched this generic nav-item rule.
+   .mobile-menu button (specificity 0,1,1) beat .swatch/.swatch-green's own
+   background color (0,1,0), blanking every swatch to transparent, and the
+   inherited padding distorted their declared 1.15rem circle into an oval -
+   the theme-color previews were invisible, colorless shapes in the mobile
+   menu even though clicking them still worked (found in a verification
+   pass). The swatches keep their own complete styling now, untouched. */
+.mobile-menu a,
+.mobile-menu button:not(.swatch):not(.mode-toggle) {
+  padding: 0.8rem 0.2rem;
+  font-weight: 600;
+  color: var(--text-on-ink);
+  border-bottom: 1px solid var(--ink-line);
+  text-align: left;
+  background: none;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+}
+.mobile-menu .swatches {
+  padding: 0.9rem 0.2rem;
+}
+.mobile-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.9rem 0.2rem 1.1rem;
+  border-bottom: 1px solid var(--ink-line);
+}
