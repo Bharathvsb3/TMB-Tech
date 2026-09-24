@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page="home">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TMB Tech | Software & Technology Solutions</title>
+<script src="js/settings.js"></script>
+<!-- seo:start | generated from settings.json by tools/render.py, do not edit by hand -->
+<title>TMB Tech | Software &amp; Technology Solutions</title>
 <meta name="description" content="TMB Tech builds business applications, ERP systems, mobile apps, web applications and custom software. Products: LedGo ERP, GasOne and JB One.">
-<meta name="theme-color" content="#2563eb">
+<meta name="author" content="TMB Tech">
 <link rel="canonical" href="https://bharathvsb3.github.io/TMB-Tech/">
-
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_IN">
 <meta property="og:url" content="https://bharathvsb3.github.io/TMB-Tech/">
@@ -24,83 +25,14 @@
 <meta name="twitter:description" content="TMB Tech builds business applications, ERP systems, mobile apps, web applications and custom software. Products: LedGo ERP, GasOne and JB One.">
 <meta name="twitter:image" content="https://bharathvsb3.github.io/TMB-Tech/assets/og/tmb-tech.jpg">
 <meta name="twitter:image:alt" content="TMB Tech: software and technology solutions. Products: LedGo ERP, GasOne and JB One.">
-
-
+<!-- seo:end -->
+<meta name="theme-color" content="#2563eb">
 
 <link rel="icon" type="image/png" sizes="48x48" href="assets/logo/favicon-48.png">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/logo/favicon-192.png">
 <link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png">
 <link rel="stylesheet" href="css/style.css">
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "TMB Tech",
-  "url": "https://bharathvsb3.github.io/TMB-Tech/",
-  "inLanguage": "en-IN",
-  "publisher": { "@type": "Organization", "name": "TMB Tech", "logo": "https://bharathvsb3.github.io/TMB-Tech/assets/logo/logo.png" }
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "TMB Tech",
-  "url": "https://bharathvsb3.github.io/TMB-Tech/",
-  "logo": "https://bharathvsb3.github.io/TMB-Tech/assets/logo/logo.png",
-  "image": "https://bharathvsb3.github.io/TMB-Tech/assets/logo/logo.png",
-  "email": "Bharathvsb3@gmail.com",
-  "telephone": "+91-75503-56255",
-  "founder": { "@type": "Person", "name": "Bharath Sankar" },
-  "sameAs": [
-    "https://github.com/Bharathvsb3/",
-    "https://www.linkedin.com/in/bharath-s-52266620b"
-  ],
-  "description": "TMB Tech builds business applications, ERP systems, mobile apps, web applications and custom software solutions."
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "itemListElement": [
-    {
-      "@type": "SoftwareApplication",
-      "position": 1,
-      "name": "LedGo ERP",
-      "description": "LedGo ERP is a business management platform designed to help retailers manage daily operations from a centralized system.",
-      "applicationCategory": "BusinessApplication",
-      "operatingSystem": "Android, Web",
-      "image": "https://bharathvsb3.github.io/TMB-Tech/assets/products/ledgo.png",
-      "url": "https://bharathvsb3.github.io/TMB-Tech/ledgo-erp/",
-      "author": { "@type": "Organization", "name": "TMB Tech", "url": "https://bharathvsb3.github.io/TMB-Tech/" }
-    },
-    {
-      "@type": "SoftwareApplication",
-      "position": 2,
-      "name": "GasOne",
-      "description": "GasOne is designed to simplify daily LPG gas agency operations and collection management.",
-      "applicationCategory": "BusinessApplication",
-      "operatingSystem": "Android",
-      "image": "https://bharathvsb3.github.io/TMB-Tech/assets/products/gasone.png",
-      "url": "https://bharathvsb3.github.io/TMB-Tech/gasone/",
-      "author": { "@type": "Organization", "name": "TMB Tech", "url": "https://bharathvsb3.github.io/TMB-Tech/" }
-    },
-    {
-      "@type": "SoftwareApplication",
-      "position": 3,
-      "name": "JB One",
-      "description": "JB One is a jewellery business application, available as both a mobile app and a web app with an online catalogue, designed to simplify jewellery-related business operations and management workflows.",
-      "applicationCategory": "BusinessApplication",
-      "operatingSystem": "Android, Web",
-      "image": "https://bharathvsb3.github.io/TMB-Tech/assets/products/jbone.png",
-      "url": "https://bharathvsb3.github.io/TMB-Tech/jb-one/",
-      "author": { "@type": "Organization", "name": "TMB Tech", "url": "https://bharathvsb3.github.io/TMB-Tech/" }
-    }
-  ]
-}
-</script>
 </head>
 <body>
 
@@ -110,8 +42,8 @@
 
 <header class="site-header" id="site-header">
   <div class="container header-inner">
-    <a href="#home" class="logo" aria-label="TMB Tech, back to home">
-      <img src="assets/logo/logo.png" alt="TMB Tech" class="logo-img">
+    <a href="#home" class="logo" aria-label="{{company.name}}, back to home">
+      <img src="assets/logo/logo.png" alt="{{company.name}}" class="logo-img">
     </a>
 
     <nav class="main-nav" id="main-nav" aria-label="Primary">
@@ -147,7 +79,7 @@
       <div class="hero-content">
         <p class="eyebrow">Software &amp; Technology Solutions</p>
         <h1>Building Digital Solutions for Modern Businesses</h1>
-        <p class="hero-text">TMB Tech builds practical software solutions for businesses, combining modern applications, powerful backend systems and reliable data management.</p>
+        <p class="hero-text">{{company.name}} builds practical software solutions for businesses, combining modern applications, powerful backend systems and reliable data management.</p>
         <div class="hero-actions">
           <a href="#products" class="btn btn-primary">Explore Products</a>
           <a href="#projects" class="btn btn-secondary">View Projects</a>
@@ -162,7 +94,7 @@
           <div class="device-mock app-panel parallax-el" data-speed="0.05">
             <div class="app-panel-head">
               <div class="device-bar"><span></span><span></span><span></span></div>
-              <span class="app-panel-title">TMB Tech Products</span>
+              <span class="app-panel-title">{{company.name}} Products</span>
             </div>
 
             <div class="app-row">
@@ -216,7 +148,7 @@
   </section>
 
   <!-- AT A GLANCE -->
-  <section class="stats" aria-label="TMB Tech at a glance">
+  <section class="stats" aria-label="{{company.name}} at a glance">
     <div class="container stats-grid">
       <div class="stat reveal">
         <span class="stat-num" data-count="3">3</span>
@@ -242,7 +174,7 @@
     <div class="container intro-inner reveal">
       <div class="intro-text">
         <h2>Software Built Around Real Business Needs</h2>
-        <p>TMB Tech develops software focused on practical business workflows. From daily billing and inventory to fleet operations and customer management, our applications are built to fit the way businesses actually work.</p>
+        <p>{{company.name}} develops software focused on practical business workflows. From daily billing and inventory to fleet operations and customer management, our applications are built to fit the way businesses actually work.</p>
       </div>
       <ul class="intro-tags">
         <li>Billing</li>
@@ -279,7 +211,7 @@
           <ul class="tech-tags">
             <li>Flutter</li><li>ASP.NET Core</li><li>SQL Server</li><li>REST API</li>
           </ul>
-          <a href="ledgo-erp/" class="btn btn-outline">Visit LedGo ERP site &rarr;</a>
+          <a href="{{products.ledgo-erp.url}}" class="btn btn-outline">Visit LedGo ERP site &rarr;</a>
         </article>
 
         <article class="product-card reveal" data-tilt>
@@ -292,7 +224,7 @@
           <ul class="tech-tags">
             <li>Flutter</li><li>ASP.NET Core</li><li>SQLite</li><li>REST API</li>
           </ul>
-          <a href="gasone/" class="btn btn-outline">Visit GasOne site &rarr;</a>
+          <a href="{{products.gasone.url}}" class="btn btn-outline">Visit GasOne site &rarr;</a>
         </article>
 
         <article class="product-card reveal" data-tilt>
@@ -306,7 +238,7 @@
           <ul class="tech-tags">
             <li>Flutter</li><li>ASP.NET Core</li><li>SQL</li>
           </ul>
-          <a href="jb-one/" class="btn btn-outline">Visit JB One site &rarr;</a>
+          <a href="{{products.jb-one.url}}" class="btn btn-outline">Visit JB One site &rarr;</a>
         </article>
 
       </div>
@@ -359,7 +291,7 @@
   <section class="section why">
     <div class="container">
       <div class="section-head reveal">
-        <p class="eyebrow">Why TMB Tech</p>
+        <p class="eyebrow">Why {{company.name}}</p>
         <h2>One team, from the first screen to the database</h2>
         <p>We design, build and maintain the whole stack ourselves, so the app, the portal and the backend are made to work together from day one.</p>
       </div>
@@ -547,9 +479,9 @@
   <section class="section section-alt" id="about">
     <div class="container about-inner reveal">
       <div class="section-head section-head-left">
-        <h2>About TMB Tech</h2>
+        <h2>About {{company.name}}</h2>
       </div>
-      <p class="about-lead">TMB Tech focuses on building practical software solutions that help businesses simplify operations, manage information efficiently and move their workflows into reliable digital systems.</p>
+      <p class="about-lead">{{company.name}} focuses on building practical software solutions that help businesses simplify operations, manage information efficiently and move their workflows into reliable digital systems.</p>
 
       <ul class="capability-grid">
         <li>Business Applications</li>
@@ -563,10 +495,10 @@
       <div class="founder-note">
         <div class="founder-avatar" aria-hidden="true">B</div>
         <div>
-          <p class="founder-name">Bharath Sankar</p>
-          <p class="founder-role">Founder &amp; Developer, TMB Tech</p>
+          <p class="founder-name">{{company.founder.name}}</p>
+          <p class="founder-role">{{company.founder.role}}, {{company.name}}</p>
         </div>
-        <a href="mailto:Bharathvsb3@gmail.com" class="founder-email">Bharathvsb3@gmail.com</a>
+        <a href="mailto:{{company.contact.email}}" class="founder-email">{{company.contact.email}}</a>
       </div>
     </div>
   </section>
@@ -579,7 +511,7 @@
       <p>Tell us how your business runs today. We'll show you how it can run on a system built for it.</p>
       <div class="cta-actions">
         <a href="#contact" class="btn btn-light">Start a conversation</a>
-        <a href="https://ledgoerp.runasp.net/website/index.html" class="btn btn-ghost-light" target="_blank" rel="noopener noreferrer">Try LedGo ERP</a>
+        <a href="{{products.ledgo-erp.websiteUrl}}" class="btn btn-ghost-light" target="_blank" rel="noopener noreferrer">Try LedGo ERP</a>
       </div>
     </div>
   </section>
@@ -593,25 +525,25 @@
       </div>
 
       <div class="contact-grid reveal">
-        <a href="tel:+917550356255" class="contact-card" aria-label="Call TMB Tech">
+        <a href="tel:{{company.contact.phone|digits}}" class="contact-card" aria-label="Call {{company.name}}">
           <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
           <span class="contact-label">Phone</span>
-          <span class="contact-value">+91 75503 56255</span>
+          <span class="contact-value">{{company.contact.phone}}</span>
         </a>
-        <a href="mailto:Bharathvsb3@gmail.com" class="contact-card" aria-label="Email TMB Tech">
+        <a href="mailto:{{company.contact.email}}" class="contact-card" aria-label="Email {{company.name}}">
           <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div>
           <span class="contact-label">Email</span>
-          <span class="contact-value">Bharathvsb3@gmail.com</span>
+          <span class="contact-value">{{company.contact.email}}</span>
         </a>
-        <a href="https://github.com/Bharathvsb3/" class="contact-card" target="_blank" rel="noopener noreferrer" aria-label="TMB Tech on GitHub">
+        <a href="{{company.social.github.url}}" class="contact-card" target="_blank" rel="noopener noreferrer" aria-label="{{company.name}} on GitHub">
           <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.4c0-1 .1-1.4-.5-2 2-.2 4.5-1 4.5-5a3.9 3.9 0 0 0-1-2.7c.4-1 .4-2.1 0-3.3 0 0-.9-.3-3 1a10.3 10.3 0 0 0-5.4 0c-2.1-1.3-3-1-3-1-.4 1.2-.4 2.3 0 3.3A3.9 3.9 0 0 0 6 11.6c0 4 2.5 4.8 4.5 5-.3.3-.5.9-.5 1.7V21"/></svg></div>
           <span class="contact-label">GitHub</span>
-          <span class="contact-value">github.com/Bharathvsb3</span>
+          <span class="contact-value">{{company.social.github.display}}</span>
         </a>
-        <a href="https://www.linkedin.com/in/bharath-s-52266620b" class="contact-card" target="_blank" rel="noopener noreferrer" aria-label="TMB Tech on LinkedIn">
+        <a href="{{company.social.linkedin.url}}" class="contact-card" target="_blank" rel="noopener noreferrer" aria-label="{{company.name}} on LinkedIn">
           <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="7" y1="10" x2="7" y2="17"/><circle cx="7" cy="6.5" r="1"/><path d="M11 17v-4.5a2.5 2.5 0 0 1 5 0V17"/><line x1="11" y1="10" x2="11" y2="17"/></svg></div>
           <span class="contact-label">LinkedIn</span>
-          <span class="contact-value">/in/bharath-s-52266620b</span>
+          <span class="contact-value">{{company.social.linkedin.display}}</span>
         </a>
       </div>
 
@@ -641,7 +573,7 @@
           <span class="form-error" id="cf-message-error"></span>
         </div>
         <button type="submit" class="btn btn-primary">Send Message</button>
-        <p class="form-note">Opens your email app with this filled in, ready to send to TMB Tech.</p>
+        <p class="form-note">Opens your email app with this filled in, ready to send to {{company.name}}.</p>
       </form>
     </div>
   </section>
@@ -652,7 +584,7 @@
   <div class="container footer-inner">
     <div class="footer-brand">
       <a href="#home" class="logo">
-        <img src="assets/logo/logo.png" alt="TMB Tech" class="logo-img logo-img-footer">
+        <img src="assets/logo/logo.png" alt="{{company.name}}" class="logo-img logo-img-footer">
       </a>
       <p class="footer-tagline">Software &bull; Applications &bull; Solutions</p>
     </div>
@@ -668,7 +600,7 @@
     </nav>
   </div>
   <div class="container">
-    <p class="footer-copy">&copy; 2026 TMB Tech. All rights reserved.</p>
+    <p class="footer-copy">&copy; {{company.copyrightYears}} {{company.name}}. All rights reserved.</p>
   </div>
 </footer>
 

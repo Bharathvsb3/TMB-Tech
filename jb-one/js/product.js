@@ -178,10 +178,13 @@
         "Email: " + fields.email + "\n" +
         (fields.phone ? "Phone: " + fields.phone + "\n" : "") +
         "\n" + fields.message + "\n";
-      window.location.href =
-        "mailto:bharathvsb3@gmail.com?subject=" + encodeURIComponent(product + " enquiry from " + fields.name) +
-        "&body=" + encodeURIComponent(body);
       var note = form.querySelector(".form-note");
+      // The address comes from settings.json (loaded by js/settings.js).
+      if (!(window.TMB && window.TMB.mailto && window.TMB.settings)) {
+        if (note) note.textContent = "Contact details are still loading. Please try again in a moment.";
+        return;
+      }
+      window.location.href = window.TMB.mailto(product + " enquiry from " + fields.name, body);
       if (note) note.textContent = "Your email app should open with the message ready. Just press Send.";
     });
   }

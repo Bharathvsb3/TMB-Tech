@@ -40,6 +40,18 @@
     <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/gasone/assets/screens/store-entry-mobile.webp</image:loc></image:image>
   </url>
   <url>
+    <loc>https://bharathvsb3.github.io/TMB-Tech/gasone/guide/</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://bharathvsb3.github.io/TMB-Tech/gasone/privacy-policy/</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
     <loc>https://bharathvsb3.github.io/TMB-Tech/jb-one/</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>monthly</changefreq>
@@ -52,18 +64,6 @@
     <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/jb-one/assets/screens/web-shop-home.webp</image:loc></image:image>
     <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/jb-one/assets/screens/web-product-grid.webp</image:loc></image:image>
     <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/jb-one/assets/screens/web-admin-dashboard.webp</image:loc></image:image>
-  </url>
-  <url>
-    <loc>https://bharathvsb3.github.io/TMB-Tech/gasone/guide/</loc>
-    <lastmod>2026-09-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://bharathvsb3.github.io/TMB-Tech/gasone/privacy-policy/</loc>
-    <lastmod>2026-09-24</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
   </url>
   <url>
     <loc>https://bharathvsb3.github.io/TMB-Tech/jb-one/privacy-policy/</loc>

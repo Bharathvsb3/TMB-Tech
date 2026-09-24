@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page="jb-one">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="../js/settings.js"></script>
+<!-- seo:start | generated from settings.json by tools/render.py, do not edit by hand -->
 <title>JB One | Jewellery Tags, Estimates &amp; Catalogue | TMB Tech</title>
 <meta name="description" content="JB One by TMB Tech: print jewellery tags, prepare gold and silver estimates on the live rate, and put your catalogue online. Mobile and web app, free trial.">
-<meta name="theme-color" content="#0b0808">
 <meta name="author" content="TMB Tech">
 <link rel="canonical" href="https://bharathvsb3.github.io/TMB-Tech/jb-one/">
-
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_IN">
 <meta property="og:url" content="https://bharathvsb3.github.io/TMB-Tech/jb-one/">
@@ -25,9 +25,11 @@
 <meta name="twitter:description" content="JB One by TMB Tech: print jewellery tags, prepare gold and silver estimates on the live rate, and put your catalogue online. Mobile and web app, free trial.">
 <meta name="twitter:image" content="https://bharathvsb3.github.io/TMB-Tech/jb-one/assets/og.jpg">
 <meta name="twitter:image:alt" content="JB One by TMB Tech: the app and the online catalogue.">
+<!-- seo:end -->
+<meta name="theme-color" content="#0b0808">
+
 <link rel="icon" type="image/png" href="assets/jbone-icon-192.png">
 <link rel="apple-touch-icon" href="assets/jbone-icon-192.png">
-
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,40 +37,6 @@
 <link rel="stylesheet" href="css/product.css">
 <link rel="stylesheet" href="css/theme.css">
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "JB One",
-  "alternateName": "JB One - Jewellery Business One",
-  "description": "JB One is a jewellery business application, available as a mobile app and a web app with an online catalogue: jewellery tag designer and bulk printer, gold and silver customer estimates on the live rate, and a per-shop online catalogue with an admin back office.",
-  "applicationCategory": "BusinessApplication",
-  "operatingSystem": "Android, Web",
-  "inLanguage": ["en", "ta"],
-  "url": "https://bharathvsb3.github.io/TMB-Tech/jb-one/",
-  "image": "https://bharathvsb3.github.io/TMB-Tech/jb-one/assets/jbone-logo.png",
-  "screenshot": "https://bharathvsb3.github.io/TMB-Tech/jb-one/assets/screens/web-shop-home.webp",
-  "author": {
-    "@type": "Organization",
-    "name": "TMB Tech",
-    "url": "https://bharathvsb3.github.io/TMB-Tech/",
-    "email": "bharathvsb3@gmail.com",
-    "telephone": "+91 75503 56255",
-    "founder": { "@type": "Person", "name": "Bharath Sankar" }
-  }
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "TMB Tech", "item": "https://bharathvsb3.github.io/TMB-Tech/" },
-    { "@type": "ListItem", "position": 2, "name": "Products", "item": "https://bharathvsb3.github.io/TMB-Tech/#products" },
-    { "@type": "ListItem", "position": 3, "name": "JB One", "item": "https://bharathvsb3.github.io/TMB-Tech/jb-one/" }
-  ]
-}
-</script>
 </head>
 <body>
 <a href="#main" class="skip">Skip to content</a>
@@ -78,7 +46,7 @@
   <div class="wrap hdr-in">
     <a href="#top" class="brand" aria-label="JB One home">
       <img src="assets/jbone-icon-192.png" alt="" width="40" height="40">
-      <span><span class="brand-name">JB ONE</span><span class="brand-by">by TMB Tech</span></span>
+      <span><span class="brand-name">JB ONE</span><span class="brand-by">by {{company.name}}</span></span>
     </a>
     <nav class="nav" id="nav" aria-label="Primary">
       <a href="#parts">Two parts</a>
@@ -352,9 +320,9 @@
         <span class="live-dot" aria-hidden="true"></span>
         <div>
           <h3>See a real shop running on JB One</h3>
-          <p>T.N. Mani Gopi Jewellers use the JB One online catalogue for their shop.</p>
+          <p>{{products.jb-one.liveShop.name}} use the JB One online catalogue for their shop.</p>
         </div>
-        <a href="https://tnmgopijewellers.runasp.net/shop/tnm-gopi-jewellers" class="btn btn-p" target="_blank" rel="noopener">Open live shop</a>
+        <a href="{{products.jb-one.liveShop.url}}" class="btn btn-p" target="_blank" rel="noopener">Open live shop</a>
       </div>
     </div>
   </section>
@@ -403,10 +371,10 @@
         <p>Tell us about your shop and which part you'd like to try first.</p>
         <span class="trial"><i></i>Free trial available</span>
         <ul class="clist">
-          <li><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span><div><small>Founder &amp; Developer</small><a href="https://bharathvsb3.github.io/TMB-Tech/#about">Bharath Sankar, TMB Tech</a></div></li>
-          <li><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><div><small>Email</small><a href="mailto:bharathvsb3@gmail.com">bharathvsb3@gmail.com</a></div></li>
-          <li><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.4 1.8.7 2.7a2 2 0 01-.5 2.1L8 9.8a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.7.7a2 2 0 011.7 2z"/></svg></span><div><small>Phone</small><a href="tel:+917550356255">+91 75503 56255</a></div></li>
-          <li><span class="ci"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11-.01 5 2.5 2.5 0 01.01-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H9z"/></svg></span><div><small>LinkedIn</small><a href="https://www.linkedin.com/in/bharath-s-52266620b" target="_blank" rel="noopener">bharath-s-52266620b</a></div></li>
+          <li><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span><div><small>{{company.founder.role}}</small><a href="{{site.baseUrl}}#about">{{company.founder.name}}, {{company.name}}</a></div></li>
+          <li><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><div><small>Email</small><a href="mailto:{{company.contact.email}}">{{company.contact.email}}</a></div></li>
+          <li><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.4 1.8.7 2.7a2 2 0 01-.5 2.1L8 9.8a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.7.7a2 2 0 011.7 2z"/></svg></span><div><small>Phone</small><a href="tel:{{company.contact.phone|digits}}">{{company.contact.phone}}</a></div></li>
+          <li><span class="ci"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11-.01 5 2.5 2.5 0 01.01-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H9z"/></svg></span><div><small>LinkedIn</small><a href="{{company.social.linkedin.url}}" target="_blank" rel="noopener">{{company.social.linkedin.handle}}</a></div></li>
         </ul>
       </div>
       <form class="form reveal" id="contact-form" data-product="JB One" novalidate>
@@ -429,16 +397,16 @@
       <div class="company reveal">
         <div>
           <span class="eyebrow">Built &amp; supported by</span>
-          <a href="https://bharathvsb3.github.io/TMB-Tech/" target="_blank" rel="noopener"><img class="company-logo" src="assets/tmb-logo.png" alt="TMB Tech" width="198" height="46"></a>
-          <p>JB One is a product of <strong>TMB Tech</strong>, a software company that builds business applications end to end: mobile apps, web portals, backend APIs and databases. We set JB One up for your shop and support it.</p>
+          <a href="{{site.baseUrl}}" target="_blank" rel="noopener"><img class="company-logo" src="assets/tmb-logo.png" alt="{{company.name}}" width="198" height="46"></a>
+          <p>JB One is a product of <strong>{{company.name}}</strong>, a software company that builds business applications end to end: mobile apps, web portals, backend APIs and databases. We set JB One up for your shop and support it.</p>
           <div class="company-actions">
-            <a href="https://bharathvsb3.github.io/TMB-Tech/" class="btn btn-p btn-sm" target="_blank" rel="noopener">Visit TMB Tech</a>
-            <a href="https://github.com/Bharathvsb3/" class="btn btn-g btn-sm" target="_blank" rel="noopener">GitHub</a>
+            <a href="{{site.baseUrl}}" class="btn btn-p btn-sm" target="_blank" rel="noopener">Visit {{company.name}}</a>
+            <a href="{{company.social.github.url}}" class="btn btn-g btn-sm" target="_blank" rel="noopener">GitHub</a>
           </div>
         </div>
         <div class="others">
-          <a class="other" href="https://bharathvsb3.github.io/TMB-Tech/ledgo-erp/"><img src="assets/others/ledgo.png" alt="" width="46" height="46"><div><b>LedGo ERP</b><span>Billing, inventory, GST and your own online store</span></div></a>
-          <a class="other" href="https://bharathvsb3.github.io/TMB-Tech/gasone/"><img src="assets/others/gasone.png" alt="" width="46" height="46"><div><b>GasOne</b><span>Collection management for gas agencies</span></div></a>
+          <a class="other" href="{{products.ledgo-erp.url}}"><img src="assets/others/ledgo.png" alt="" width="46" height="46"><div><b>{{products.ledgo-erp.name}}</b><span>Billing, inventory, GST and your own online store</span></div></a>
+          <a class="other" href="{{products.gasone.url}}"><img src="assets/others/gasone.png" alt="" width="46" height="46"><div><b>{{products.gasone.name}}</b><span>Collection management for gas agencies</span></div></a>
         </div>
       </div>
     </div>
@@ -464,23 +432,23 @@
       <div>
         <h4>Contact</h4>
         <ul>
-          <li><a href="mailto:bharathvsb3@gmail.com">bharathvsb3@gmail.com</a></li>
-          <li><a href="tel:+917550356255">+91 75503 56255</a></li>
-          <li><a href="https://www.linkedin.com/in/bharath-s-52266620b" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="mailto:{{company.contact.email}}">{{company.contact.email}}</a></li>
+          <li><a href="tel:{{company.contact.phone|digits}}">{{company.contact.phone}}</a></li>
+          <li><a href="{{company.social.linkedin.url}}" target="_blank" rel="noopener">LinkedIn</a></li>
         </ul>
       </div>
       <div>
-        <h4>TMB Tech</h4>
+        <h4>{{company.name}}</h4>
         <ul>
-          <li><a href="https://bharathvsb3.github.io/TMB-Tech/">Company website</a></li>
-          <li><a href="https://bharathvsb3.github.io/TMB-Tech/ledgo-erp/">LedGo ERP</a></li>
-          <li><a href="https://bharathvsb3.github.io/TMB-Tech/gasone/">GasOne</a></li>
+          <li><a href="{{site.baseUrl}}">Company website</a></li>
+          <li><a href="{{products.ledgo-erp.url}}">{{products.ledgo-erp.name}}</a></li>
+          <li><a href="{{products.gasone.url}}">{{products.gasone.name}}</a></li>
         </ul>
       </div>
     </div>
     <div class="foot-bottom">
       <span>© <span data-year>2026</span> JB One. All rights reserved.</span>
-      <a class="powered" href="https://bharathvsb3.github.io/TMB-Tech/" target="_blank" rel="noopener">Powered by <img src="assets/tmb-logo.png" alt="TMB Tech" width="90" height="21"></a>
+      <a class="powered" href="{{site.baseUrl}}" target="_blank" rel="noopener">Powered by <img src="assets/tmb-logo.png" alt="{{company.name}}" width="90" height="21"></a>
     </div>
   </div>
 </footer>

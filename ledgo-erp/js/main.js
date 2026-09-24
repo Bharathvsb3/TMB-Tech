@@ -1,8 +1,10 @@
 (function () {
   "use strict";
 
-  /* Update this to the real production LedGo ERP URL before this site goes live. */
-  var CONTACT_EMAIL = "bharathvsb3@gmail.com";
+  // The address the contact form sends to lives in settings.json (loaded by js/settings.js).
+  function contactEmail() {
+    return window.TMB && window.TMB.settings ? window.TMB.settings.company.contact.email : "";
+  }
 
   var THEME_NAMES = {
     green: "AgriPro Green",
@@ -1760,7 +1762,13 @@
       };
 
       // Static site: hand the enquiry to the visitor's own mail app, addressed
-      // to TMB Tech, with every field filled in.
+      // to the company email from settings.json, with every field filled in.
+      var to = contactEmail();
+      if (!to) {
+        statusEl.textContent = "Contact details are still loading. Please try again in a moment.";
+        statusEl.classList.add("is-error");
+        return;
+      }
       var subject = "LedGo ERP enquiry from " + payload.name;
       var body =
         "Name: " + payload.name + "\n" +
@@ -1768,7 +1776,7 @@
         (payload.phone ? "Phone: " + payload.phone + "\n" : "") +
         "\n" + payload.message + "\n";
       window.location.href =
-        "mailto:" + CONTACT_EMAIL +
+        "mailto:" + to +
         "?subject=" + encodeURIComponent(subject) +
         "&body=" + encodeURIComponent(body);
       form.hidden = true;

@@ -1,0 +1,238 @@
+{
+  "_comment": [
+    "TMB TECH - SITE SETTINGS. This is the ONE place for your name, contact details, links and site address.",
+    "Edit a value here, save, push. Every page reads this file, so nothing is hard-coded in the HTML or JS.",
+    "",
+    "JSON has no real comments, so any key that starts with an underscore (like this _comment) is a note for you. The site ignores those keys.",
+    "",
+    "HOW IT WORKS",
+    "1. Contact details, names and links inside the pages are written as tokens like {{company.contact.email}}. js/settings.js swaps them for the values below when the page opens. Change the value here and every page updates. No other step is needed.",
+    "2. A few things must exist as plain HTML for Google, WhatsApp and LinkedIn, because those bots do not run JavaScript: the page title, description, share-preview tags, sitemap.xml, robots.txt and 404.html. They are generated from this same file. After you change the site address, company name or a page title/description, run:  python tools/render.py   then commit and push.",
+    "3. Contact details (email, phone, LinkedIn, GitHub, founder) do NOT need step 2. Just edit and push.",
+    "",
+    "CAREFUL: keep the JSON valid (double quotes, commas between items, no comma after the last item). If it is broken, contact details will not show. Check with:  python tools/render.py --check",
+    "",
+    "TOKENS you can use inside the pages: {{company.name}}  {{company.contact.email}}  {{company.contact.phone}}  {{company.contact.phone|digits}} (digits only, for tel: links)  {{year}}  {{site.baseUrl}}  {{products.gasone.url}}  and any other path in this file."
+  ],
+
+  "company": {
+    "_comment": "Who you are. Shown in headers, footers, contact sections, privacy policies and the share previews.",
+    "name": "TMB Tech",
+    "description": "{{company.name}} builds business applications, ERP systems, mobile apps, web applications and custom software solutions.",
+    "_description": "Any text in this file can use tokens such as {{company.name}}; they are filled in when the pages load.",
+    "copyrightStartYear": 2026,
+    "_copyrightStartYear": "The footer shows this year, or a range like 2026-2028 once the current year moves past it.",
+
+    "founder": {
+      "name": "Bharath Sankar",
+      "role": "Founder & Developer",
+      "initials": "BS"
+    },
+
+    "contact": {
+      "_comment": "The email is also where every contact form sends its message (it opens the visitor's email app addressed to this address).",
+      "email": "Bharathvsb3@gmail.com",
+      "phone": "+91 75503 56255",
+      "_phone": "Write the phone the way you want it shown. tel: links are made from it automatically (spaces removed)."
+    },
+
+    "social": {
+      "linkedin": {
+        "url": "https://www.linkedin.com/in/bharath-s-52266620b",
+        "handle": "bharath-s-52266620b",
+        "display": "/in/bharath-s-52266620b"
+      },
+      "github": {
+        "url": "https://github.com/Bharathvsb3/",
+        "handle": "Bharathvsb3",
+        "display": "github.com/Bharathvsb3"
+      },
+      "_comment": "url = where the link goes. handle and display = the text shown next to it."
+    }
+  },
+
+  "site": {
+    "_comment": "Where the site lives. Used for canonical links, share previews, the sitemap and links between the company site and the product sites.",
+    "baseUrl": "https://bharathvsb3.github.io/TMB-Tech/",
+    "_baseUrl": "Must end with a slash. If you move to your own domain, change this and run  python tools/render.py",
+    "language": "en-IN",
+    "locale": "en_IN",
+    "logo": "assets/logo/logo.png",
+    "_logo": "Company logo, relative to baseUrl."
+  },
+
+  "products": {
+    "_comment": [
+      "One entry per product. 'path' is the folder on this site. If a product moves to its OWN domain later, put the full address in 'url' (for example https://gasone.in/) and every link to it, in every page, follows automatically.",
+      "Leave 'url' empty while the product is served from this site."
+    ],
+
+    "ledgo-erp": {
+      "name": "LedGo ERP",
+      "path": "ledgo-erp/",
+      "url": "",
+      "legacyPath": "products/ledgo-erp/",
+      "tagline": "All-in-One Business Management Software",
+      "shortDescription": "LedGo ERP is a business management platform designed to help retailers manage daily operations from a centralized system.",
+      "description": "Shop-management software for Indian agri, hardware and general trade retailers: billing, inventory, GST, purchases, accounts, reports and the shop's own online store.",
+      "logo": "assets/products/ledgo.png",
+      "screenshot": "ledgo-erp/assets/app-screenshot-desktop.png",
+      "operatingSystem": "Web, Android",
+      "applicationCategory": "BusinessApplication",
+      "inLanguage": ["en", "ta", "hi", "kn", "te"],
+      "websiteUrl": "https://ledgoerp.runasp.net/website/index.html",
+      "_websiteUrl": "The product's own live site (the 'Try LedGo ERP' button on the company site)."
+    },
+
+    "gasone": {
+      "name": "GasOne",
+      "path": "gasone/",
+      "url": "",
+      "legacyPath": "products/gasone/",
+      "tagline": "Smart Collection Management for Gas Agencies",
+      "shortDescription": "GasOne is designed to simplify daily LPG gas agency operations and collection management.",
+      "description": "Daily cash-collection and denomination reconciliation app for LPG gas agencies, with Admin approval, a DGS cylinder register, reports and exports, in Tamil and English.",
+      "logo": "assets/products/gasone.png",
+      "screenshot": "gasone/assets/screens/dashboard-web.webp",
+      "operatingSystem": "Android, Web",
+      "applicationCategory": "BusinessApplication",
+      "inLanguage": ["en", "ta"],
+      "websiteUrl": "https://gasoneapp.runasp.net/GasOne_Guide.html"
+    },
+
+    "jb-one": {
+      "name": "JB One",
+      "path": "jb-one/",
+      "url": "",
+      "legacyPath": "products/jb-one/",
+      "tagline": "Jewellery Business One",
+      "alternateName": "JB One - Jewellery Business One",
+      "shortDescription": "JB One is a jewellery business application, available as both a mobile app and a web app with an online catalogue, designed to simplify jewellery-related business operations and management workflows.",
+      "description": "JB One is a jewellery business application, available as a mobile app and a web app with an online catalogue: jewellery tag designer and bulk printer, gold and silver customer estimates on the live rate, and a per-shop online catalogue with an admin back office.",
+      "logo": "assets/products/jbone.png",
+      "screenshot": "jb-one/assets/screens/web-shop-home.webp",
+      "operatingSystem": "Android, Web",
+      "applicationCategory": "BusinessApplication",
+      "inLanguage": ["en", "ta"],
+      "liveShop": {
+        "_comment": "A real shop running on JB One, linked from the JB One page. Remove or change it if the shop asks.",
+        "name": "T.N. Mani Gopi Jewellers",
+        "url": "https://tnmgopijewellers.runasp.net/shop/tnm-gopi-jewellers"
+      }
+    }
+  },
+
+  "pages": {
+    "_comment": [
+      "Search-engine and share-preview text for each page (the <head> tags), plus its sitemap entry. Run  python tools/render.py  after editing anything in this section.",
+      "'file' is the page on disk, 'path' is its address relative to the site (empty = home). '{{company.name}}' inside a text is filled in automatically.",
+      "Keep titles under about 60 characters and descriptions under about 160 so Google shows them in full. ogImage is the 1200x630 picture shown when the link is shared."
+    ],
+
+    "home": {
+      "file": "index.html",
+      "path": "",
+      "title": "{{company.name}} | Software & Technology Solutions",
+      "description": "{{company.name}} builds business applications, ERP systems, mobile apps, web applications and custom software. Products: LedGo ERP, GasOne and JB One.",
+      "ogTitle": "{{company.name}} | Software & Technology Solutions",
+      "ogImage": "assets/og/tmb-tech.jpg",
+      "ogAlt": "{{company.name}}: software and technology solutions. Products: LedGo ERP, GasOne and JB One.",
+      "siteName": "{{company.name}}",
+      "sitemap": {
+        "priority": "1.0",
+        "changefreq": "weekly",
+        "images": ["assets/og/tmb-tech.jpg", "assets/logo/logo.png", "assets/products/ledgo.png", "assets/products/gasone.png", "assets/products/jbone.png"]
+      }
+    },
+
+    "ledgo-erp": {
+      "file": "ledgo-erp/index.html",
+      "path": "ledgo-erp/",
+      "product": "ledgo-erp",
+      "title": "LedGo ERP | Billing, Inventory & GST Software | {{company.name}}",
+      "description": "LedGo ERP by {{company.name}}: billing, inventory, GST, purchases, accounts and your shop's own online store, in five Indian languages. Free trial available.",
+      "ogTitle": "LedGo ERP | Billing, Inventory & GST Software",
+      "ogImage": "ledgo-erp/assets/og.jpg",
+      "ogAlt": "LedGo ERP by {{company.name}}: dashboard on desktop and mobile.",
+      "siteName": "LedGo ERP by {{company.name}}",
+      "sitemap": {
+        "priority": "0.9",
+        "changefreq": "monthly",
+        "images": ["ledgo-erp/assets/og.jpg", "ledgo-erp/assets/ledgo-logo.png", "ledgo-erp/assets/app-screenshot-desktop.png", "ledgo-erp/assets/app-screenshot-mobile.png", "ledgo-erp/assets/feature-billing.png", "ledgo-erp/assets/feature-inventory.png", "ledgo-erp/assets/feature-storefront.png", "ledgo-erp/assets/feature-reports.png"]
+      }
+    },
+
+    "gasone": {
+      "file": "gasone/index.html",
+      "path": "gasone/",
+      "product": "gasone",
+      "title": "GasOne | Collection Management for Gas Agencies | {{company.name}}",
+      "description": "GasOne by {{company.name}}: daily cash collection for LPG gas agencies. Cylinders and notes are matched to the gas value, approved and reported. Tamil and English.",
+      "ogTitle": "GasOne | Collection Management for Gas Agencies",
+      "ogImage": "gasone/assets/og.jpg",
+      "ogAlt": "GasOne by {{company.name}}: dashboard on desktop and mobile.",
+      "siteName": "GasOne by {{company.name}}",
+      "sitemap": {
+        "priority": "0.9",
+        "changefreq": "monthly",
+        "images": ["gasone/assets/og.jpg", "gasone/assets/gasone-logo.png", "gasone/assets/screens/dashboard-web.webp", "gasone/assets/screens/denomination-web.webp", "gasone/assets/screens/reports-web.webp", "gasone/assets/screens/login-mobile.webp", "gasone/assets/screens/store-entry-mobile.webp"]
+      }
+    },
+
+    "gasone-guide": {
+      "file": "gasone/guide/index.html",
+      "path": "gasone/guide/",
+      "product": "gasone",
+      "title": "GasOne User Guide | Every screen explained | {{company.name}}",
+      "description": "The complete GasOne user guide: roles, dashboard, denomination entry, store entry, reports, products and rates, settings and troubleshooting.",
+      "ogTitle": "GasOne User Guide | Every screen explained",
+      "ogImage": "gasone/assets/og.jpg",
+      "ogAlt": "GasOne by {{company.name}}",
+      "siteName": "GasOne by {{company.name}}",
+      "sitemap": { "priority": "0.6", "changefreq": "monthly", "images": [] }
+    },
+
+    "gasone-privacy": {
+      "file": "gasone/privacy-policy/index.html",
+      "path": "gasone/privacy-policy/",
+      "product": "gasone",
+      "title": "Privacy Policy | GasOne by {{company.name}}",
+      "description": "Privacy Policy for the GasOne app: what information it collects, how it is used, how long it is kept, and how to request access, correction or deletion.",
+      "ogTitle": "Privacy Policy | GasOne by {{company.name}}",
+      "ogImage": "gasone/assets/og.jpg",
+      "ogAlt": "GasOne by {{company.name}}",
+      "siteName": "GasOne by {{company.name}}",
+      "sitemap": { "priority": "0.3", "changefreq": "yearly", "images": [] }
+    },
+
+    "jb-one": {
+      "file": "jb-one/index.html",
+      "path": "jb-one/",
+      "product": "jb-one",
+      "title": "JB One | Jewellery Tags, Estimates & Catalogue | {{company.name}}",
+      "description": "JB One by {{company.name}}: print jewellery tags, prepare gold and silver estimates on the live rate, and put your catalogue online. Mobile and web app, free trial.",
+      "ogTitle": "JB One | Jewellery Tags, Estimates & Catalogue",
+      "ogImage": "jb-one/assets/og.jpg",
+      "ogAlt": "JB One by {{company.name}}: the app and the online catalogue.",
+      "siteName": "JB One by {{company.name}}",
+      "sitemap": {
+        "priority": "0.9",
+        "changefreq": "monthly",
+        "images": ["jb-one/assets/og.jpg", "jb-one/assets/jbone-logo.png", "jb-one/assets/screens/app-home.webp", "jb-one/assets/screens/app-label-design.webp", "jb-one/assets/screens/app-calculator.webp", "jb-one/assets/screens/web-shop-home.webp", "jb-one/assets/screens/web-product-grid.webp", "jb-one/assets/screens/web-admin-dashboard.webp"]
+      }
+    },
+
+    "jb-one-privacy": {
+      "file": "jb-one/privacy-policy/index.html",
+      "path": "jb-one/privacy-policy/",
+      "product": "jb-one",
+      "title": "Privacy Policy | JB One by {{company.name}}",
+      "description": "Privacy Policy for the JB One app: what information it handles, how permissions are used, third-party services, data storage and your choices.",
+      "ogTitle": "Privacy Policy | JB One by {{company.name}}",
+      "ogImage": "jb-one/assets/og.jpg",
+      "ogAlt": "JB One by {{company.name}}",
+      "siteName": "JB One by {{company.name}}",
+      "sitemap": { "priority": "0.3", "changefreq": "yearly", "images": [] }
+    }
+  }
+}

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page="jb-one-privacy">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="../../js/settings.js"></script>
+<!-- seo:start | generated from settings.json by tools/render.py, do not edit by hand -->
 <title>Privacy Policy | JB One by TMB Tech</title>
 <meta name="description" content="Privacy Policy for the JB One app: what information it handles, how permissions are used, third-party services, data storage and your choices.">
-<meta name="theme-color" content="#0b0808">
+<meta name="author" content="TMB Tech">
 <link rel="canonical" href="https://bharathvsb3.github.io/TMB-Tech/jb-one/privacy-policy/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_IN">
@@ -23,6 +25,8 @@
 <meta name="twitter:description" content="Privacy Policy for the JB One app: what information it handles, how permissions are used, third-party services, data storage and your choices.">
 <meta name="twitter:image" content="https://bharathvsb3.github.io/TMB-Tech/jb-one/assets/og.jpg">
 <meta name="twitter:image:alt" content="JB One by TMB Tech">
+<!-- seo:end -->
+<meta name="theme-color" content="#0b0808">
 <link rel="icon" type="image/png" href="../assets/jbone-icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,7 +42,7 @@
   <div class="wrap hdr-in">
     <a href="../" class="brand" aria-label="JB One home">
       <img src="../assets/jbone-icon-192.png" alt="" width="40" height="40">
-      <span><span class="brand-name">JB ONE</span><span class="brand-by">by TMB Tech</span></span>
+      <span><span class="brand-name">JB ONE</span><span class="brand-by">by {{company.name}}</span></span>
     </a>
     <nav class="nav" id="nav" aria-label="Primary">
       <a href="../">Home</a>
@@ -58,9 +62,9 @@
     <h1>Privacy Policy</h1>
     <dl class="doc-meta">
       <div><dt>Effective</dt><dd>25 September 2026</dd></div>
-      <div><dt>Developer</dt><dd>TMB Tech</dd></div>
-      <div><dt>Contact</dt><dd><a href="mailto:bharathvsb3@gmail.com">bharathvsb3@gmail.com</a></dd></div>
-      <div><dt>Phone</dt><dd><a href="tel:+917550356255">+91 75503 56255</a></dd></div>
+      <div><dt>Developer</dt><dd>{{company.name}}</dd></div>
+      <div><dt>Contact</dt><dd><a href="mailto:{{company.contact.email}}">{{company.contact.email}}</a></dd></div>
+      <div><dt>Phone</dt><dd><a href="tel:{{company.contact.phone|digits}}">{{company.contact.phone}}</a></dd></div>
     </dl>
   </div>
 
@@ -138,12 +142,12 @@
     <h2 id="contact"><span class="n">11</span>Contact us</h2>
     <p>Questions about this policy or how JB One handles information can be sent to us:</p>
     <div class="contact-box">
-      <div><span>Developer</span><strong>TMB Tech</strong></div>
-      <div><span>Email</span><a href="mailto:bharathvsb3@gmail.com">bharathvsb3@gmail.com</a></div>
-      <div><span>Phone</span><a href="tel:+917550356255">+91 75503 56255</a></div>
+      <div><span>Developer</span><strong>{{company.name}}</strong></div>
+      <div><span>Email</span><a href="mailto:{{company.contact.email}}">{{company.contact.email}}</a></div>
+      <div><span>Phone</span><a href="tel:{{company.contact.phone|digits}}">{{company.contact.phone}}</a></div>
     </div>
 
-    <p class="doc-foot"><strong>JB One</strong> · a product of TMB Tech · this page is referenced from the app's Play Store listing.</p>
+    <p class="doc-foot"><strong>JB One</strong> · a product of {{company.name}} · this page is referenced from the app's Play Store listing.</p>
   </article>
 </main>
 
@@ -151,7 +155,7 @@
   <div class="wrap">
     <div class="foot-bottom">
       <span>© <span data-year>2026</span> JB One. All rights reserved.</span>
-      <a class="powered" href="https://bharathvsb3.github.io/TMB-Tech/" target="_blank" rel="noopener">Powered by <img src="../assets/tmb-logo.png" alt="TMB Tech" width="90" height="21"></a>
+      <a class="powered" href="{{site.baseUrl}}" target="_blank" rel="noopener">Powered by <img src="../assets/tmb-logo.png" alt="{{company.name}}" width="90" height="21"></a>
     </div>
   </div>
 </footer>

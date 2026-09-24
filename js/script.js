@@ -660,7 +660,11 @@
    * Contact form — validates, then hands off to the visitor's email app
    * ------------------------------------------------------------------- */
   var contactForm = document.getElementById("contact-form");
-  var CONTACT_EMAIL = "Bharathvsb3@gmail.com";
+
+  // The address the form sends to lives in settings.json (loaded by js/settings.js).
+  function contactEmail() {
+    return window.TMB && window.TMB.settings ? window.TMB.settings.company.contact.email : "";
+  }
 
   if (contactForm) {
     var cfName = document.getElementById("cf-name");
@@ -739,8 +743,15 @@
         "Phone: " + phone + "\n\n" +
         message;
 
+      var to = contactEmail();
+      if (!to) {
+        var note = contactForm.querySelector(".form-note");
+        if (note) note.textContent = "Contact details are still loading. Please try again in a moment.";
+        return;
+      }
+
       var mailtoLink =
-        "mailto:" + CONTACT_EMAIL +
+        "mailto:" + to +
         "?subject=" + encodeURIComponent(subject) +
         "&body=" + encodeURIComponent(body);
 

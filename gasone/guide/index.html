@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page="gasone-guide">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="../../js/settings.js"></script>
+<!-- seo:start | generated from settings.json by tools/render.py, do not edit by hand -->
 <title>GasOne User Guide | Every screen explained | TMB Tech</title>
 <meta name="description" content="The complete GasOne user guide: roles, dashboard, denomination entry, store entry, reports, products and rates, settings and troubleshooting.">
+<meta name="author" content="TMB Tech">
 <link rel="canonical" href="https://bharathvsb3.github.io/TMB-Tech/gasone/guide/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_IN">
@@ -22,6 +25,7 @@
 <meta name="twitter:description" content="The complete GasOne user guide: roles, dashboard, denomination entry, store entry, reports, products and rates, settings and troubleshooting.">
 <meta name="twitter:image" content="https://bharathvsb3.github.io/TMB-Tech/gasone/assets/og.jpg">
 <meta name="twitter:image:alt" content="GasOne by TMB Tech">
+<!-- seo:end -->
 <link rel="icon" type="image/png" href="../assets/gasone-icon-192.png">
 <style>
   .tmb-bar{position:sticky;top:0;z-index:1000;display:flex;align-items:center;gap:14px;padding:10px 18px;background:#072B5E;color:#fff;font:600 13px/1.4 "Segoe UI",Inter,Roboto,system-ui,sans-serif}
@@ -251,7 +255,7 @@
 </style>
 </head>
 <body>
-<div class="tmb-bar"><a href="../" class="tmb-back">&larr; GasOne</a><span>User Guide</span><a href="https://bharathvsb3.github.io/TMB-Tech/" target="_blank" rel="noopener" class="tmb-by">Powered by <b>TMB Tech</b></a></div>
+<div class="tmb-bar"><a href="../" class="tmb-back">&larr; GasOne</a><span>User Guide</span><a href="{{site.baseUrl}}" target="_blank" rel="noopener" class="tmb-by">Powered by <b>{{company.name}}</b></a></div>
 
 
 <div class="shell">
@@ -738,7 +742,7 @@
       <p>Check <a href="#permissions">Permissions</a> — Admin may have hidden that menu for the User role, or <a href="#settings">Settings</a> may have amount columns hidden agency-wide.</p>
     </section>
 
-    <footer class="doc-footer">GasOne — Smart Collection Management for Gas Agencies. Diagrams above show the general layout — exact numbers, names, and colors on your screen will reflect your own agency's data. <br><br><a href="../">GasOne home</a> · <a href="../privacy-policy/">Privacy policy</a> · Powered by <a href="https://bharathvsb3.github.io/TMB-Tech/" target="_blank" rel="noopener">TMB Tech</a> · <a href="mailto:bharathvsb3@gmail.com">bharathvsb3@gmail.com</a> · <a href="tel:+917550356255">+91 75503 56255</a></footer>
+    <footer class="doc-footer">GasOne — Smart Collection Management for Gas Agencies. Diagrams above show the general layout — exact numbers, names, and colors on your screen will reflect your own agency's data. <br><br><a href="../">GasOne home</a> · <a href="../privacy-policy/">Privacy policy</a> · Powered by <a href="{{site.baseUrl}}" target="_blank" rel="noopener">{{company.name}}</a> · <a href="mailto:{{company.contact.email}}">{{company.contact.email}}</a> · <a href="tel:{{company.contact.phone|digits}}">{{company.contact.phone}}</a></footer>
   </main>
 </div>
 

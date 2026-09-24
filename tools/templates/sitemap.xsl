@@ -12,7 +12,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="robots" content="noindex"/>
-  <title>Sitemap | TMB Tech</title>
+  <title>Sitemap | {{company.name}}</title>
   <link rel="icon" type="image/png" href="assets/logo/favicon-48.png"/>
   <style>
     :root { --p:#2563eb; --deep:#0b2559; --text:#111827; --muted:#5b6475; --line:#e5e9f2; --bg:#f4f7fc; }
@@ -46,9 +46,9 @@
 <body>
   <header>
     <div class="wrap">
-      <img src="assets/logo/logo.png" alt="TMB Tech"/>
+      <img src="{{site.logo}}" alt="{{company.name}}"/>
       <h1>Sitemap</h1>
-      <p>Every page on the TMB Tech website, with the images search engines can show for it.</p>
+      <p>Every page on the {{company.name}} website, with the images search engines can show for it.</p>
       <div class="stats">
         <span class="stat"><xsl:value-of select="count(sm:urlset/sm:url)"/> pages</span>
         <span class="stat"><xsl:value-of select="count(sm:urlset/sm:url/image:image)"/> images</span>
@@ -89,7 +89,7 @@
     </div>
   </main>
   <footer>
-    <a href="https://bharathvsb3.github.io/TMB-Tech/">TMB Tech</a> · Bharathvsb3@gmail.com · +91 75503 56255
+    <a href="{{site.baseUrl}}">{{company.name}}</a> · {{company.contact.email}} · {{company.contact.phone}}
   </footer>
 </body>
 </html>
