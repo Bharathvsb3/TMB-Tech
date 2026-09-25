@@ -18,7 +18,7 @@
   var forced = (location.search.match(/[?&]lite=(0|1)/) || [])[1];
   try {
     if (forced === "1") localStorage.setItem(KEY, "1");
-    if (forced === "0") localStorage.removeItem(KEY);
+    if (forced === "0") { localStorage.removeItem(KEY); root.classList.remove("lite"); }
     if (localStorage.getItem(KEY) === "1") root.classList.add("lite");
   } catch (e) { /* storage blocked: just no memory between visits */ }
   // Endless animations (floating devices, glows, marquee, sparkles...) only

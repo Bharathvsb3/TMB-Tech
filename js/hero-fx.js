@@ -4,8 +4,10 @@
 
      stars   twinkling dust and sparkles that drift with the pointer   (JB One)
      embers  warm sparks rising from the bottom                        (GasOne)
-     motes   big soft pollen-like glows drifting across                (LedGo ERP)
-     net     a slowly moving constellation of joined points            (company site)
+     motes   big soft pollen-like glows drifting across, plus a soft
+             spotlight that follows the cursor                         (LedGo ERP)
+     net     a slowly moving constellation of joined points that
+             reach out to the cursor                                   (company site)
 
    Colours come from the CSS custom properties --fx-1, --fx-2, --fx-3 on the
    canvas, so every site styles its own effect and the LedGo theme swatches
@@ -30,6 +32,7 @@
     var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     var W = 1, H = 1, parts = [], colors = ["#fff", "#fff", "#fff"], sprites = [];
     var pointer = { x: 0, y: 0, tx: 0, ty: 0 };
+    var spot = { x: 0, y: 0, tx: 0, ty: 0, on: 0, want: 0 }; // cursor position in pixels, and how strongly it is present
     var visible = true, raf = 0, last = 0, t0 = performance.now();
 
     function readColors() {
@@ -66,11 +69,11 @@
         n = count(16000, 90);
         for (i = 0; i < n; i++) parts.push({ x: Math.random() * W, y: Math.random() * H, z: 0.3 + Math.random() * 0.7, r: 0.5 + Math.random() * 1.2, ph: Math.random() * TAU, sp: 0.6 + Math.random() * 1.6, big: Math.random() < 0.09, c: (Math.random() * 3) | 0 });
       } else if (mode === "embers") {
-        n = count(22000, 60);
-        for (i = 0; i < n; i++) parts.push({ x: Math.random() * W, y: Math.random() * H, v: 14 + Math.random() * 34, sw: 0.4 + Math.random() * 1.4, ph: Math.random() * TAU, r: 1 + Math.random() * 2.2, c: Math.random() < 0.72 ? 0 : (Math.random() < 0.6 ? 1 : 2) });
+        n = count(17000, 84);
+        for (i = 0; i < n; i++) parts.push({ x: Math.random() * W, y: Math.random() * H, v: 14 + Math.random() * 34, sw: 0.4 + Math.random() * 1.4, ph: Math.random() * TAU, r: 1.4 + Math.random() * 2.4, c: Math.random() < 0.72 ? 0 : (Math.random() < 0.6 ? 1 : 2) });
       } else if (mode === "motes") {
-        n = count(30000, 34);
-        for (i = 0; i < n; i++) parts.push({ x: Math.random() * W, y: Math.random() * H, vx: 5 + Math.random() * 12, vy: -(2 + Math.random() * 6), s: 26 + Math.random() * 90, a: 0.08 + Math.random() * 0.16, ph: Math.random() * TAU, c: (Math.random() * 3) | 0, dot: Math.random() < 0.35 });
+        n = count(24000, 46);
+        for (i = 0; i < n; i++) parts.push({ x: Math.random() * W, y: Math.random() * H, vx: 5 + Math.random() * 12, vy: -(2 + Math.random() * 6), s: 18 + Math.random() * 56, a: 0.05 + Math.random() * 0.1, ph: Math.random() * TAU, c: (Math.random() * 3) | 0, dot: Math.random() < 0.6 });
       } else {
         n = count(30000, 46);
         for (i = 0; i < n; i++) parts.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - 0.5) * 14, vy: (Math.random() - 0.5) * 14 });
@@ -94,6 +97,9 @@
       ctx.clearRect(0, 0, W, H);
       pointer.x += (pointer.tx - pointer.x) * 0.06;
       pointer.y += (pointer.ty - pointer.y) * 0.06;
+      spot.x += (spot.tx - spot.x) * 0.18;
+      spot.y += (spot.ty - spot.y) * 0.18;
+      spot.on += (spot.want - spot.on) * 0.08;
       var i, p, x, y, a, s;
 
       if (mode === "stars") {
@@ -124,20 +130,25 @@
           x = wrap(p.x + Math.sin(t * p.sw + p.ph) * 14 + pointer.x * 30, W);
           var k = y / H; // 1 at the bottom, 0 at the top
           a = Math.min(1, k * 1.5) * (0.35 + 0.65 * (0.5 + 0.5 * Math.sin(t * 3 + p.ph)));
-          ctx.globalAlpha = a * 0.9;
           ctx.fillStyle = colors[p.c];
-          ctx.beginPath(); ctx.arc(x, y, p.r * (0.5 + k * 0.7), 0, TAU); ctx.fill();
-          if (p.r > 2) { ctx.globalAlpha = a * 0.18; ctx.beginPath(); ctx.arc(x, y, p.r * 3, 0, TAU); ctx.fill(); }
+          ctx.globalAlpha = a * 0.28;
+          ctx.beginPath(); ctx.arc(x, y, p.r * (0.6 + k * 0.8) * 2.6, 0, TAU); ctx.fill();
+          ctx.globalAlpha = Math.min(1, a * 1.15);
+          ctx.beginPath(); ctx.arc(x, y, p.r * (0.5 + k * 0.6), 0, TAU); ctx.fill();
         }
       } else if (mode === "motes") {
+        if (spot.on > 0.02 && sprites[0]) {
+          ctx.globalAlpha = 0.34 * spot.on;
+          ctx.drawImage(sprites[0], spot.x - 230, spot.y - 230, 460, 460);
+        }
         for (i = 0; i < parts.length; i++) {
           p = parts[i];
           x = wrap(p.x + p.vx * t + pointer.x * 40, W + p.s) - p.s / 2;
           y = wrap(p.y + p.vy * t + Math.sin(t * 0.3 + p.ph) * 22, H + p.s) - p.s / 2;
-          ctx.globalAlpha = p.dot ? p.a * 2.2 : p.a;
+          ctx.globalAlpha = p.dot ? Math.min(0.8, (0.35 + 0.65 * (0.5 + 0.5 * Math.sin(t * 1.4 + p.ph))) * p.a * 6) : p.a;
           if (p.dot) {
             ctx.fillStyle = colors[p.c];
-            ctx.beginPath(); ctx.arc(x, y, 1.6, 0, TAU); ctx.fill();
+            ctx.beginPath(); ctx.arc(x, y, 1.1 + p.a * 14, 0, TAU); ctx.fill();
           } else if (sprites[p.c]) {
             ctx.drawImage(sprites[p.c], x, y, p.s, p.s);
           }
@@ -158,7 +169,14 @@
             q = parts[j]; dx = p.x - q.x; dy = p.y - q.y;
             if (dx > D || dx < -D || dy > D || dy < -D) continue;
             d = Math.sqrt(dx * dx + dy * dy);
-            if (d < D) { ctx.globalAlpha = (1 - d / D) * 0.34; ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke(); }
+            if (d < D) { ctx.globalAlpha = (1 - d / D) * 0.3; ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke(); }
+          }
+        }
+        if (spot.on > 0.02) {
+          var R = D * 1.5;
+          for (i = 0; i < parts.length; i++) {
+            p = parts[i]; dx = p.x - spot.x; dy = p.y - spot.y; d = Math.sqrt(dx * dx + dy * dy);
+            if (d < R) { ctx.globalAlpha = (1 - d / R) * 0.55 * spot.on; ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(spot.x, spot.y); ctx.stroke(); }
           }
         }
         ctx.fillStyle = colors[1];
@@ -193,8 +211,9 @@
         var r = host.getBoundingClientRect();
         pointer.tx = (e.clientX - r.left) / r.width - 0.5;
         pointer.ty = (e.clientY - r.top) / r.height - 0.5;
+        spot.tx = e.clientX - r.left; spot.ty = e.clientY - r.top; spot.want = 1;
       }, { passive: true });
-      host.addEventListener("pointerleave", function () { pointer.tx = 0; pointer.ty = 0; });
+      host.addEventListener("pointerleave", function () { pointer.tx = 0; pointer.ty = 0; spot.want = 0; });
     }
     kick();
   }

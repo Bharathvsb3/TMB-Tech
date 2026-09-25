@@ -133,8 +133,10 @@
       "playStore": {
         "packageId": "com.jbtech.gasone",
         "live": false,
-        "comingSoon": false,
-        "_live": "Checked on 25 Sep 2026: the Google Play page for com.jbtech.gasone returned 404 (not public yet), so no badge is shown. Set live to true when it is published."
+        "comingSoon": true,
+        "soonText": "On Google Play soon: in review",
+        "_live": "Submitted to Google Play and in review (expected to publish about 5 days after 25 Sep 2026). Until then the store page returns 404, so a label is shown instead of a badge that would not open. When it is published, set live to true and the label becomes the real badge.",
+        "_soonText": "Optional per-app text that replaces stores.googlePlay.soonText while live is false."
       },
       "trial": {
         "available": false,

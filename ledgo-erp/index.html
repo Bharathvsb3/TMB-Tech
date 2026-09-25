@@ -127,6 +127,7 @@
 
 <!-- ============================= HERO ============================= -->
 <section class="hero">
+  <canvas class="fx-canvas" data-fx="motes" aria-hidden="true"></canvas>
   <div class="wrap hero-grid">
     <div class="hero-copy reveal in">
       <div class="eyebrow" style="justify-content:flex-start" data-i18n="hero.eyebrow">Built for the shop counter</div>
@@ -137,7 +138,7 @@
         <a href="#features" class="btn btn-ghost" data-i18n="hero.cta.secondary">Explore features</a>
       </div>
       <p class="hero-trial" data-tmb-if="products.ledgo-erp.trial.available"><span class="cta-trial-dot"></span><span>{{trial.text}} <a href="#cta" data-trial-request="ledgo-erp">{{trial.cta}}</a></span></p>
-      <div class="store-row"><a class="play-badge" data-tmb-if="products.ledgo-erp.playStore.url" href="{{products.ledgo-erp.playStore.url}}" target="_blank" rel="noopener noreferrer" aria-label="{{stores.googlePlay.badgeAlt}}: {{products.ledgo-erp.name}}"><img src="assets/google-play.png" alt="{{stores.googlePlay.badgeAlt}}" width="140" height="54" loading="lazy"></a><span class="play-soon" data-tmb-if="products.ledgo-erp.playStore.showSoon">{{stores.googlePlay.soonText}}</span></div>
+      <div class="store-row"><a class="play-badge" data-tmb-if="products.ledgo-erp.playStore.url" href="{{products.ledgo-erp.playStore.url}}" target="_blank" rel="noopener noreferrer" aria-label="{{stores.googlePlay.badgeAlt}}: {{products.ledgo-erp.name}}"><img src="assets/google-play.png" alt="{{stores.googlePlay.badgeAlt}}" width="140" height="54" loading="lazy"></a><span class="play-soon" data-tmb-if="products.ledgo-erp.playStore.showSoon">{{products.ledgo-erp.playStore.soonLabel}}</span></div>
       <div class="hero-trust">
         <div class="hero-trust-item"><span class="num mono count-up">10+</span><span class="label" data-i18n="hero.trust.modules">Modules</span></div>
         <div class="hero-trust-item"><span class="num mono count-up">5</span><span class="label" data-i18n="hero.trust.languages">Languages</span></div>
@@ -768,7 +769,7 @@
     <h2 data-i18n="cta.heading">Bring your shop onto one screen.</h2>
     <p data-i18n="cta.sub">No credit card, no sales call required to see if it fits — just a look at whether it actually matches how your shop runs.</p>
     <p class="cta-trial" data-tmb-if="products.ledgo-erp.trial.available"><span class="cta-trial-dot"></span>{{trial.badge}}. {{trial.text}}</p>
-    <div class="cta-store"><div class="store-row"><a class="play-badge" data-tmb-if="products.ledgo-erp.playStore.url" href="{{products.ledgo-erp.playStore.url}}" target="_blank" rel="noopener noreferrer" aria-label="{{stores.googlePlay.badgeAlt}}: {{products.ledgo-erp.name}}"><img src="assets/google-play.png" alt="{{stores.googlePlay.badgeAlt}}" width="140" height="54" loading="lazy"></a><span class="play-soon" data-tmb-if="products.ledgo-erp.playStore.showSoon">{{stores.googlePlay.soonText}}</span></div></div>
+    <div class="cta-store"><div class="store-row"><a class="play-badge" data-tmb-if="products.ledgo-erp.playStore.url" href="{{products.ledgo-erp.playStore.url}}" target="_blank" rel="noopener noreferrer" aria-label="{{stores.googlePlay.badgeAlt}}: {{products.ledgo-erp.name}}"><img src="assets/google-play.png" alt="{{stores.googlePlay.badgeAlt}}" width="140" height="54" loading="lazy"></a><span class="play-soon" data-tmb-if="products.ledgo-erp.playStore.showSoon">{{products.ledgo-erp.playStore.soonLabel}}</span></div></div>
 
     <form id="contactForm" class="contact-form" novalidate>
       <div class="form-row">
@@ -848,6 +849,7 @@
 
 <!-- ============================= FOOTER ============================= -->
 <footer class="site-footer">
+  <div class="footer-bg" aria-hidden="true"></div>
   <div class="wrap">
     <div class="footer-top">
       <div class="footer-brand">
@@ -856,32 +858,42 @@
           <img class="brand-wordmark" src="assets/ledgo-erp-wordmark.svg" alt="LedGo ERP" />
         </a>
         <p data-i18n="footer.tagline">Shop-management software for Indian agri, hardware, and general trade retailers — one screen for billing, inventory, GST, and your own customer app.</p>
-        <div class="store-row store-row-foot"><a class="play-badge" data-tmb-if="products.ledgo-erp.playStore.url" href="{{products.ledgo-erp.playStore.url}}" target="_blank" rel="noopener noreferrer" aria-label="{{stores.googlePlay.badgeAlt}}: {{products.ledgo-erp.name}}"><img src="assets/google-play.png" alt="{{stores.googlePlay.badgeAlt}}" width="140" height="54" loading="lazy"></a><span class="play-soon" data-tmb-if="products.ledgo-erp.playStore.showSoon">{{stores.googlePlay.soonText}}</span></div>
+        <ul class="foot-social" aria-label="Contact {{company.name}}">
+          <li><a href="mailto:{{company.contact.email}}" aria-label="Email {{company.name}}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a></li>
+          <li><a href="tel:{{company.contact.phone|digits}}" aria-label="Call {{company.name}}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></a></li>
+          <li><a href="{{company.social.linkedin.url}}" target="_blank" rel="noopener noreferrer" aria-label="{{company.name}} on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6.94 8.5H3.56V20h3.38V8.5zM5.25 3a1.96 1.96 0 1 0 0 3.92 1.96 1.96 0 0 0 0-3.92zM20.44 20v-6.3c0-3.1-1.66-4.55-3.87-4.55-1.78 0-2.58.98-3.02 1.67V8.5h-3.38c.04.95 0 11.5 0 11.5h3.38v-6.42c0-.34.02-.68.13-.92.27-.68.9-1.38 1.95-1.38 1.37 0 1.92 1.04 1.92 2.58V20h3.39z"/></svg></a></li>
+          <li><a href="{{company.social.github.url}}" target="_blank" rel="noopener noreferrer" aria-label="{{company.name}} on GitHub"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg></a></li>
+        </ul>
+        <div class="store-row store-row-foot"><a class="play-badge" data-tmb-if="products.ledgo-erp.playStore.url" href="{{products.ledgo-erp.playStore.url}}" target="_blank" rel="noopener noreferrer" aria-label="{{stores.googlePlay.badgeAlt}}: {{products.ledgo-erp.name}}"><img src="assets/google-play.png" alt="{{stores.googlePlay.badgeAlt}}" width="140" height="54" loading="lazy"></a><span class="play-soon" data-tmb-if="products.ledgo-erp.playStore.showSoon">{{products.ledgo-erp.playStore.soonLabel}}</span></div>
       </div>
       <div class="footer-cols">
         <div class="footer-col">
           <h4 data-i18n="footer.col.product">Product</h4>
           <ul>
             <li><a href="#features" data-i18n="nav.features">Features</a></li>
+            <li><a href="#online-store">Online Store</a></li>
             <li><a href="#devices" data-i18n="nav.devices">Everywhere You Work</a></li>
             <li><a href="#themes" data-i18n="nav.themes">Make It Yours</a></li>
+            <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
+            <li><a href="#cta" data-i18n="footer.link.contact">Contact</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h4 data-i18n="footer.col.company">Company</h4>
-          <ul>
-            <li><a href="{{site.baseUrl}}">{{company.name}}</a></li>
-            <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
-            <li><a href="#cta" data-i18n="footer.link.contact">Contact</a></li>
-            <li><a href="mailto:{{company.contact.email}}">{{company.contact.email}}</a></li>
-            <li><a href="tel:{{company.contact.phone|digits}}">{{company.contact.phone}}</a></li>
-          </ul>
+          <h4>Get in touch</h4>
+          <ul class="foot-contact">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><a href="mailto:{{company.contact.email}}">{{company.contact.email}}</a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><a href="tel:{{company.contact.phone|digits}}">{{company.contact.phone}}</a></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6.94 8.5H3.56V20h3.38V8.5zM5.25 3a1.96 1.96 0 1 0 0 3.92 1.96 1.96 0 0 0 0-3.92zM20.44 20v-6.3c0-3.1-1.66-4.55-3.87-4.55-1.78 0-2.58.98-3.02 1.67V8.5h-3.38c.04.95 0 11.5 0 11.5h3.38v-6.42c0-.34.02-.68.13-.92.27-.68.9-1.38 1.95-1.38 1.37 0 1.92 1.04 1.92 2.58V20h3.39z"/></svg><a href="{{company.social.linkedin.url}}" target="_blank" rel="noopener noreferrer">LinkedIn {{company.social.linkedin.display}}</a></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg><a href="{{company.social.github.url}}" target="_blank" rel="noopener noreferrer">GitHub {{company.social.github.display}}</a></li>
+          <li class="foot-person"><span class="foot-avatar" aria-hidden="true">{{company.founder.initials}}</span><span><b>{{company.founder.name}}</b><small>{{company.founder.role}}, {{company.name}}</small></span></li>
+        </ul>
         </div>
         <div class="footer-col">
           <h4>More from {{company.name}}</h4>
-          <ul>
-            <li><a href="{{products.gasone.url}}">{{products.gasone.name}}</a></li>
-            <li><a href="{{products.jb-one.url}}">{{products.jb-one.name}}</a></li>
+          <ul class="foot-prods">
+            <li><a href="{{products.gasone.url}}"><img src="assets/others/gasone.png" alt="" width="36" height="36" loading="lazy"><span><b>{{products.gasone.name}}</b><small>{{products.gasone.tagline}}</small></span></a></li>
+            <li><a href="{{products.jb-one.url}}"><img src="assets/others/jbone.png" alt="" width="36" height="36" loading="lazy"><span><b>{{products.jb-one.name}}</b><small>{{products.jb-one.tagline}}</small></span></a></li>
+            <li><a href="{{site.baseUrl}}"><span class="foot-globe" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span><span><b>{{company.name}}</b><small>Company website</small></span></a></li>
           </ul>
         </div>
       </div>
@@ -890,11 +902,13 @@
       <span>© <span id="year"></span> LedGo ERP. <span data-i18n="footer.rights">All rights reserved.</span></span>
       <a class="powered-by" href="{{site.baseUrl}}" target="_blank" rel="noopener"><span>Powered by</span> <img src="assets/tmb-logo.png" alt="{{company.name}}" width="90" height="21" /></a>
       <span class="mono"><span data-i18n="footer.previewing">Currently previewing:</span> <span id="footerTheme">AgriPro Green</span></span>
+      <a class="to-top" href="#top">Back to top <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 19V5M5 12l7-7 7 7"/></svg></a>
     </div>
   </div>
 </footer>
 
 <script src="js/main.js"></script>
 <script src="js/tmb.js"></script>
+<script src="../js/hero-fx.js" defer></script>
 </body>
 </html>

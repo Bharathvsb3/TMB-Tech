@@ -42,7 +42,10 @@
   --blob-1: rgba(10, 95, 216, 0.45);
   --blob-2: rgba(255, 138, 61, 0.5);
   --blob-3: rgba(66, 94, 147, 0.4);
-  --grid-line: rgba(10, 95, 216, 0.07);
+  --grid-line: rgba(10, 95, 216, 0.11);
+  --fx-1: #ff8a3d;
+  --fx-2: #ffb066;
+  --fx-3: #0a5fd8;
   --chip-bg: rgba(255, 255, 255, 0.7);
   --chip-text: #0f1a33;
   --chip-line: rgba(255, 255, 255, 0.9);

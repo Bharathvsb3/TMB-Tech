@@ -114,6 +114,7 @@
       var ps = (p.playStore = p.playStore || {});
       ps.url = ps.live && ps.packageId ? listing + ps.packageId : "";
       ps.showSoon = !!ps.comingSoon && !ps.live;
+      ps.soonLabel = ps.soonText || lookup(s, "stores.googlePlay.soonText") || "";
       p.trial = p.trial || {};
     });
 

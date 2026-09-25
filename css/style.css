@@ -1297,6 +1297,56 @@ h1, h2, h3 { text-wrap: balance; }
 /* ---------- Performance ---------- */
 .section { content-visibility: auto; contain-intrinsic-size: auto 800px; }
 
+/* ---------- Hero effects ---------- */
+.hero { position: relative; }
+.hero .fx-canvas { --fx-1: #2563eb; --fx-2: #3b82f6; --fx-3: #60a5fa; }
+.hero-inner { position: relative; z-index: 1; }
+.hero-grid-lines {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: linear-gradient(rgba(37, 99, 235, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(37, 99, 235, 0.08) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 40%, #000 22%, transparent 78%);
+  mask-image: radial-gradient(ellipse 75% 70% at 50% 40%, #000 22%, transparent 78%);
+}
+.fx-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; display: block; }
+.play-soon { align-items: center; gap: 9px; }
+.play-soon::before { content: ""; flex-shrink: 0; width: 12px; height: 14px; background: linear-gradient(135deg, #00d2ff 0%, #34d058 38%, #ffd23f 68%, #ff5a5f 100%); clip-path: polygon(0 0, 100% 50%, 0 100%); }
+
+/* ---------- Detailed footer ---------- */
+.site-footer { position: relative; overflow: hidden; padding-block: 64px 24px; }
+.site-footer::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 2px; background: linear-gradient(90deg, transparent, var(--primary), var(--accent-purple-2), transparent); z-index: 2; }
+.footer-bg { position: absolute; inset: 0; pointer-events: none; }
+.footer-bg::before { content: ""; position: absolute; inset: 0; background: radial-gradient(55% 80% at 8% 0%, rgba(37, 99, 235, 0.09), transparent 70%), radial-gradient(45% 70% at 100% 100%, rgba(124, 58, 237, 0.07), transparent 72%); }
+.footer-bg::after { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(37, 99, 235, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(37, 99, 235, 0.06) 1px, transparent 1px); background-size: 56px 56px; -webkit-mask-image: linear-gradient(#000, transparent 75%); mask-image: linear-gradient(#000, transparent 75%); }
+.site-footer .container { position: relative; z-index: 1; }
+.footer-inner { display: grid; grid-template-columns: 1.5fr 0.8fr 1.3fr 1.4fr; gap: 40px 36px; align-items: start; padding-bottom: 40px; }
+.footer-about { margin-top: 12px; font-size: 0.9rem; color: var(--muted); max-width: 34ch; }
+.footer-social { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+.footer-social a { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 13px; border: 1px solid var(--border); background: var(--background); color: var(--muted); transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease; }
+.footer-social a:hover { background: var(--primary); border-color: var(--primary); color: #fff; transform: translateY(-3px); }
+.footer-social svg { width: 19px; height: 19px; }
+.footer-col h4 { margin: 0 0 14px; font-size: 0.76rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.footer-col ul { display: flex; flex-direction: column; gap: 4px; }
+.footer-col a { font-size: 0.93rem; color: var(--text); transition: color var(--transition); display: inline-block; padding-block: 5px; overflow-wrap: anywhere; }
+.footer-col a:hover { color: var(--primary); }
+.footer-contact li { display: flex; align-items: flex-start; gap: 10px; }
+.footer-contact li > svg { width: 17px; height: 17px; margin-top: 9px; flex-shrink: 0; color: var(--primary); }
+.footer-contact .foot-person { align-items: center; margin-top: 8px; padding-top: 14px; border-top: 1px solid var(--border); }
+.foot-avatar { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-size: 0.82rem; font-weight: 800; background: var(--primary); color: #fff; }
+.foot-person b, .footer-prods b { display: block; font-size: 0.92rem; color: var(--text); }
+.foot-person small, .footer-prods small { display: block; font-size: 0.78rem; line-height: 1.35; color: var(--muted); }
+.footer-prods { gap: 6px; }
+.footer-col .footer-prods a { display: flex; align-items: center; gap: 12px; padding: 8px 10px; margin: 0 -10px; border-radius: 14px; transition: background 0.2s ease, transform 0.2s ease; }
+.footer-col .footer-prods a:hover { background: var(--primary-light); transform: translateX(3px); }
+.footer-prods img { flex-shrink: 0; width: 36px; height: 36px; border-radius: 10px; object-fit: cover; background: #fff; border: 1px solid var(--border); }
+.footer-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; padding-top: 20px; border-top: 1px solid var(--border); }
+.footer-bottom .footer-copy { border: 0; padding: 0; }
+.footer-top-link { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--border); font-size: 0.85rem; color: var(--muted); transition: border-color 0.2s ease, color 0.2s ease; }
+.footer-top-link:hover { border-color: var(--primary); color: var(--primary); }
+.footer-top-link svg { width: 15px; height: 15px; }
+@media (max-width: 1040px) { .footer-inner { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .footer-inner { grid-template-columns: 1fr; } }
+
 /* ---------- Lite mode: switched on automatically on a computer that scrolls badly (see js/perf.js) ---------- */
 html.lite *, html.lite *::before, html.lite *::after { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
 html.lite .blob, html.lite .sparkles, html.lite .fx-canvas, html.lite .hero-sphere, html.lite .hero-glow, html.lite .cta-grid, html.lite .farm-scene-wrap { display: none !important; }

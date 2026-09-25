@@ -1296,32 +1296,50 @@
      prefers-reduced-motion, matching initReveal()/initHeroStats() above.
      Throttled to one update per animation frame via requestAnimationFrame,
      same pattern as any scroll-linked effect. */
+  // The hero devices fan apart as the pointer moves and the page scrolls. This only
+  // writes three numbers (--px, --py, --sp); the movement itself is in css/tmb.css.
   function initHeroParallax() {
     var cluster = document.querySelector(".device-cluster");
-    if (!cluster) return;
+    var hero = document.querySelector(".hero");
+    if (!cluster || !hero) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     var MIN_WIDTH = 768;
-    var RATE = 0.08;
-    var ticking = false;
+    var px = 0, py = 0, heroH = 1, near = true, ticking = false;
+
+    function measure() { heroH = hero.offsetHeight || 1; }
 
     function update() {
       ticking = false;
-      if (window.innerWidth < MIN_WIDTH) {
-        cluster.style.transform = "";
-        return;
-      }
-      cluster.style.transform = "translateY(" + window.scrollY * RATE + "px)";
+      if (!near || document.documentElement.classList.contains("lite") || window.innerWidth < MIN_WIDTH) return;
+      var sp = Math.min(1, Math.max(0, window.scrollY / heroH));
+      cluster.style.setProperty("--px", px.toFixed(3));
+      cluster.style.setProperty("--py", py.toFixed(3));
+      cluster.style.setProperty("--sp", sp.toFixed(3));
     }
 
-    function onScrollOrResize() {
+    function request() {
       if (ticking) return;
       ticking = true;
       window.requestAnimationFrame(update);
     }
 
-    window.addEventListener("scroll", onScrollOrResize, { passive: true });
-    window.addEventListener("resize", onScrollOrResize, { passive: true });
+    window.addEventListener("scroll", request, { passive: true });
+    window.addEventListener("resize", function () { measure(); request(); }, { passive: true });
+    window.addEventListener("load", function () { measure(); request(); });
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (e) { near = e[0].isIntersecting; request(); }, { rootMargin: "100px 0px" }).observe(hero);
+    }
+    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      hero.addEventListener("pointermove", function (e) {
+        var r = hero.getBoundingClientRect();
+        px = (e.clientX - r.left) / r.width - 0.5;
+        py = (e.clientY - r.top) / r.height - 0.5;
+        request();
+      }, { passive: true });
+      hero.addEventListener("pointerleave", function () { px = 0; py = 0; request(); });
+    }
+    measure();
     update();
   }
 
