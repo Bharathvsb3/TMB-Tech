@@ -132,7 +132,9 @@
           if (!entry.isIntersecting) return;
           var id = entry.target.getAttribute("id");
           navLinks.forEach(function (link) {
-            link.classList.toggle("active", link.getAttribute("href") === "#" + id);
+            var on = link.getAttribute("href") === "#" + id;
+            link.classList.toggle("active", on);
+            if (on) link.setAttribute("aria-current", "true"); else link.removeAttribute("aria-current");
           });
           updateNavIndicator();
         });
@@ -614,10 +616,18 @@
       visitHtml;
   }
 
+  // While the dialog is open the rest of the page cannot be reached.
+  function setPageInert(on) {
+    document.querySelectorAll(".site-header, main, .site-footer, .back-to-top, .scroll-progress").forEach(function (el) {
+      el.inert = on;
+    });
+  }
+
   function openModal(key) {
     renderModal(key);
     lastFocusedEl = document.activeElement;
     modalOverlay.hidden = false;
+    setPageInert(true);
     lockScroll();
     modalClose.focus();
   }
@@ -625,6 +635,7 @@
   function closeModal() {
     if (modalOverlay.hidden) return;
     modalOverlay.hidden = true;
+    setPageInert(false);
     unlockScroll();
     if (lastFocusedEl) lastFocusedEl.focus();
   }
@@ -643,7 +654,15 @@
     });
 
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && !modalOverlay.hidden) closeModal();
+      if (modalOverlay.hidden) return;
+      if (e.key === "Escape") { closeModal(); return; }
+      if (e.key !== "Tab") return;
+      // keep Tab / Shift+Tab inside the dialog
+      var focusable = modalOverlay.querySelectorAll('a[href], button:not([disabled]), input, textarea, select, [tabindex]:not([tabindex="-1"])');
+      if (!focusable.length) return;
+      var first = focusable[0], last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     });
   }
 
@@ -676,55 +695,57 @@
     function setFieldError(input, message) {
       var field = input.closest(".form-field");
       var error = document.getElementById(input.id + "-error");
+      if (error) {
+        error.setAttribute("role", "alert");
+        input.setAttribute("aria-describedby", error.id);
+      }
       if (message) {
         field.classList.add("invalid");
+        input.setAttribute("aria-invalid", "true");
         if (error) error.textContent = message;
         return false;
       }
       field.classList.remove("invalid");
+      input.removeAttribute("aria-invalid");
       if (error) error.textContent = "";
       return true;
     }
 
-    function validateContactForm() {
-      var valid = true;
+    var fieldRules = [
+      [cfName, function (v) { return v ? "" : "Please enter your name."; }],
+      [cfEmail, function (v) {
+        if (!v) return "Please enter your email.";
+        return emailPattern.test(v) ? "" : "Please enter a valid email address.";
+      }],
+      [cfPhone, function (v) {
+        if (!v) return "Please enter your phone number.";
+        return v.replace(/\D/g, "").length >= 7 ? "" : "Please enter a valid phone number.";
+      }],
+      [cfMessage, function (v) { return v ? "" : "Please describe what you need."; }]
+    ];
 
-      if (!cfName.value.trim()) {
-        setFieldError(cfName, "Please enter your name.");
-        valid = false;
-      } else {
-        setFieldError(cfName, "");
-      }
-
-      if (!cfEmail.value.trim()) {
-        setFieldError(cfEmail, "Please enter your email.");
-        valid = false;
-      } else if (!emailPattern.test(cfEmail.value.trim())) {
-        setFieldError(cfEmail, "Please enter a valid email address.");
-        valid = false;
-      } else {
-        setFieldError(cfEmail, "");
-      }
-
-      if (!cfPhone.value.trim()) {
-        setFieldError(cfPhone, "Please enter your phone number.");
-        valid = false;
-      } else {
-        setFieldError(cfPhone, "");
-      }
-
-      if (!cfMessage.value.trim()) {
-        setFieldError(cfMessage, "Please describe what you need.");
-        valid = false;
-      } else {
-        setFieldError(cfMessage, "");
-      }
-
-      return valid;
+    function validateField(input) {
+      var rule = fieldRules.filter(function (r) { return r[0] === input; })[0];
+      return setFieldError(input, rule[1](input.value.trim()));
     }
 
-    [cfName, cfEmail, cfPhone, cfMessage].forEach(function (input) {
-      input.addEventListener("blur", validateContactForm);
+    function validateContactForm() {
+      var firstInvalid = null;
+      fieldRules.forEach(function (r) {
+        if (!validateField(r[0]) && !firstInvalid) firstInvalid = r[0];
+      });
+      if (firstInvalid) firstInvalid.focus();
+      return !firstInvalid;
+    }
+
+    // Only the field being left is checked, so untouched fields stay quiet.
+    fieldRules.forEach(function (r) {
+      r[0].addEventListener("blur", function () {
+        if (r[0].value.trim() || r[0].closest(".form-field").classList.contains("invalid")) validateField(r[0]);
+      });
+      r[0].addEventListener("input", function () {
+        if (r[0].closest(".form-field").classList.contains("invalid")) validateField(r[0]);
+      });
     });
 
     contactForm.addEventListener("submit", function (e) {
@@ -736,7 +757,9 @@
       var phone = cfPhone.value.trim();
       var message = cfMessage.value.trim();
 
-      var subject = "New enquiry from " + name;
+      // "Request free trial" buttons set data-intent on the form (see js/settings.js)
+      var intent = contactForm.getAttribute("data-intent");
+      var subject = (intent || "New enquiry") + " from " + name;
       var body =
         "Name: " + name + "\n" +
         "Email: " + email + "\n" +

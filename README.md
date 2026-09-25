@@ -59,6 +59,10 @@ python tools/render.py --lint   # any contact detail still typed into a page?
 
 Run `--check` before you push. A missing comma in `settings.json` breaks every page's contact details (the pages then show blanks instead of the values), and `--check` tells you the exact line.
 
+**Google Play badges:** each product has a `playStore` block in `settings.json` (`packageId`, `live`, `comingSoon`). The official "Get it on Google Play" badge appears on the company site and the product sites only when `live` is `true`, and links to `https://play.google.com/store/apps/details?id=<packageId>`. Set `live` to `true` the day a listing goes public. With `"comingSoon": true` and `live` still `false`, a "Coming soon on Google Play" label shows instead. JB One is live; GasOne (`com.jbtech.gasone`) returned 404 on 25 Sep 2026, so it stays hidden until published.
+
+**Free trial:** the wording lives in the top-level `trial` block, and each product turns it on or off with `products.<name>.trial.available`. "Request free trial" buttons scroll to the contact form, fill in that product's `trial.message`, and the email arrives with the subject "Free trial request (Product) from Name". Elements are switched on and off in the HTML with `data-tmb-if="<path in settings.json>"`.
+
 **A product on its own domain:** put the full address in that product's `url` in `settings.json` (for example `"url": "https://gasone.in/"`). Every link to it, on every page, follows. Copy the product folder and `js/settings.js` to the new host and add `data-settings="https://bharathvsb3.github.io/TMB-Tech/settings.json"` to its `<script src=".../settings.js">` tag so it keeps reading the same file (GitHub Pages allows this). Then run `python tools/render.py` so its canonical and share tags point at the new address.
 
 ## Sections

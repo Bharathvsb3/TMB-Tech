@@ -317,7 +317,7 @@ textarea:focus-visible {
 }
 .nav-backdrop.visible { opacity: 1; visibility: visible; }
 
-@media (max-width: 900px) {
+@media (max-width: 1040px) {
   .nav-toggle { display: flex; }
   .main-nav {
     position: fixed;
@@ -347,6 +347,11 @@ textarea:focus-visible {
   }
   .nav-link { padding: 14px 18px; font-size: 1rem; }
   .header-cta { display: none; }
+  .nav-cta-item { display: block; padding: 8px 12px 4px; }
+  .nav-cta { width: 100%; }
+  /* a closed drawer must not be reachable with the keyboard */
+  .main-nav { visibility: hidden; transition: right 280ms ease, visibility 0s linear 280ms; }
+  .main-nav.open { visibility: visible; transition: right 280ms ease, visibility 0s; }
 }
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
@@ -1242,3 +1247,49 @@ textarea:focus-visible {
   .hero { padding-block: 48px 64px; }
   .section { padding-block: 64px; }
 }
+
+/* ---------- Google Play badge + free trial (values come from settings.json) ---------- */
+.card-extra { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; min-height: 58px; margin-top: 10px; }
+.card-extra .btn-sm { padding: 10px 16px; font-size: 0.88rem; }
+.play-badge { display: inline-block; line-height: 0; margin-left: -7px; transition: transform 0.25s ease, filter 0.25s ease; }
+.play-badge img { height: 58px; width: auto; display: block; }
+.play-badge:hover { transform: translateY(-2px); filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.25)); }
+.play-soon { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 12px; font-size: 0.85rem; font-weight: 700; color: var(--text); background: var(--surface); border: 1px dashed var(--border); }
+
+/* ---------- QA fixes ---------- */
+.nav-cta-item { display: none; }
+html { scroll-padding-top: calc(var(--header-h) + 8px); }
+html.tmb-pending { scroll-behavior: auto !important; }
+h1, h2, h3 { text-wrap: balance; }
+
+/* product grid: three across from 900px, one column below (no lonely third card) */
+.product-grid { grid-template-columns: 1fr; }
+@media (min-width: 900px) { .product-grid { grid-template-columns: repeat(3, 1fr); } }
+/* projects: 2 x 2 */
+@media (min-width: 640px) { .project-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .project-grid { grid-template-columns: repeat(2, 1fr); } }
+/* cards: buttons and store badge line up at the bottom of every card */
+.product-card .tech-tags { margin-top: 12px; }
+.card-foot { margin-top: auto; padding-top: 6px; }
+.card-foot .btn-outline { margin-top: 14px; }
+@media (min-width: 900px) and (max-width: 1199px) { .card-extra { min-height: 118px; } }
+@media (max-width: 899px) { .card-extra { min-height: 0; } }
+
+/* contact cards: two across until there is room for four */
+@media (min-width: 1024px) { .contact-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1240px) { .contact-grid { grid-template-columns: repeat(4, 1fr); } }
+.contact-card .contact-value { overflow-wrap: anywhere; }
+
+/* contact form */
+.form-row { margin-bottom: 20px; }
+.form-field .field-error, .form-field [id$="-error"] { min-height: 1.1em; display: block; }
+@media (max-width: 767px) { .contact-form input, .contact-form textarea { font-size: 16px; } }
+
+/* hero: no floating icons on top of the panel on tablets and small laptops */
+@media (max-width: 1200px) { .hero-stage .floating-icon { display: none; } }
+
+/* small things */
+.trial-badge { color: #047857; }
+.footer-nav a { display: inline-block; padding-block: 9px; }
+.founder-email { display: inline-block; padding-block: 9px; }
+.modal-close { min-width: 44px; min-height: 44px; }

@@ -61,6 +61,28 @@
     "_logo": "Company logo, relative to baseUrl."
   },
 
+  "stores": {
+    "_comment": "App store links. Each product's own package id and 'live' switch are in the products section below.",
+    "googlePlay": {
+      "listingUrl": "https://play.google.com/store/apps/details?id=",
+      "badgeAlt": "Get it on Google Play",
+      "soonText": "Coming soon on Google Play"
+    }
+  },
+
+  "trial": {
+    "_comment": [
+      "Free-trial wording shown on the sites, in one place. Whether a product offers a trial is set per product (products.<name>.trial.available).",
+      "The 'Request free trial' buttons scroll to the contact form and fill in that product's trial message, and the email arrives with the subject 'intent'."
+    ],
+    "short": "Free trial",
+    "badge": "Free trial available",
+    "cta": "Request free trial",
+    "text": "Want to try it first? Request a free trial and we will create your login and set everything up for you.",
+    "faq": "Yes. Send us a request and we will create your login and set everything up for you.",
+    "intent": "Free trial request"
+  },
+
   "products": {
     "_comment": [
       "One entry per product. 'path' is the folder on this site. If a product moves to its OWN domain later, put the full address in 'url' (for example https://gasone.in/) and every link to it, in every page, follows automatically.",
@@ -81,7 +103,17 @@
       "applicationCategory": "BusinessApplication",
       "inLanguage": ["en", "ta", "hi", "kn", "te"],
       "websiteUrl": "https://ledgoerp.runasp.net/website/index.html",
-      "_websiteUrl": "The product's own live site (the 'Try LedGo ERP' button on the company site)."
+      "_websiteUrl": "The product's own live site (the 'Try LedGo ERP' button on the company site).",
+      "playStore": {
+        "_comment": "packageId = the app's id on Google Play. Set live to true once the listing is public and the badge appears on the sites. comingSoon shows a 'Coming soon' label while live is false.",
+        "packageId": "com.ledgoerp",
+        "live": false,
+        "comingSoon": false
+      },
+      "trial": {
+        "available": true,
+        "message": "Hi, I would like a free trial of {{products.ledgo-erp.name}}. Please create my login and set it up for my shop."
+      }
     },
 
     "gasone": {
@@ -97,7 +129,17 @@
       "operatingSystem": "Android, Web",
       "applicationCategory": "BusinessApplication",
       "inLanguage": ["en", "ta"],
-      "websiteUrl": "https://gasoneapp.runasp.net/GasOne_Guide.html"
+      "websiteUrl": "https://gasoneapp.runasp.net/GasOne_Guide.html",
+      "playStore": {
+        "packageId": "com.jbtech.gasone",
+        "live": false,
+        "comingSoon": false,
+        "_live": "Checked on 25 Sep 2026: the Google Play page for com.jbtech.gasone returned 404 (not public yet), so no badge is shown. Set live to true when it is published."
+      },
+      "trial": {
+        "available": false,
+        "message": "Hi, I would like a free trial of {{products.gasone.name}}. Please create my login and set it up for my agency."
+      }
     },
 
     "jb-one": {
@@ -114,9 +156,18 @@
       "operatingSystem": "Android, Web",
       "applicationCategory": "BusinessApplication",
       "inLanguage": ["en", "ta"],
+      "playStore": {
+        "packageId": "com.JewelryTag.jbtech",
+        "live": true,
+        "comingSoon": false
+      },
+      "trial": {
+        "available": true,
+        "message": "Hi, I would like a free trial of {{products.jb-one.name}}. Please create my login and set it up for my shop."
+      },
       "liveShop": {
         "_comment": "A real shop running on JB One, linked from the JB One page. Remove or change it if the shop asks.",
-        "name": "T.N. Mani Gopi Jewellers",
+        "name": "T.N Mani Gopi Jewellers",
         "url": "https://tnmgopijewellers.runasp.net/shop/tnm-gopi-jewellers"
       }
     }
@@ -227,7 +278,7 @@
       "path": "jb-one/privacy-policy/",
       "product": "jb-one",
       "title": "Privacy Policy | JB One by {{company.name}}",
-      "description": "Privacy Policy for the JB One app: what information it handles, how permissions are used, third-party services, data storage and your choices.",
+      "description": "Privacy Policy for the JB One app and web catalogue: what information is handled, how permissions are used, third-party services, storage and your choices.",
       "ogTitle": "Privacy Policy | JB One by {{company.name}}",
       "ogImage": "jb-one/assets/og.jpg",
       "ogAlt": "JB One by {{company.name}}",

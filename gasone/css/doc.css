@@ -50,3 +50,21 @@
   .doc-head, .doc-body { padding: 22px; }
   .doc-toc ol { columns: 1; }
 }
+
+/* QA fixes */
+.doc-page .hdr-in::before { background: var(--hdr-bg-solid); }
+.doc-toc { margin-top: 18px; }
+.doc-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.contact-box div { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 4px 14px; }
+.contact-box a, .contact-box strong { overflow-wrap: anywhere; }
+@media (max-width: 640px) {
+  .doc-body .table-wrap { border: 0; overflow: visible; }
+  .doc-body table, .doc-body thead, .doc-body tbody, .doc-body tr, .doc-body td { display: block; min-width: 0; }
+  .doc-body thead { display: none; }
+  .doc-body tr { margin-bottom: 12px; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .doc-body td { border: 0; padding: 10px 14px; }
+  .doc-body td:first-child { background: var(--bg-alt); white-space: normal; }
+  .doc-meta { grid-template-columns: 1fr; }
+}
+.doc-toc li { padding-block: 3px; }
+.doc-toc a, .contact-box a { display: inline-block; padding-block: 4px; }

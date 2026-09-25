@@ -63,6 +63,11 @@ def normalize(s):
             continue
         url = p.get("url") or base + p["path"]
         p["url"] = url if url.endswith("/") else url + "/"
+        listing = lookup(s, "stores.googlePlay.listingUrl") or ""
+        ps = p.setdefault("playStore", {})
+        ps["url"] = listing + ps["packageId"] if ps.get("live") and ps.get("packageId") else ""
+        ps["showSoon"] = bool(ps.get("comingSoon")) and not ps.get("live")
+        p.setdefault("trial", {})
     resolve_deep(s, s)
     return s
 

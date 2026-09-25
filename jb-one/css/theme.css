@@ -8,7 +8,7 @@
   --p: #96762f;
   --a: #d4af37;
   --on-p: #1a1206;
-  --p-text: #8b6914;
+  --p-text: #7a5c10;
   --p-soft: rgba(212, 175, 55, 0.16);
   --p-line: rgba(150, 118, 47, 0.45);
   --p-shadow: rgba(139, 105, 20, 0.55);
@@ -30,7 +30,7 @@
   --glass-line: rgba(237, 209, 122, 0.25);
 
   --hdr-bg: rgba(20, 12, 16, 0.55);
-  --hdr-bg-solid: rgba(20, 12, 16, 0.92);
+  --hdr-bg-solid: rgba(20, 12, 16, 0.97);
   --hdr-line: rgba(237, 209, 122, 0.18);
   --hdr-text: #fff8ee;
   --hdr-muted: #cdbfa6;

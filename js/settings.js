@@ -14,7 +14,14 @@
 
    Token syntax:  {{path.to.value}}   or   {{path.to.value|digits}}
      digits  = keep only 0-9 and a leading +   (for tel: links)
-   Extra values: {{year}}, {{company.copyrightYears}}, {{products.<key>.url}}
+   Extra values: {{year}}, {{company.copyrightYears}}, {{products.<key>.url}},
+                 {{products.<key>.playStore.url}} (empty until the app is live)
+
+   Show / hide:   data-tmb-if="path"   shows the element only if that value in
+                  settings.json is true / non-empty (e.g. the Google Play badge
+                  or a "free trial" line that appears once you switch it on).
+   Free trial:    data-trial-request="<product>"   on a link or button scrolls to
+                  the contact form and fills in that product's trial message.
 
    To load settings.json from another address (a product hosted on its own
    domain), add  data-settings="https://.../settings.json"  to the script tag.
@@ -31,7 +38,11 @@
   // Hide the page until the tokens are filled in.
   root.classList.add("tmb-pending");
   var hide = document.createElement("style");
-  hide.textContent = ".tmb-pending body{opacity:0}";
+  hide.textContent =
+    ".tmb-pending body{opacity:0}" +
+    "html.tmb-pending{scroll-behavior:auto!important}" +
+    // shown only once settings.json says so, so the layout is the same before and after loading
+    "[data-tmb-if]:not([data-tmb-on]){display:none!important}";
   (document.head || root).appendChild(hide);
   var reveal = function () { root.classList.remove("tmb-pending"); };
   var failsafe = setTimeout(reveal, 3500);
@@ -89,6 +100,13 @@
       var url = p.url || base + p.path;
       if (url.slice(-1) !== "/") url += "/";
       p.url = url;
+
+      // Google Play link: only once the listing is public ("live": true).
+      var listing = lookup(s, "stores.googlePlay.listingUrl") || "";
+      var ps = (p.playStore = p.playStore || {});
+      ps.url = ps.live && ps.packageId ? listing + ps.packageId : "";
+      ps.showSoon = !!ps.comingSoon && !ps.live;
+      p.trial = p.trial || {};
     });
 
     // Text inside settings.json may itself use tokens, e.g. "{{company.name}} builds ..."
@@ -126,11 +144,11 @@
     };
   }
 
-  function application(s, p, position) {
+  function application(s, p, position, brief) {
     var app = {
       "@type": "SoftwareApplication",
       name: p.name,
-      description: position ? p.shortDescription : p.description,
+      description: brief ? p.shortDescription : p.description,
       applicationCategory: p.applicationCategory,
       operatingSystem: p.operatingSystem,
       image: absolute(s, p.logo),
@@ -144,9 +162,8 @@
         founder: { "@type": "Person", name: s.company.founder.name }
       }
     };
-    if (position) {
-      app.position = position;
-    } else {
+    if (p.playStore && p.playStore.url) app.installUrl = p.playStore.url;
+    if (!brief) {
       if (p.alternateName) app.alternateName = p.alternateName;
       if (p.inLanguage) app.inLanguage = p.inLanguage;
       if (p.screenshot) app.screenshot = absolute(s, p.screenshot);
@@ -167,11 +184,13 @@
       var keys = Object.keys(s.products).filter(function (k) { return k.charAt(0) !== "_"; });
       out.push({
         "@context": ctx, "@type": "ItemList",
-        itemListElement: keys.map(function (k, i) { return application(s, s.products[k], i + 1); })
+        itemListElement: keys.map(function (k, i) {
+          return { "@type": "ListItem", position: i + 1, item: application(s, s.products[k], 0, true) };
+        })
       });
     } else if (s.products && s.products[page]) {
       var p = s.products[page];
-      var app = application(s, p, 0); app["@context"] = ctx; out.push(app);
+      var app = application(s, p, 0, false); app["@context"] = ctx; out.push(app);
       out.push({
         "@context": ctx, "@type": "BreadcrumbList",
         itemListElement: [
@@ -209,6 +228,16 @@
     }
     nodes.forEach(function (node) { node.nodeValue = fill(node.nodeValue, s || {}); });
 
+    // show / hide: data-tmb-if="products.jb-one.playStore.url"
+    var conditional = document.querySelectorAll("[data-tmb-if]");
+    for (var c = 0; c < conditional.length; c++) {
+      var flag = s ? lookup(s, conditional[c].getAttribute("data-tmb-if")) : null;
+      var on = flag === true || (typeof flag === "number" && flag !== 0) ||
+        (typeof flag === "string" && flag !== "" && flag !== "false");
+      if (on) { conditional[c].setAttribute("data-tmb-on", ""); conditional[c].removeAttribute("data-tmb-hidden"); }
+      else { conditional[c].removeAttribute("data-tmb-on"); conditional[c].setAttribute("data-tmb-hidden", ""); }
+    }
+
     // attributes (href, alt, aria-label, title, content ...)
     var all = document.body.getElementsByTagName("*");
     for (var i = 0; i < all.length; i++) {
@@ -219,6 +248,40 @@
         if (attrs[j].value.indexOf("{{") !== -1) el.setAttribute(attrs[j].name, fill(attrs[j].value, s || {}));
       }
     }
+  }
+
+  /* ---------------- free-trial buttons ---------------- */
+  // <a href="#contact" data-trial-request="jb-one">: scroll to the contact
+  // form and write that product's trial message into it. Without JavaScript
+  // the link still just jumps to #contact.
+  function bindTrialRequests(s) {
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    document.addEventListener("click", function (e) {
+      var trigger = e.target.closest && e.target.closest("[data-trial-request]");
+      if (!trigger) return;
+      var product = s.products[trigger.getAttribute("data-trial-request")];
+      var form = document.querySelector("#contact-form, #contactForm");
+      if (!product || !form) return;
+      e.preventDefault();
+      var box = form.querySelector("textarea");
+      if (box) {
+        box.value = (product.trial && product.trial.message) || "";
+        box.dispatchEvent(new Event("input", { bubbles: true }));
+      }
+      // the form scripts use this as the email subject; it lasts only while the
+      // message is still the trial message (change it and it is a normal enquiry)
+      form.setAttribute("data-intent", (s.trial && s.trial.intent) || "Free trial request");
+      if (box && !box.__trialWatch) {
+        box.__trialWatch = true;
+        box.addEventListener("input", function () {
+          if (box.value !== box.__trialMessage) form.removeAttribute("data-intent");
+        });
+      }
+      if (box) box.__trialMessage = box.value;
+      form.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
+      var first = form.querySelector("input");
+      if (first) setTimeout(function () { first.focus({ preventScroll: true }); }, 450);
+    });
   }
 
   /* ---------------- start ---------------- */
@@ -253,8 +316,15 @@
       };
       fillPage(s);
       injectStructuredData(s);
+      bindTrialRequests(s);
       clearTimeout(failsafe);
       reveal();
+      // filling the tokens changes the layout a little: go to #section again
+      if (location.hash.length > 1) {
+        var target = null;
+        try { target = document.querySelector(location.hash); } catch (e) { /* not a selector */ }
+        if (target) target.scrollIntoView({ behavior: "auto" });
+      }
       document.dispatchEvent(new CustomEvent("tmb:ready", { detail: s }));
       return s;
     })
@@ -263,6 +333,11 @@
       // Show the page without the values rather than with raw {{tokens}}.
       return domReady.then(function () {
         fillPage(null);
+        // links that lost their address would just reload the page: hide them
+        document.querySelectorAll('a[href=""], a[href="mailto:"], a[href="tel:"]').forEach(function (a) {
+          a.setAttribute("data-tmb-hidden", "");
+          a.style.display = "none";
+        });
         clearTimeout(failsafe);
         reveal();
       });

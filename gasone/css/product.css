@@ -382,7 +382,7 @@ p { margin: 0; }
   .roles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-@media (max-width: 960px) {
+@media (max-width: 1040px) {
   .nav, .hdr-cta { display: none; }
   .nav-btn { display: block; }
   .nav {
@@ -393,6 +393,8 @@ p { margin: 0; }
   }
   .nav a { padding: 12px 14px; font-size: 1rem; }
   .nav-open .nav { display: flex; }
+}
+@media (max-width: 960px) {
   .hero { padding: 120px 0 70px; }
   .hero-in, .show, .contact, .company { grid-template-columns: 1fr; }
   .show { gap: 36px; }
@@ -428,3 +430,50 @@ p { margin: 0; }
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* ---------- Google Play badge + free trial (values come from settings.json) ---------- */
+.store-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 0 0 22px; }
+.store-row:not(:has(> :not([data-tmb-hidden]))) { display: none; }
+.play-badge { display: inline-block; line-height: 0; margin-left: -7px; transition: transform .25s ease, filter .25s ease; }
+.play-badge img { height: 68px; width: auto; display: block; }
+.play-badge:hover { transform: translateY(-2px); filter: drop-shadow(0 12px 16px rgba(0, 0, 0, .35)); }
+.play-soon { display: inline-flex; align-items: center; padding: 10px 16px; border-radius: 12px; font-size: .85rem; font-weight: 700; color: var(--hero-text, var(--text)); background: var(--chip-bg); border: 1px dashed var(--chip-line); }
+.trial-note { display: flex; gap: 10px; align-items: flex-start; max-width: 520px; margin: 0 0 22px; padding: 12px 16px; border-radius: 14px; font-size: .92rem; line-height: 1.5; color: var(--hero-text, var(--text)); background: var(--chip-bg); border: 1px solid var(--chip-line); }
+.trial-note::before { content: ""; flex-shrink: 0; width: 9px; height: 9px; margin-top: 7px; border-radius: 50%; background: var(--a); box-shadow: 0 0 0 4px rgba(255, 255, 255, .12); }
+.sec-dark .trial-note { color: #fff; background: rgba(255, 255, 255, .08); border-color: var(--dark-line); }
+.store-row-foot { margin: 14px 0 0; }
+.foot .play-badge { margin-left: -7px; }
+.contact-copy .store-row { margin: 0 0 22px; }
+
+/* ---------- QA fixes ---------- */
+html { scroll-padding-top: 96px; }
+h1, h2, h3 { text-wrap: balance; }
+.nav a { white-space: nowrap; }
+.nav-cta { display: none; }
+@media (max-width: 1040px) {
+  .nav { -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); }
+  .nav-cta { display: flex; margin-top: 8px; }
+}
+.sec-dark .form h3 { color: var(--heading); }
+.frame-phone:only-child { width: min(260px, 72vw); }
+.show { overflow-x: clip; }
+.faq details { padding: 0; }
+.faq summary { padding: 18px 22px; min-height: 56px; align-items: center; }
+.faq details p { margin: 0; padding: 0 22px 18px; }
+.lang-flip button { min-height: 44px; }
+.clist a, .foot ul a { display: inline-block; padding-block: 6px; }
+.field .err { min-height: 0; font-weight: 600; color: #b3261e; }
+.field .err:empty { display: none; }
+.field.invalid input, .field.invalid textarea { border-color: #c0392b; }
+@media (max-width: 480px) { .hero-actions .btn { flex: 1 1 100%; } }
+
+/* lightbox */
+.frame-web img, .frame-phone img { cursor: zoom-in; }
+body.nav-open, body.lb-open { overflow: hidden; }
+.lightbox { position: fixed; inset: 0; z-index: 900; display: flex; align-items: center; justify-content: center; padding: 16px; overflow: auto; background: rgba(6, 10, 20, 0.9); cursor: zoom-out; -webkit-overflow-scrolling: touch; }
+.lightbox img { max-width: 96vw; max-height: 92vh; width: auto; height: auto; border-radius: 12px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6); cursor: default; }
+.lightbox.wide { align-items: flex-start; justify-content: flex-start; }
+.lightbox.wide img { max-width: none; max-height: none; width: max(96vw, 1000px); margin: auto; }
+.lb-close { position: fixed; top: 12px; right: 14px; z-index: 2; width: 44px; height: 44px; border: 0; border-radius: 50%; font-size: 1.7rem; line-height: 1; color: #fff; background: rgba(255, 255, 255, 0.16); cursor: pointer; }
+@media (max-width: 960px) { .hero { padding-bottom: 44px; } .stage-in { padding-bottom: 6px; } }
+.nav a.nav-cta, .nav a.nav-cta:hover { color: var(--on-p); background: var(--grad); }

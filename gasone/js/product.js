@@ -16,7 +16,7 @@
 
   function onScrollFrame() {
     var y = window.scrollY;
-    if (header) header.classList.toggle("scrolled", y > 10);
+    if (header) header.classList.toggle("scrolled", y > 10 || document.body.classList.contains("doc-page"));
     if (progress) {
       var max = root.scrollHeight - root.clientHeight;
       progress.style.transform = "scaleX(" + (max > 0 ? y / max : 0) + ")";
@@ -35,14 +35,19 @@
   var nav = document.querySelector(".nav");
   function closeNav() {
     document.body.classList.remove("nav-open");
-    if (navBtn) navBtn.setAttribute("aria-expanded", "false");
+    if (navBtn) { navBtn.setAttribute("aria-expanded", "false"); navBtn.setAttribute("aria-label", "Open menu"); }
   }
   if (navBtn && nav) {
     navBtn.addEventListener("click", function () {
       var open = document.body.classList.toggle("nav-open");
       navBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      navBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
     });
     nav.addEventListener("click", function (e) { if (e.target.closest("a")) closeNav(); });
+    // a tap anywhere outside the open menu closes it
+    document.addEventListener("click", function (e) {
+      if (document.body.classList.contains("nav-open") && !e.target.closest(".nav") && !e.target.closest(".nav-btn")) closeNav();
+    });
     document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeNav(); });
   }
 
@@ -161,16 +166,27 @@
       e.preventDefault();
       var get = function (name) { return (form.elements[name] && form.elements[name].value || "").trim(); };
       var fields = { name: get("name"), email: get("email"), phone: get("phone"), message: get("message") };
-      var ok = true;
+      var ok = true, firstBad = null;
       function setErr(name, msg) {
         var el = form.querySelector('[data-err="' + name + '"]');
-        if (el) el.textContent = msg;
-        if (msg) ok = false;
+        var input = form.elements[name];
+        if (el) {
+          el.textContent = msg;
+          el.setAttribute("role", "alert");
+          if (input) {
+            if (!el.id) el.id = "err-" + name;
+            input.setAttribute("aria-describedby", el.id);
+            if (msg) input.setAttribute("aria-invalid", "true"); else input.removeAttribute("aria-invalid");
+            var box = input.closest(".field");
+            if (box) box.classList.toggle("invalid", !!msg);
+          }
+        }
+        if (msg) { ok = false; if (!firstBad) firstBad = input; }
       }
       setErr("name", fields.name ? "" : "Please enter your name.");
       setErr("email", /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email) ? "" : "Please enter a valid email.");
       setErr("message", fields.message ? "" : "Please add a short message.");
-      if (!ok) return;
+      if (!ok) { if (firstBad) firstBad.focus(); return; }
 
       var product = form.getAttribute("data-product") || "Product";
       var body =
@@ -184,10 +200,44 @@
         if (note) note.textContent = "Contact details are still loading. Please try again in a moment.";
         return;
       }
-      window.location.href = window.TMB.mailto(product + " enquiry from " + fields.name, body);
+      // "Request free trial" buttons set data-intent on the form (see js/settings.js)
+      var intent = form.getAttribute("data-intent");
+      var subject = (intent ? intent + " (" + product + ")" : product + " enquiry") + " from " + fields.name;
+      window.location.href = window.TMB.mailto(subject, body);
+      form.removeAttribute("data-intent");
       if (note) note.textContent = "Your email app should open with the message ready. Just press Send.";
     });
   }
+
+  /* ---------- Tap-to-enlarge screenshots ---------- */
+  (function () {
+    var box = null;
+    function close() {
+      if (!box) return;
+      box.remove(); box = null;
+      document.body.classList.remove("lb-open");
+    }
+    document.addEventListener("click", function (e) {
+      if (box) { if (e.target === box || e.target.closest(".lb-close")) close(); return; }
+      var img = e.target.closest && e.target.closest(".frame-web img, .frame-phone img");
+      if (!img) return;
+      var wide = !!img.closest(".frame-web");
+      box = document.createElement("div");
+      box.className = "lightbox" + (wide ? " wide" : "");
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-modal", "true");
+      box.setAttribute("aria-label", img.alt || "Screenshot");
+      box.innerHTML = '<button type="button" class="lb-close" aria-label="Close">&times;</button>';
+      var big = document.createElement("img");
+      big.src = img.currentSrc || img.src;
+      big.alt = img.alt;
+      box.appendChild(big);
+      document.body.appendChild(box);
+      document.body.classList.add("lb-open");
+      box.querySelector(".lb-close").focus();
+    });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
+  })();
 
   /* ---------- Footer year ---------- */
   document.querySelectorAll("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });

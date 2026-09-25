@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="js/settings.js"></script>
+<noscript><style>.reveal,.reveal-scale,.app-row{opacity:1!important;transform:none!important}</style></noscript>
 <!-- seo:start | generated from settings.json by tools/render.py, do not edit by hand -->
 <title>TMB Tech | Software &amp; Technology Solutions</title>
 <meta name="description" content="TMB Tech builds business applications, ERP systems, mobile apps, web applications and custom software. Products: LedGo ERP, GasOne and JB One.">
@@ -56,6 +57,7 @@
         <li><a href="#technologies" class="nav-link">Technologies</a></li>
         <li><a href="#about" class="nav-link">About</a></li>
         <li><a href="#contact" class="nav-link">Contact</a></li>
+        <li class="nav-cta-item"><a href="#contact" class="btn btn-primary nav-cta">Get in touch</a></li>
       </ul>
     </nav>
 
@@ -103,7 +105,7 @@
                 <strong>LedGo ERP</strong>
                 <span>Billing, inventory &amp; accounts</span>
               </div>
-              <span class="app-pill pill-green">Free trial</span>
+              <span class="app-pill pill-green" data-tmb-if="products.ledgo-erp.trial.available">{{trial.short}}</span>
             </div>
 
             <div class="app-row">
@@ -121,7 +123,7 @@
                 <strong>JB One</strong>
                 <span>Jewellery tags &amp; catalogue</span>
               </div>
-              <span class="app-pill pill-green">Free trial</span>
+              <span class="app-pill pill-green" data-tmb-if="products.jb-one.trial.available">{{trial.short}}</span>
             </div>
 
             <div class="app-panel-foot">
@@ -205,13 +207,19 @@
             <img src="assets/products/ledgo.png" alt="LedGo ERP logo" loading="lazy" width="64" height="64">
           </div>
           <h3>LedGo ERP</h3>
-          <p class="tagline">All-in-One Business Management Software</p>
-          <span class="trial-badge">Free Trial Available</span>
+          <p class="tagline">{{products.ledgo-erp.tagline}}</p>
+          <span class="trial-badge" data-tmb-if="products.ledgo-erp.trial.available">{{trial.badge}}</span>
           <p class="card-desc">LedGo ERP is a business management platform designed to help retailers manage daily operations from a centralized system.</p>
           <ul class="tech-tags">
-            <li>Flutter</li><li>ASP.NET Core</li><li>SQL Server</li><li>REST API</li>
+            <li>Blazor</li><li>ASP.NET Core</li><li>.NET MAUI</li><li>SQLite</li>
           </ul>
+          <div class="card-foot">
           <a href="{{products.ledgo-erp.url}}" class="btn btn-outline">Visit LedGo ERP site &rarr;</a>
+          <div class="card-extra">
+            <a href="#contact" class="btn btn-primary btn-sm" data-trial-request="ledgo-erp" data-tmb-if="products.ledgo-erp.trial.available">{{trial.cta}}</a>
+            <a class="play-badge" data-tmb-if="products.ledgo-erp.playStore.url" href="{{products.ledgo-erp.playStore.url}}" target="_blank" rel="noopener noreferrer" aria-label="{{stores.googlePlay.badgeAlt}}: {{products.ledgo-erp.name}}"><img src="assets/badges/google-play.png" alt="{{stores.googlePlay.badgeAlt}}" width="140" height="54" loading="lazy"></a><span class="play-soon" data-tmb-if="products.ledgo-erp.playStore.showSoon">{{stores.googlePlay.soonText}}</span>
+          </div>
+          </div>
         </article>
 
         <article class="product-card reveal" data-tilt>
@@ -219,12 +227,19 @@
             <img src="assets/products/gasone.png" alt="GasOne logo" loading="lazy" width="64" height="64">
           </div>
           <h3>GasOne</h3>
-          <p class="tagline">Smart Collection Management for Gas Agencies</p>
+          <p class="tagline">{{products.gasone.tagline}}</p>
+          <span class="trial-badge" data-tmb-if="products.gasone.trial.available">{{trial.badge}}</span>
           <p class="card-desc">GasOne is designed to simplify daily LPG gas agency operations and collection management. Delivery boys' cylinders and cash are entered, matched against the gas value, approved by the Admin and reported, in Tamil or English.</p>
           <ul class="tech-tags">
             <li>Flutter</li><li>ASP.NET Core</li><li>SQLite</li><li>REST API</li>
           </ul>
+          <div class="card-foot">
           <a href="{{products.gasone.url}}" class="btn btn-outline">Visit GasOne site &rarr;</a>
+          <div class="card-extra">
+            <a href="#contact" class="btn btn-primary btn-sm" data-trial-request="gasone" data-tmb-if="products.gasone.trial.available">{{trial.cta}}</a>
+            <a class="play-badge" data-tmb-if="products.gasone.playStore.url" href="{{products.gasone.playStore.url}}" target="_blank" rel="noopener noreferrer" aria-label="{{stores.googlePlay.badgeAlt}}: {{products.gasone.name}}"><img src="assets/badges/google-play.png" alt="{{stores.googlePlay.badgeAlt}}" width="140" height="54" loading="lazy"></a><span class="play-soon" data-tmb-if="products.gasone.playStore.showSoon">{{stores.googlePlay.soonText}}</span>
+          </div>
+          </div>
         </article>
 
         <article class="product-card reveal" data-tilt>
@@ -232,13 +247,19 @@
             <img src="assets/products/jbone.png" alt="JB One logo" loading="lazy" width="64" height="64">
           </div>
           <h3>JB One</h3>
-          <p class="tagline">Jewellery Business Management</p>
-          <span class="trial-badge">Free Trial Available</span>
+          <p class="tagline">{{products.jb-one.tagline}}</p>
+          <span class="trial-badge" data-tmb-if="products.jb-one.trial.available">{{trial.badge}}</span>
           <p class="card-desc">JB One is a jewellery business application, available as both a mobile app and a web app with an online catalogue, designed to simplify jewellery-related business operations and management workflows.</p>
           <ul class="tech-tags">
-            <li>Flutter</li><li>ASP.NET Core</li><li>SQL</li>
+            <li>Flutter</li><li>Blazor</li><li>ASP.NET Core</li><li>SQLite</li>
           </ul>
+          <div class="card-foot">
           <a href="{{products.jb-one.url}}" class="btn btn-outline">Visit JB One site &rarr;</a>
+          <div class="card-extra">
+            <a href="#contact" class="btn btn-primary btn-sm" data-trial-request="jb-one" data-tmb-if="products.jb-one.trial.available">{{trial.cta}}</a>
+            <a class="play-badge" data-tmb-if="products.jb-one.playStore.url" href="{{products.jb-one.playStore.url}}" target="_blank" rel="noopener noreferrer" aria-label="{{stores.googlePlay.badgeAlt}}: {{products.jb-one.name}}"><img src="assets/badges/google-play.png" alt="{{stores.googlePlay.badgeAlt}}" width="140" height="54" loading="lazy"></a><span class="play-soon" data-tmb-if="products.jb-one.playStore.showSoon">{{stores.googlePlay.soonText}}</span>
+          </div>
+          </div>
         </article>
 
       </div>
@@ -292,7 +313,7 @@
     <div class="container">
       <div class="section-head reveal">
         <p class="eyebrow">Why {{company.name}}</p>
-        <h2>One team, from the first screen to the database</h2>
+        <h2>One company, from the first screen to the database</h2>
         <p>We design, build and maintain the whole stack ourselves, so the app, the portal and the backend are made to work together from day one.</p>
       </div>
 
@@ -300,7 +321,7 @@
         <div class="why-card reveal" data-tilt>
           <div class="card-icon icon-grad-blue" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="20" height="14" rx="2"/><rect x="6" y="7" width="5" height="10" rx="1"/><line x1="8" y1="21" x2="16" y2="21"/></svg></div>
           <h3>End-to-end delivery</h3>
-          <p>Mobile app, web portal, REST API and database, built by one team so nothing is stitched together later.</p>
+          <p>Mobile app, web portal, REST API and database, built by one company so nothing is stitched together later.</p>
         </div>
         <div class="why-card reveal" data-tilt>
           <div class="card-icon icon-grad-teal" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></div>
@@ -315,7 +336,7 @@
         <div class="why-card reveal" data-tilt>
           <div class="card-icon icon-grad-orange" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 12v9H4v-9"/><rect x="2" y="7" width="20" height="5" rx="1"/><path d="M12 21V7M12 7H8a2 2 0 1 1 2-2c0 2 2 2 2 2zM12 7h4a2 2 0 1 0-2-2c0 2-2 2-2 2z"/></svg></div>
           <h3>Try before you commit</h3>
-          <p>LedGo ERP and JB One come with a free trial, so you can see the software on your own data first.</p>
+          <p>{{trial.text}}</p>
         </div>
         <div class="why-card reveal" data-tilt>
           <div class="card-icon icon-grad-pink" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
@@ -335,7 +356,7 @@
   <section class="section" id="projects">
     <div class="container">
       <div class="section-head reveal">
-        <h2>Selected Projects</h2>
+        <h2>Projects</h2>
         <p>Applications and platforms developed for real-world business and operational workflows.</p>
       </div>
 
@@ -493,7 +514,7 @@
       </ul>
 
       <div class="founder-note">
-        <div class="founder-avatar" aria-hidden="true">B</div>
+        <div class="founder-avatar" aria-hidden="true">{{company.founder.initials}}</div>
         <div>
           <p class="founder-name">{{company.founder.name}}</p>
           <p class="founder-role">{{company.founder.role}}, {{company.name}}</p>
@@ -525,22 +546,22 @@
       </div>
 
       <div class="contact-grid reveal">
-        <a href="tel:{{company.contact.phone|digits}}" class="contact-card" aria-label="Call {{company.name}}">
+        <a href="tel:{{company.contact.phone|digits}}" class="contact-card" aria-label="Phone: {{company.contact.phone}}">
           <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
           <span class="contact-label">Phone</span>
           <span class="contact-value">{{company.contact.phone}}</span>
         </a>
-        <a href="mailto:{{company.contact.email}}" class="contact-card" aria-label="Email {{company.name}}">
+        <a href="mailto:{{company.contact.email}}" class="contact-card" aria-label="Email: {{company.contact.email}}">
           <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div>
           <span class="contact-label">Email</span>
           <span class="contact-value">{{company.contact.email}}</span>
         </a>
-        <a href="{{company.social.github.url}}" class="contact-card" target="_blank" rel="noopener noreferrer" aria-label="{{company.name}} on GitHub">
+        <a href="{{company.social.github.url}}" class="contact-card" target="_blank" rel="noopener noreferrer" aria-label="GitHub: {{company.social.github.display}}">
           <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.4c0-1 .1-1.4-.5-2 2-.2 4.5-1 4.5-5a3.9 3.9 0 0 0-1-2.7c.4-1 .4-2.1 0-3.3 0 0-.9-.3-3 1a10.3 10.3 0 0 0-5.4 0c-2.1-1.3-3-1-3-1-.4 1.2-.4 2.3 0 3.3A3.9 3.9 0 0 0 6 11.6c0 4 2.5 4.8 4.5 5-.3.3-.5.9-.5 1.7V21"/></svg></div>
           <span class="contact-label">GitHub</span>
           <span class="contact-value">{{company.social.github.display}}</span>
         </a>
-        <a href="{{company.social.linkedin.url}}" class="contact-card" target="_blank" rel="noopener noreferrer" aria-label="{{company.name}} on LinkedIn">
+        <a href="{{company.social.linkedin.url}}" class="contact-card" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn: {{company.social.linkedin.display}}">
           <div class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="7" y1="10" x2="7" y2="17"/><circle cx="7" cy="6.5" r="1"/><path d="M11 17v-4.5a2.5 2.5 0 0 1 5 0V17"/><line x1="11" y1="10" x2="11" y2="17"/></svg></div>
           <span class="contact-label">LinkedIn</span>
           <span class="contact-value">{{company.social.linkedin.display}}</span>

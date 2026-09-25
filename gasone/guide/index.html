@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-page="gasone-guide">
+<html lang="en" data-page="gasone-guide" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -253,6 +253,17 @@
 
   footer.doc-footer { margin-top:80px; padding-top:24px; border-top:1px solid var(--border); color:var(--ink-soft); font-size:12.5px; }
 </style>
+<style>
+  /* TMB overrides: these come after the guide's own rules so they win */
+  @media (max-width: 860px) {
+    .shell { display: block; }
+    .sidebar { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--border); }
+  }
+  @media (min-width: 861px) { .sidebar { top: 38px; height: calc(100vh - 38px); } }
+  .callout strong { display: inline; }
+  .callout > div > strong:first-child { display: block; }
+  figure.mock { cursor: default; }
+</style>
 </head>
 <body>
 <div class="tmb-bar"><a href="../" class="tmb-back">&larr; GasOne</a><span>User Guide</span><a href="{{site.baseUrl}}" target="_blank" rel="noopener" class="tmb-by">Powered by <b>{{company.name}}</b></a></div>
@@ -339,7 +350,7 @@
         <tr><th>Role</th><th>What they see</th></tr>
         <tr><td><span class="badge">Admin</span></td><td>Everything for their own agency — Dashboard, Denomination, Store Entry, Reports, User Management, Products &amp; Rates, Settings, Permissions. The only role that can enter Expenses, edit Products/Rates, and unlock a Store Keeper's locked day.</td></tr>
         <tr><td><span class="badge" style="background:rgba(124,92,252,0.12);color:#7C5CFC">User</span></td><td>A restricted view of the same agency — which menus they can see is controlled by Admin on the Permissions screen. Cannot see cash amounts if Admin has hidden them.</td></tr>
-        <tr><td><span class="badge orange">Delivery Boy</span></td><td>Confined to one screen: their own Denomination entry, always as themselves. Once saved, a day locks from further edits unless Admin grants a one-time re-edit.</td></tr>
+        <tr><td><span class="badge orange">Delivery Boy</span></td><td>Confined to one screen: their own Denomination entry, always as themselves. A saved entry stays editable while it is Pending, if the Admin allows that for the delivery boy; once approved or rejected it is locked.</td></tr>
         <tr><td><span class="badge" style="background:rgba(18,165,148,0.12);color:#12A594">Store Keeper</span></td><td>Confined to one screen: today's Store Entry register. Locked after the first save, same one-time-unlock pattern.</td></tr>
         <tr><td><span class="badge" style="background:rgba(7,43,94,0.12);color:var(--deep-blue)">Super Admin</span></td><td>Cross-agency — manages every Company account, not day-to-day operations for any single agency.</td></tr>
       </table>
@@ -543,7 +554,7 @@
       <figcaption class="cap">Store Entry — Admin day view</figcaption>
 
       <ul class="legend">
-        <li><span class="num">1</span><div class="txt"><strong>Export, History &amp; Edit-labels icons</strong><span>Export/Print the current sheet, search past entries by date, or (Admin only) rename a row label.</span></div></li>
+        <li><span class="num">1</span><div class="txt"><strong>Export &amp; History icons</strong><span>Export/Print the current sheet, or search past entries by date. Row labels are renamed by the Super Admin (DGS Row Labels).</span></div></li>
         <li><span class="num">2</span><div class="txt"><strong>Date navigation</strong><span>Previous/next-day arrows plus the date itself (tap to open a calendar) — Admin only, Store Keeper is locked to today.</span></div></li>
         <li><span class="num">3</span><div class="txt"><strong>Sl.No / Created By</strong><span>Filled in automatically once the sheet is saved for the first time.</span></div></li>
         <li><span class="num">4</span><div class="txt"><strong>Invoice numbers</strong><span>Optional reference numbers for this day's sheet.</span></div></li>
@@ -708,11 +719,11 @@
         <li><span class="num">1</span><div class="txt"><strong>Dark theme</strong><span>Switches the whole app's color scheme for this device.</span></div></li>
         <li><span class="num">2</span><div class="txt"><strong>Language</strong><span>English or Tamil, applied app-wide immediately.</span></div></li>
         <li><span class="num">3</span><div class="txt"><strong>Cylinder Product Management</strong><span>Opens the <a href="#products">Products &amp; Rates</a> screen.</span></div></li>
-        <li><span class="num">4</span><div class="txt"><strong>Delivery Boy Limit</strong><span>Caps how many delivery boy accounts this agency can have — Super Admin sets the ceiling, Admin can only lower it further unless allowed to raise it.</span></div></li>
+        <li><span class="num">4</span><div class="txt"><strong>Delivery Boy Limit</strong><span>Caps how many delivery boy accounts this agency can have. The Super Admin sets it, and it stays locked for the Admin unless the Super Admin allows editing.</span></div></li>
       </ul>
 
       <table class="ref">
-        <tr><th>Other settings (not always visible)</th><th>Effect</th></tr>
+        <tr><th>Company policies (set by the Super Admin)</th><th>Effect</th></tr>
         <tr><td>Hide amount columns</td><td>Removes cash/denomination and Gas Value columns app-wide for non-Admin roles — for agencies that want counts-only entry.</td></tr>
         <tr><td>Max amount digits</td><td>Caps how many digits can be typed into a single amount cell.</td></tr>
         <tr><td>Daily line limit policy</td><td>Whether Admin can cap how many rows a delivery boy saves per day.</td></tr>
@@ -726,7 +737,7 @@
       <div class="section-head"><span class="section-num">11</span><h2>Permissions</h2></div>
       <div class="section-roles"><span class="role-pill role-admin"><span class="role-dot"></span>Admin</span></div>
       <p class="lead">Controls which menu items a <strong>User</strong>-role account can see in the sidebar — Admin's own menu is never restricted here.</p>
-      <p>Toggle off any menu (Reports, Store Entry, Settings, etc.) to hide it for every User-role login at this agency. Delivery Boy and Store Keeper are unaffected — their confined single-screen access isn't controlled from here.</p>
+      <p>Toggle off Dashboard, Delivery Boy Master, Denomination or Reports to hide it for every User-role login at this agency. Store Entry, User Management, Settings and Permissions are Admin-only anyway. Delivery Boy and Store Keeper are unaffected — their confined single-screen access isn't controlled from here.</p>
     </section>
 
     <!-- ============ 12. TROUBLESHOOTING ============ -->
@@ -735,7 +746,7 @@
       <h3>"Collection Mismatch" won't go green</h3>
       <p>Check that a delivery boy is actually selected for every row with numbers in it — quantity cells only count once a worker is chosen. If an expense explains the gap, log it under <a href="#expense">Expense</a> rather than adjusting the cash entry to force a match.</p>
       <h3>A delivery boy can't edit their saved row</h3>
-      <p>Expected — once a Delivery Boy saves, that day locks automatically. Admin can grant a one-time re-edit; it re-locks the moment they save again.</p>
+      <p>Expected once the Admin has approved or rejected the entry, or when editing while Pending is switched off for that delivery boy (the <em>Allow edit while pending</em> option in Delivery Boy Master).</p>
       <h3>Store Keeper's register is locked</h3>
       <p>Same pattern — Admin unlocks it for one more edit from the Store Entry Admin view for that date.</p>
       <h3>A screen or button is missing</h3>
