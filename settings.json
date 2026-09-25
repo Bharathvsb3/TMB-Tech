@@ -132,7 +132,7 @@
       "websiteUrl": "https://gasoneapp.runasp.net/GasOne_Guide.html",
       "playStore": {
         "packageId": "com.jbtech.gasone",
-        "live": false,
+        "live": true,
         "comingSoon": true,
         "soonText": "On Google Play soon: in review",
         "_live": "Submitted to Google Play and in review (expected to publish about 5 days after 25 Sep 2026). Until then the store page returns 404, so a label is shown instead of a badge that would not open. When it is published, set live to true and the label becomes the real badge.",
@@ -213,6 +213,19 @@
         "changefreq": "monthly",
         "images": ["ledgo-erp/assets/og.jpg", "ledgo-erp/assets/ledgo-logo.png", "ledgo-erp/assets/app-screenshot-desktop.png", "ledgo-erp/assets/app-screenshot-mobile.png", "ledgo-erp/assets/feature-billing.png", "ledgo-erp/assets/feature-inventory.png", "ledgo-erp/assets/feature-storefront.png", "ledgo-erp/assets/feature-reports.png"]
       }
+    },
+
+    "ledgo-erp-privacy": {
+      "file": "ledgo-erp/privacy-policy/index.html",
+      "path": "ledgo-erp/privacy-policy/",
+      "product": "ledgo-erp",
+      "title": "Privacy Policy | LedGo ERP by {{company.name}}",
+      "description": "Privacy Policy for LedGo ERP and its online store: what information is handled, how it is used, third-party services, storage, retention and how to request access, correction or deletion.",
+      "ogTitle": "Privacy Policy | LedGo ERP by {{company.name}}",
+      "ogImage": "ledgo-erp/assets/og.jpg",
+      "ogAlt": "LedGo ERP by {{company.name}}",
+      "siteName": "LedGo ERP by {{company.name}}",
+      "sitemap": { "priority": "0.3", "changefreq": "yearly", "images": [] }
     },
 
     "gasone": {

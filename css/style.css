@@ -1341,6 +1341,9 @@ h1, h2, h3 { text-wrap: balance; }
 .footer-prods img { flex-shrink: 0; width: 36px; height: 36px; border-radius: 10px; object-fit: cover; background: #fff; border: 1px solid var(--border); }
 .footer-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; padding-top: 20px; border-top: 1px solid var(--border); }
 .footer-bottom .footer-copy { border: 0; padding: 0; }
+.footer-privacy { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; font-size: 0.85rem; color: var(--muted); }
+.footer-privacy a { padding-block: 6px; color: var(--text); transition: color var(--transition); }
+.footer-privacy a:hover { color: var(--primary); }
 .footer-top-link { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--border); font-size: 0.85rem; color: var(--muted); transition: border-color 0.2s ease, color 0.2s ease; }
 .footer-top-link:hover { border-color: var(--primary); color: var(--primary); }
 .footer-top-link svg { width: 15px; height: 15px; }

@@ -261,7 +261,9 @@
 .foot-globe { display: grid; place-items: center; background: var(--ink-2); color: rgb(var(--brand)); }
 .foot-globe svg { width: 1.2rem; height: 1.2rem; }
 .site-footer .footer-bottom { margin-top: 2rem; padding-top: 1.4rem; border-top: 1px solid var(--ink-line); }
-.footer-bottom .to-top { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.45rem 0.9rem; border-radius: 999px; border: 1px solid var(--ink-line-strong); color: var(--text-on-ink); transition: border-color 0.2s ease, color 0.2s ease; }
+.footer-bottom .footer-legal { display: inline-flex; align-items: center; min-height: 2.2rem; color: var(--text-on-ink-muted); transition: color 0.2s ease; }
+.footer-bottom .footer-legal:hover { color: rgb(var(--brand-on-surface, var(--brand))); }
+.footer-bottom .to-top { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.4rem; padding: 0.45rem 0.9rem; border-radius: 999px; border: 1px solid var(--ink-line-strong); color: var(--text-on-ink); transition: border-color 0.2s ease, color 0.2s ease; }
 .footer-bottom .to-top:hover { border-color: rgb(var(--brand)); color: rgb(var(--brand)); }
 .footer-bottom .to-top svg { width: 0.9rem; height: 0.9rem; }
 .site-footer .footer-top { padding-bottom: 0; border-bottom: 0; }

@@ -27,6 +27,12 @@
     <image:image><image:loc>https://bharathvsb3.github.io/TMB-Tech/ledgo-erp/assets/feature-reports.png</image:loc></image:image>
   </url>
   <url>
+    <loc>https://bharathvsb3.github.io/TMB-Tech/ledgo-erp/privacy-policy/</loc>
+    <lastmod>2026-09-25</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
     <loc>https://bharathvsb3.github.io/TMB-Tech/gasone/</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
