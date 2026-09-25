@@ -1769,7 +1769,10 @@
         statusEl.classList.add("is-error");
         return;
       }
-      var subject = "LedGo ERP enquiry from " + payload.name;
+      // "Request free trial" buttons set data-intent on the form (see js/settings.js)
+      var productName = window.TMB.settings.products["ledgo-erp"].name;
+      var intent = form.getAttribute("data-intent");
+      var subject = (intent ? intent + " (" + productName + ")" : productName + " enquiry") + " from " + payload.name;
       var body =
         "Name: " + payload.name + "\n" +
         "Email: " + payload.email + "\n" +

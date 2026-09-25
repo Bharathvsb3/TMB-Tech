@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <script src="../js/settings.js"></script>
+<noscript><style>.reveal,.reveal-scale,.app-row{opacity:1!important;transform:none!important}</style></noscript>
 <!-- seo:start | generated from settings.json by tools/render.py, do not edit by hand -->
 <title>LedGo ERP | Billing, Inventory &amp; GST Software | TMB Tech</title>
 <meta name="description" content="LedGo ERP by TMB Tech: billing, inventory, GST, purchases, accounts and your shop&#x27;s own online store, in five Indian languages. Free trial available.">
@@ -135,6 +136,8 @@
         <a href="#cta" class="btn btn-solid" data-i18n="hero.cta.primary">See it in action</a>
         <a href="#features" class="btn btn-ghost" data-i18n="hero.cta.secondary">Explore features</a>
       </div>
+      <p class="hero-trial" data-tmb-if="products.ledgo-erp.trial.available"><span class="cta-trial-dot"></span><span>{{trial.text}} <a href="#cta" data-trial-request="ledgo-erp">{{trial.cta}}</a></span></p>
+      <div class="store-row"><a class="play-badge" data-tmb-if="products.ledgo-erp.playStore.url" href="{{products.ledgo-erp.playStore.url}}" target="_blank" rel="noopener noreferrer" aria-label="{{stores.googlePlay.badgeAlt}}: {{products.ledgo-erp.name}}"><img src="assets/google-play.png" alt="{{stores.googlePlay.badgeAlt}}" width="140" height="54" loading="lazy"></a><span class="play-soon" data-tmb-if="products.ledgo-erp.playStore.showSoon">{{stores.googlePlay.soonText}}</span></div>
       <div class="hero-trust">
         <div class="hero-trust-item"><span class="num mono count-up">10+</span><span class="label" data-i18n="hero.trust.modules">Modules</span></div>
         <div class="hero-trust-item"><span class="num mono count-up">5</span><span class="label" data-i18n="hero.trust.languages">Languages</span></div>
@@ -471,99 +474,81 @@
       <p>Switch on online ordering and your shop gets its own ordering website on its own web address. Customers browse your live catalogue and place orders; your staff confirm, pack and deliver from the same LedGo ERP they bill from.</p>
     </div>
 
-    <div class="os-grid">
-      <ol class="os-steps">
-        <li class="os-step reveal">
-          <span class="os-num mono">01</span>
-          <div>
-            <h3>Switch it on</h3>
-            <p>Online ordering is turned on for your shop, on its own subdomain or your own domain. The site carries your shop name, logo and live catalogue, grouped by category, with special offers up top.</p>
-          </div>
-        </li>
-        <li class="os-step reveal">
-          <span class="os-num mono">02</span>
-          <div>
-            <h3>Customers order</h3>
-            <p>They search (even by voice), add to cart and see GST and their discount worked out. At checkout they give a delivery address with a map pin, or choose pickup at the shop, and pay by Cash on Delivery or UPI.</p>
-          </div>
-        </li>
-        <li class="os-step reveal">
-          <span class="os-num mono">03</span>
-          <div>
-            <h3>You hear about it straight away</h3>
-            <p>"New Online Order" appears in the notification bell, a push notification reaches your staff's phones, and a chat message lands in the ERP.</p>
-          </div>
-        </li>
-        <li class="os-step reveal">
-          <span class="os-num mono">04</span>
-          <div>
-            <h3>Confirm, and it becomes a real bill</h3>
-            <p>One tap turns the order into a sales bill: stock is deducted batch by batch, oldest expiry first, and GST and the ledger are posted. If an item is short, LedGo tells you exactly how many are in stock.</p>
-          </div>
-        </li>
-        <li class="os-step reveal">
-          <span class="os-num mono">05</span>
-          <div>
-            <h3>Pack and send it out</h3>
-            <p>Mark it Packed, then Out for Delivery. Staff see the customer's address and can open the pin in Google Maps.</p>
-          </div>
-        </li>
-        <li class="os-step reveal">
-          <span class="os-num mono">06</span>
-          <div>
-            <h3>Delivered and settled</h3>
-            <p>Record the amount received and the payment mode. Anything unpaid stays on the customer's outstanding. The customer gets a push at every stage, from Confirmed to Delivered.</p>
-          </div>
-        </li>
-      </ol>
+    <!-- ---------- the customer's side ---------- -->
+    <div class="st-block">
+      <h3 class="st-title reveal">What your customer sees</h3>
+      <div class="st-show reveal" data-st data-st-ms="5200">
+        <div class="st-tabs" role="tablist" aria-label="Store screens">
+          <button class="st-tab" type="button" role="tab" data-shot="home"><span class="n">01</span><span><b>Browse and search</b><small>Categories, special offers and live stock, under your shop's own name, logo and banners.</small></span></button>
+          <button class="st-tab" type="button" role="tab" data-shot="cart"><span class="n">02</span><span><b>Add to cart</b><small>Quantities, GST and the customer's own discount are worked out for them.</small></span></button>
+          <button class="st-tab" type="button" role="tab" data-shot="checkout"><span class="n">03</span><span><b>Checkout</b><small>Delivery address with a map pin, or pickup at the shop. Pay by Cash on Delivery or UPI.</small></span></button>
+          <button class="st-tab" type="button" role="tab" data-shot="placed"><span class="n">04</span><span><b>Order placed</b><small>The customer gets an order number, and your shop is told at once.</small></span></button>
+          <button class="st-tab" type="button" role="tab" data-shot="orders"><span class="n">05</span><span><b>Track the order</b><small>Status at every stage, and a push message each time it changes.</small></span></button>
+        </div>
 
-      <div class="os-visual reveal" aria-hidden="true">
-        <div class="os-stage" id="osStage">
-          <div class="os-card os-order">
-            <div class="os-order-head">
-              <div>
-                <div class="os-kicker mono">Online Orders</div>
-                <div class="os-order-id">Order #1024</div>
+        <div class="st-stage">
+          <div class="st-stage-in">
+            <div class="st-laptop">
+              <div class="st-laptop-screen"><div class="st-screen"><img class="st-shot is-active" data-shot="*" src="assets/store/store-home-desktop.webp" alt="Green Valley Agro Store online store on desktop with a five-column product grid, Special Offers strip and cart badge" width="1440" height="900" loading="lazy"></div></div>
+              <div class="st-laptop-base"></div>
+            </div>
+            <div class="st-phone">
+              <div class="st-screen">
+                <img class="st-shot" data-shot="home" data-themed data-src-green="assets/store/store-home-mobile.webp" data-src-velocity="assets/store/store-home-velocity-mobile.webp" src="assets/store/store-home-mobile.webp" alt="Green Valley Agro Store online store on a phone: search bar, Big Diwali Sale banner, Special Offers strip and Fertilizers grid with Add, quantity stepper and Out of Stock cards" width="390" height="844" loading="lazy">
+                <img class="st-shot" data-shot="cart" src="assets/store/store-cart-mobile.webp" alt="Customer cart with quantity steppers, discount and GST breakdown and a Proceed to Checkout button" width="390" height="844" loading="lazy">
+                <img class="st-shot" data-shot="checkout" src="assets/store/store-checkout-mobile.webp" alt="Checkout screen with delivery address, pincode, payment method and Place Order" width="390" height="844" loading="lazy">
+                <img class="st-shot" data-shot="placed" src="assets/store/store-order-placed-mobile.webp" alt="Order Placed confirmation with order summary" width="390" height="844" loading="lazy">
+                <img class="st-shot" data-shot="orders" src="assets/store/store-orders-mobile.webp" alt="My Orders list showing order status pills and a Cancel this order link" width="390" height="844" loading="lazy">
               </div>
-              <span class="os-pill os-pill-live">Out for Delivery</span>
             </div>
-            <div class="os-meta">
-              <span><b>Payment</b> Cash on Delivery</span>
-              <span><b>Pincode</b> 600 001</span>
+            <div class="st-chip c1" aria-hidden="true"><i>🛒</i><span><b>Cash on Delivery</b>or pay via UPI</span></div>
+            <div class="st-theme" role="group" aria-label="Store theme">
+              <button type="button" data-theme="green" aria-pressed="true">Green</button>
+              <button type="button" data-theme="velocity" aria-pressed="false">Purple theme</button>
             </div>
-            <div class="os-timeline">
-              <div class="os-t done"><i></i><span>Placed</span><em class="mono">10:12 AM</em></div>
-              <div class="os-t done"><i></i><span>Confirmed</span><em class="mono">10:15 AM</em></div>
-              <div class="os-t done"><i></i><span>Packed</span><em class="mono">10:40 AM</em></div>
-              <div class="os-t now"><i></i><span>Out for Delivery</span><em class="mono">11:05 AM</em></div>
-              <div class="os-t"><i></i><span>Delivered</span><em class="mono">—</em></div>
-            </div>
-            <table class="os-lines">
-              <thead><tr><th>Product</th><th>Qty</th><th>Rate</th><th>Total</th></tr></thead>
-              <tbody>
-                <tr><td>Confidor 1 LTR</td><td class="mono">1</td><td class="mono">1,000</td><td class="mono">1,000</td></tr>
-                <tr><td>NPK 20-20-13</td><td class="mono">1</td><td class="mono">1,150</td><td class="mono">1,150</td></tr>
-              </tbody>
-              <tfoot><tr><td colspan="3">Sub Total</td><td class="mono">₹2,150</td></tr></tfoot>
-            </table>
-            <div class="os-actions">
-              <span class="os-btn os-btn-ghost">Open in Maps</span>
-              <span class="os-btn">Mark as Delivered</span>
-            </div>
-          </div>
-
-          <div class="os-card os-toast os-toast-staff">
-            <span class="os-toast-icon">🔔</span>
-            <div><b>New Online Order</b><span>Order #1024 was just placed - review it in Online Orders.</span></div>
-          </div>
-
-          <div class="os-card os-toast os-toast-customer">
-            <span class="os-toast-icon os-toast-icon-cust">📦</span>
-            <div><b>Order Out for Delivery</b><span>Your order #1024 is on its way.</span></div>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- ---------- the shop's side ---------- -->
+    <div class="st-block">
+      <h3 class="st-title reveal">What your counter sees</h3>
+      <div class="st-show flip reveal" data-st data-st-ms="5200">
+        <div class="st-tabs" role="tablist" aria-label="Staff screens">
+          <button class="st-tab" type="button" role="tab" data-shot="list"><span class="n">01</span><span><b>Online Orders</b><small>Every order with its customer, status, items and amount, right inside LedGo ERP.</small></span></button>
+          <button class="st-tab" type="button" role="tab" data-shot="detail"><span class="n">02</span><span><b>Confirm and fulfil</b><small>Confirm turns the order into a real bill, deducting stock batch by batch. Then pack it, send it out, deliver it.</small></span></button>
+          <button class="st-tab" type="button" role="tab" data-shot="bell"><span class="n">03</span><span><b>Told straight away</b><small>"New Online Order" appears in the bell, and a push reaches your staff's phones.</small></span></button>
+        </div>
+
+        <div class="st-stage">
+          <div class="st-stage-in">
+            <div class="st-laptop">
+              <div class="st-laptop-screen"><div class="st-screen">
+                <img class="st-shot" data-shot="list" src="assets/store/admin-orders-list.webp" alt="LedGo ERP Online Orders list with status pills" width="1440" height="900" loading="lazy">
+                <img class="st-shot" data-shot="detail" src="assets/store/admin-order-detail.webp" alt="Online order detail for an order out for delivery, with timeline, address and Mark as Delivered" width="1440" height="900" loading="lazy">
+                <img class="st-shot" data-shot="bell" src="assets/store/admin-bell.webp" alt="LedGo ERP notification bell listing New Online Order alerts" width="1440" height="900" loading="lazy">
+              </div></div>
+              <div class="st-laptop-base"></div>
+            </div>
+            <div class="st-phone p2"><div class="st-screen"><img class="st-shot is-active" data-shot="*" src="assets/store/push-staff-mobile.webp" alt="Android lock screen showing new online order push notifications for staff" width="390" height="844" loading="lazy"></div></div>
+            <div class="st-phone p1"><div class="st-screen"><img class="st-shot is-active" data-shot="*" src="assets/store/push-notifications-mobile.webp" alt="Android lock screen showing order status push notifications from the shop" width="390" height="844" loading="lazy"></div></div>
+            <div class="st-chip c1" aria-hidden="true"><i>🔔</i><span><b>New Online Order</b>review it in Online Orders</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- the whole journey ---------- -->
+    <ol class="st-flow reveal">
+      <li><b>Switch it on</b><span>Online ordering is turned on for your shop, on its own subdomain or your own domain.</span></li>
+      <li><b>Customers order</b><span>They search, add to cart, choose delivery or pickup, and pay by Cash on Delivery or UPI.</span></li>
+      <li><b>You are told</b><span>Bell, push notification and chat message, the moment an order is placed.</span></li>
+      <li><b>Confirm</b><span>One tap makes it a real bill: stock, GST and ledger are posted.</span></li>
+      <li><b>Pack and send</b><span>Mark it Packed, then Out for Delivery. Staff can open the customer's map pin.</span></li>
+      <li><b>Delivered</b><span>Record the amount received. Anything unpaid stays on the customer's outstanding.</span></li>
+    </ol>
+    <p class="st-note reveal">Screens show a demo shop with sample data.</p>
   </div>
 </section>
 
@@ -782,7 +767,8 @@
     <div class="eyebrow" style="justify-content:center" data-i18n="cta.eyebrow">Ready when you are</div>
     <h2 data-i18n="cta.heading">Bring your shop onto one screen.</h2>
     <p data-i18n="cta.sub">No credit card, no sales call required to see if it fits — just a look at whether it actually matches how your shop runs.</p>
-    <p class="cta-trial"><span class="cta-trial-dot"></span>Free trial available. Ask us to set up your shop.</p>
+    <p class="cta-trial" data-tmb-if="products.ledgo-erp.trial.available"><span class="cta-trial-dot"></span>{{trial.badge}}. {{trial.text}}</p>
+    <div class="cta-store"><div class="store-row"><a class="play-badge" data-tmb-if="products.ledgo-erp.playStore.url" href="{{products.ledgo-erp.playStore.url}}" target="_blank" rel="noopener noreferrer" aria-label="{{stores.googlePlay.badgeAlt}}: {{products.ledgo-erp.name}}"><img src="assets/google-play.png" alt="{{stores.googlePlay.badgeAlt}}" width="140" height="54" loading="lazy"></a><span class="play-soon" data-tmb-if="products.ledgo-erp.playStore.showSoon">{{stores.googlePlay.soonText}}</span></div></div>
 
     <form id="contactForm" class="contact-form" novalidate>
       <div class="form-row">
@@ -823,6 +809,7 @@
     <p class="cta-alt-contact"><span data-i18n="cta.form.orEmail">Prefer email? Write to us at</span> <a href="mailto:{{company.contact.email}}">{{company.contact.email}}</a></p>
 
     <div class="cta-buttons">
+      <a href="#cta" class="btn btn-solid" data-trial-request="ledgo-erp" data-tmb-if="products.ledgo-erp.trial.available">{{trial.cta}}</a>
       <a href="#features" class="btn btn-ghost" data-i18n="cta.secondary">Explore features again</a>
     </div>
   </div>
@@ -869,6 +856,7 @@
           <img class="brand-wordmark" src="assets/ledgo-erp-wordmark.svg" alt="LedGo ERP" />
         </a>
         <p data-i18n="footer.tagline">Shop-management software for Indian agri, hardware, and general trade retailers — one screen for billing, inventory, GST, and your own customer app.</p>
+        <div class="store-row store-row-foot"><a class="play-badge" data-tmb-if="products.ledgo-erp.playStore.url" href="{{products.ledgo-erp.playStore.url}}" target="_blank" rel="noopener noreferrer" aria-label="{{stores.googlePlay.badgeAlt}}: {{products.ledgo-erp.name}}"><img src="assets/google-play.png" alt="{{stores.googlePlay.badgeAlt}}" width="140" height="54" loading="lazy"></a><span class="play-soon" data-tmb-if="products.ledgo-erp.playStore.showSoon">{{stores.googlePlay.soonText}}</span></div>
       </div>
       <div class="footer-cols">
         <div class="footer-col">
