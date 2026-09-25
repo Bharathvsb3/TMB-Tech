@@ -42,6 +42,7 @@
 <link rel="stylesheet" href="css/tmb.css" />
 </head>
 <body>
+<a href="#main" class="skip">Skip to content</a>
 
 <!-- ---- thin scroll-progress bar: fixed above the header, fills left-to-right
      as the page scrolls (0% at top, 100% at page bottom). Purely a scroll
@@ -82,10 +83,10 @@
       </button>
       <select class="lang-select" aria-label="Choose language">
         <option value="en">English</option>
-        <option value="ta">தமிழ்</option>
-        <option value="hi">हिन्दी</option>
-        <option value="kn">ಕನ್ನಡ</option>
-        <option value="te">తెలుగు</option>
+        <option value="ta" lang="ta">தமிழ்</option>
+        <option value="hi" lang="hi">हिन्दी</option>
+        <option value="kn" lang="kn">ಕನ್ನಡ</option>
+        <option value="te" lang="te">తెలుగు</option>
       </select>
       <a href="#cta" class="btn btn-ghost btn-sm" data-i18n="nav.getStarted">Get Started</a>
       <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="Toggle menu"><span></span></button>
@@ -114,15 +115,16 @@
       </button>
       <select class="lang-select" aria-label="Choose language">
         <option value="en">English</option>
-        <option value="ta">தமிழ்</option>
-        <option value="hi">हिन्दी</option>
-        <option value="kn">ಕನ್ನಡ</option>
-        <option value="te">తెలుగు</option>
+        <option value="ta" lang="ta">தமிழ்</option>
+        <option value="hi" lang="hi">हिन्दी</option>
+        <option value="kn" lang="kn">ಕನ್ನಡ</option>
+        <option value="te" lang="te">తెలుగు</option>
       </select>
     </div>
   </div>
 </header>
 
+<main id="main">
 <div id="top"></div>
 
 <!-- ============================= HERO ============================= -->
@@ -257,7 +259,7 @@
       <div class="feature-copy">
         <div class="feature-tag">01</div>
         <h3 data-i18n="f1.title">Billing that keeps up with the counter</h3>
-        <p data-i18n="f1.body">Search, scan, or speak a product in — GST splits itself into CGST+SGST or IGST on every line, automatically, and a UPI QR sits on every bill so the balance clears itself the moment it's paid.</p>
+        <p data-i18n="f1.body">Search, scan, or speak a product in — GST splits itself into CGST+SGST or IGST on every line, automatically, and a UPI QR sits on every bill so customers can pay on the spot.</p>
         <ul class="feature-list">
           <li data-i18n="f1.li1">Thermal receipt &amp; label printing on real shop hardware</li>
           <li data-i18n="f1.li2">Sales Orders, Returns, and on-account credit — tracked to the rupee</li>
@@ -409,7 +411,7 @@
         <ul class="feature-list">
           <li data-i18n="f8.li1">Thermal receipts and product labels print directly, no PDF middle-man</li>
           <li data-i18n="f8.li2">Barcode scan-to-add during billing and purchase entry alike</li>
-          <li data-i18n="f8.li3">A UPI QR sits on every bill — the balance clears itself the moment it's scanned</li>
+          <li data-i18n="f8.li3">A UPI QR sits on every bill — customers scan it and pay on the spot</li>
         </ul>
       </div>
       <div class="feature-visual">
@@ -703,10 +705,6 @@
         <p style="margin-top:0.7rem;color:var(--text-on-paper-muted);line-height:1.6" data-i18n="faq.a4">Each company gets its own isolated data and its own theme, with a Super Admin view that oversees all of them from one place — nothing about one shop's data ever crosses into another's.</p>
       </details>
       <details class="faq-item" style="background:var(--paper-panel);border:1px solid var(--paper-line);border-radius:0.7rem;padding:1.1rem 1.3rem">
-        <summary style="font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:0.75rem"><span data-i18n="faq.q5">Does this work for shops that aren't agricultural — like hardware or general trade?</span><svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" /></svg></summary>
-        <p style="margin-top:0.7rem;color:var(--text-on-paper-muted);line-height:1.6" data-i18n="faq.a5">Yes. A Super Admin switches on only the modules a shop actually needs, per company — a hardware or general-trade store runs on the same billing, GST, and inventory engine everyone else does, without agri-specific screens like Crop Plantings or Care Schedule Templates ever showing up on its menu.</p>
-      </details>
-      <details class="faq-item" style="background:var(--paper-panel);border:1px solid var(--paper-line);border-radius:0.7rem;padding:1.1rem 1.3rem">
         <summary style="font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:0.75rem"><span data-i18n="faq.q6">What happens if I switch how stock cost is calculated later?</span><svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" /></svg></summary>
         <p style="margin-top:0.7rem;color:var(--text-on-paper-muted);line-height:1.6" data-i18n="faq.a6">LedGo ERP supports FIFO, LIFO, or Weighted Average costing, chosen per company. Switching is a Super Admin-gated setting that applies going forward — it doesn't rewrite or disturb any past transaction, so your historical figures stay exactly as they were recorded.</p>
       </details>
@@ -775,13 +773,13 @@
       <div class="form-row">
         <div class="field">
           <label for="cf-name" data-i18n="cta.form.name">Name</label>
-          <input type="text" id="cf-name" name="name" required autocomplete="name" />
-          <span class="field-error" id="cf-name-error"></span>
+          <input type="text" id="cf-name" aria-describedby="cf-name-error" name="name" required autocomplete="name" />
+          <span class="field-error" id="cf-name-error" role="alert"></span>
         </div>
         <div class="field">
           <label for="cf-email" data-i18n="cta.form.email">Email</label>
-          <input type="email" id="cf-email" name="email" required autocomplete="email" />
-          <span class="field-error" id="cf-email-error"></span>
+          <input type="email" id="cf-email" aria-describedby="cf-email-error" name="email" required autocomplete="email" />
+          <span class="field-error" id="cf-email-error" role="alert"></span>
         </div>
       </div>
       <div class="field">
@@ -790,8 +788,8 @@
       </div>
       <div class="field">
         <label for="cf-message" data-i18n="cta.form.message">Message</label>
-        <textarea id="cf-message" name="message" rows="4" required></textarea>
-        <span class="field-error" id="cf-message-error"></span>
+        <textarea id="cf-message" aria-describedby="cf-message-error" name="message" rows="4" required></textarea>
+        <span class="field-error" id="cf-message-error" role="alert"></span>
       </div>
       <div class="form-actions">
         <button type="submit" class="btn btn-solid" id="cf-submit"><span data-i18n="cta.form.submit">Send message</span></button>
@@ -848,6 +846,8 @@
 </section>
 
 <!-- ============================= FOOTER ============================= -->
+</main>
+
 <footer class="site-footer">
   <div class="footer-bg" aria-hidden="true"></div>
   <div class="wrap">

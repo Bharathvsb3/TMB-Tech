@@ -73,10 +73,10 @@
       </button>
       <select class="lang-select" aria-label="Choose language">
         <option value="en">English</option>
-        <option value="ta">தமிழ்</option>
-        <option value="hi">हिन्दी</option>
-        <option value="kn">ಕನ್ನಡ</option>
-        <option value="te">తెలుగు</option>
+        <option value="ta" lang="ta">தமிழ்</option>
+        <option value="hi" lang="hi">हिन्दी</option>
+        <option value="kn" lang="kn">ಕನ್ನಡ</option>
+        <option value="te" lang="te">తెలుగు</option>
       </select>
       <a href="../#cta" class="btn btn-ghost btn-sm" data-i18n="nav.getStarted">Get Started</a>
       <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="Toggle menu"><span></span></button>
@@ -105,16 +105,16 @@
       </button>
       <select class="lang-select" aria-label="Choose language">
         <option value="en">English</option>
-        <option value="ta">தமிழ்</option>
-        <option value="hi">हिन्दी</option>
-        <option value="kn">ಕನ್ನಡ</option>
-        <option value="te">తెలుగు</option>
+        <option value="ta" lang="ta">தமிழ்</option>
+        <option value="hi" lang="hi">हिन्दी</option>
+        <option value="kn" lang="kn">ಕನ್ನಡ</option>
+        <option value="te" lang="te">తెలుగు</option>
       </select>
     </div>
   </div>
 </header>
 
-<main id="main" class="doc">
+<main id="main" class="doc" lang="en">
   <div class="doc-head">
     <img src="../assets/ledgo-logo.png" alt="LedGo ERP" width="72" height="72" class="doc-icon">
     <span class="eyebrow">{{products.ledgo-erp.name}} · {{products.ledgo-erp.playStore.packageId}}</span>
@@ -169,7 +169,7 @@
           <tr><td>Shop details</td><td>Shop name, legal name, GSTIN, address, phone, email and logo, used on bills and reports.</td></tr>
           <tr><td>Customer and supplier records</td><td>Names, mobile numbers, GSTIN, addresses, credit limits and balances that the shop enters to run billing and accounts.</td></tr>
           <tr><td>Employee and bank details</td><td>Employee name, mobile number and designation, and the shop's bank account number and IFSC, if the shop chooses to record them.</td></tr>
-          <tr><td>Business records</td><td>Products, batches and stock, sales and purchase bills, returns, orders, collections, payments, expenses and the ledger. This is the core data the software exists to record.</td></tr>
+          <tr><td>Business records</td><td>Products, batches and stock, sales and purchase bills, returns, orders, collections, payments, expenses and the ledger. Also customer inquiries and crop-planting notes (customer, crop and area) if the shop uses them. This is the core data the software exists to record.</td></tr>
           <tr><td>Photos and files</td><td>Product photos, the shop logo, and, if the shop uses the AI features, photos or PDFs of supplier invoices and of handwritten order notes.</td></tr>
           <tr><td>Change history</td><td>An audit log of who changed which record, with the old and new values.</td></tr>
           <tr><td>Support messages and website enquiries</td><td>Messages between a shop and our support team, and the name, email, phone and message someone sends through an enquiry form.</td></tr>
@@ -267,9 +267,9 @@
     <p>You can ask for <strong>access to</strong>, <strong>correction of</strong> or <strong>deletion of</strong> your personal data.</p>
     <ul>
       <li><strong>Shop staff:</strong> ask your shop's administrator, who manages the accounts and records of that shop, or contact us and we will coordinate with the shop.</li>
-      <li><strong>Online store customers:</strong> you can update your details in your profile. You can delete your account from the Profile page of the online store. Deleting deactivates the account and signs you out of your devices. Orders you placed remain in the shop's records, because the shop needs them for its accounts. If you would like your personal details removed as well, or you use the customer app and cannot find the option, write to us.</li>
+      <li><strong>Online store customers:</strong> you can update your details on the Profile page of the online store. To delete your account, use the delete option on that Profile page in a web browser, or write to us; a shop's customer app does not have its own delete button yet, so please use the web page or email us. Deleting deactivates the account and signs you out of your devices. Your orders remain in the records of the shops you ordered from, because they need them for their accounts. If you would like your personal details removed from those records as well, write to us.</li>
     </ul>
-    <div class="callout">
+    <div class="callout" id="delete-account">
       <strong>Requesting data deletion</strong>
       <p>Email us at the address below with the subject <em>"Data Deletion Request"</em>, and include your registered mobile number and, if you are a shop user, your shop name. We will confirm and process the request. Some records may need to be kept where the shop has a legal or accounting duty to keep them.</p>
     </div>

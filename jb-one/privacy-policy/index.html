@@ -61,7 +61,7 @@
     <span class="eyebrow">{{products.jb-one.name}} · {{products.jb-one.playStore.packageId}}</span>
     <h1>Privacy Policy</h1>
     <dl class="doc-meta">
-      <div><dt>Effective</dt><dd>25 September 2026</dd></div>
+      <div><dt>Last updated</dt><dd>25 September 2026</dd></div>
       <div><dt>Developer</dt><dd>{{company.name}} ({{company.founder.name}})</dd></div>
       <div><dt>Contact</dt><dd><a href="mailto:{{company.contact.email}}">{{company.contact.email}}</a></dd></div>
       <div><dt>Phone</dt><dd><a href="tel:{{company.contact.phone|digits}}">{{company.contact.phone}}</a></dd></div>
@@ -69,7 +69,7 @@
   </div>
 
   <article class="doc-body">
-    <p>JB One is an operations app for gold and silver jewellery retailers, used by shop staff to print jewellery tags and prepare customer estimates. It also has a web catalogue that each shop can publish, described in section 10. This policy explains what information JB One handles, why, and the choices available to you. JB One is built for internal use inside a jewellery shop, installed and set up by the shop's owner for their own staff, rather than distributed as a general consumer app.</p>
+    <p>JB One is an operations app for gold and silver jewellery retailers, used by shop staff to print jewellery tags and prepare customer estimates. It also has a web catalogue that each shop can publish, described in section 10. This policy explains what information JB One handles, why, and the choices available to you. JB One is set up by a jewellery shop's owner for their own staff.</p>
 
     <nav class="doc-toc" aria-label="Contents">
       <strong>Contents</strong>
@@ -91,7 +91,7 @@
 
     <h2 id="collect"><span class="n" aria-hidden="true">01</span>Information we collect</h2>
     <ul>
-      <li><strong>Staff account details.</strong> A username and password for each staff member, set up by the shop's administrator to control who can access which part of the app. Accounts are configured by the shop, not self-registered by staff.</li>
+      <li><strong>Staff account details.</strong> A username and password for each staff member in the app (the web back office uses a mobile number and password, see section 10), set up by the shop's administrator to control who can access which part of the app. Accounts are configured by the shop, not self-registered by staff.</li>
       <li><strong>Business data entered by staff.</strong> Jewellery item details (metal purity, description, weight, the Hallmark Unique ID) used to print tags, and customer estimate figures (weight, rate, charges) used to print or share a receipt. This is operational business data, not personal data about staff beyond their login username.</li>
       <li><strong>Photos staff choose to upload.</strong> If staff use Shop Login to add a product photo, the photo they pick or take is sent to the shop's own catalogue website.</li>
       <li><strong>Shop configuration.</strong> Metal purity lists, tax rules, and printer/label settings chosen by the shop owner, stored in a configuration file the owner controls in their own Google Drive.</li>
@@ -122,7 +122,7 @@
       <li><strong>The shop's own catalogue website</strong> is opened inside the app for Shop Login and Public Page. What you do on that website is handled by the shop that runs it (see section 10).</li>
       <li><strong>A public gold/silver rate page</strong> is read to show the day's market rate; no personal information is included in that request.</li>
     </ul>
-    <p>We do not use advertising networks or analytics/tracking SDKs of any kind, and we do not sell or rent information to third parties.</p>
+    <p>JB One does not contain advertising or analytics SDKs, and we do not sell or rent information to third parties. The only Google services it uses are the ones listed above.</p>
 
     <h2 id="storage"><span class="n" aria-hidden="true">05</span>Data storage &amp; retention</h2>
     <p>Business data entered on a device (item lists, estimates, saved label designs) is stored locally on that device and used to drive printing. Your login session is stored locally on the device and is removed automatically when the app is uninstalled. The shared shop configuration lives in the administrator's own Google Drive for as long as the shop chooses to keep it there.</p>
@@ -135,6 +135,11 @@
 
     <h2 id="choices"><span class="n" aria-hidden="true">08</span>Your choices</h2>
     <p>Because JB One is deployed by a shop for its own staff, requests about a staff account (adding, changing, or removing one) are usually handled directly by that shop's administrator. To ask about data related to your own use of the app, or to request that information be corrected or deleted, contact us using the details below.</p>
+    <p>Data kept on your device (saved label designs, item lists, your login session) can be removed at any time by clearing the app's storage or uninstalling the app.</p>
+    <div class="callout" id="delete-account">
+      <strong>Requesting data deletion</strong>
+      <p>Email us at the address below with the subject line <em>"Data Deletion Request"</em>, and include the shop name and your username or registered mobile number. This covers staff accounts and, for the online catalogue, customer accounts and enquiries. We will confirm and process the request. Some records, such as orders, may need to be kept where the shop has a legal or accounting duty to keep them.</p>
+    </div>
 
     <h2 id="security"><span class="n" aria-hidden="true">09</span>Security</h2>
     <p>We use encrypted network connections and a signed application package to protect information handled by the app. No method of storage or transmission is completely secure, and we cannot guarantee absolute security.</p>
@@ -144,13 +149,14 @@
     <ul>
       <li><strong>Visitors.</strong> Browsing needs no account. A wishlist and enquiry list, where the shop has switched them on, are saved in the visitor's own browser on their device. The shop's dashboard counts how often each product is viewed or added to a wishlist, without identifying the visitor.</li>
       <li><strong>Enquiries.</strong> An enquiry opens a WhatsApp message in the visitor's own WhatsApp, addressed to the shop's number. The message is between the visitor and the shop.</li>
-      <li><strong>Customer accounts.</strong> Only if a shop switches on online purchase, a customer can register with a name, mobile number, password and delivery address, and place orders. That information is visible to that shop.</li>
-      <li><strong>Shop staff.</strong> Staff sign in with a mobile number and password set by the shop owner. Product details and photos they add are stored on the server that hosts the catalogue.</li>
-      <li><strong>Fonts and rates.</strong> The catalogue pages load typefaces from Google Fonts and read a public gold and silver rate page. No personal information is included in those requests.</li>
+      <li><strong>Customer accounts.</strong> Only if a shop switches on online purchase, a customer can register with a name, mobile number, password and delivery address, and place orders. That information is visible to that shop and is kept for as long as the shop keeps its catalogue, unless you ask for it to be deleted (see section 8).</li>
+      <li><strong>Shop staff.</strong> Staff sign in with a mobile number and password set by the shop owner. Product details and photos they add are stored on the web server that hosts the catalogue, which is run on web hosting arranged for the shop.</li>
+      <li><strong>Ring-size tool.</strong> The optional ring-size measure asks your browser for camera access. The camera picture is processed in your browser, on your own device, and is not uploaded by JB One. To work, the tool downloads its detection library and model from jsDelivr and Google's storage servers, so those services can see that request and your IP address.</li>
+      <li><strong>Fonts and rates.</strong> The catalogue pages load typefaces from Google Fonts and read a public gold and silver rate page. Like any web request, these reach those services with your IP address, but no other personal information is included.</li>
     </ul>
 
     <h2 id="changes"><span class="n" aria-hidden="true">11</span>Changes to this policy</h2>
-    <p>We may update this policy as the app changes. Material changes will be reflected by updating the effective date at the top of this page.</p>
+    <p>We may update this policy as the app changes. Material changes will be reflected by updating the "Last updated" date at the top of this page.</p>
 
     <h2 id="contact"><span class="n" aria-hidden="true">12</span>Contact us</h2>
     <p>Questions about this policy or how JB One handles information can be sent to us:</p>

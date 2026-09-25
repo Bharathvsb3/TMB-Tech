@@ -82,6 +82,3 @@
   .doc-body td { border: 0; padding: 0.6rem 0.9rem; }
   .doc-body td:first-child { background: var(--ink-2); white-space: normal; }
 }
-
-.skip { position: absolute; left: -999px; top: 0.6rem; z-index: 200; padding: 0.6rem 1rem; border-radius: 0.6rem; background: rgb(var(--brand)); color: #fff; font-weight: 700; text-decoration: none; }
-.skip:focus { left: 0.8rem; }
