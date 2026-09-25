@@ -35,6 +35,14 @@
     (script && script.getAttribute("data-settings")) ||
     new URL("../settings.json", script.src).href;
 
+  // Smoothness helper (js/perf.js): a browser that was found to scroll badly
+  // starts in "lite" mode straight away; the detector script loads beside this one.
+  try { if (localStorage.getItem("tmb-lite") === "1") root.classList.add("lite"); } catch (e) { /* ignore */ }
+  var perf = document.createElement("script");
+  perf.src = new URL("perf.js", script.src).href;
+  perf.async = true;
+  (document.head || root).appendChild(perf);
+
   // Hide the page until the tokens are filled in.
   root.classList.add("tmb-pending");
   var hide = document.createElement("style");

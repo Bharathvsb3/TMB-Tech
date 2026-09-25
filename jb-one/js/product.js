@@ -87,43 +87,83 @@
     reveals.forEach(function (el) { revealObserver.observe(el); });
   }
 
-  /* ---------- 3D stages + parallax ---------- */
-  var stages = Array.prototype.slice.call(document.querySelectorAll("[data-stage]"));
-  var depthEls = Array.prototype.slice.call(document.querySelectorAll("[data-depth]"));
+  /* ---------- 3D stages + parallax ----------
+     Positions are measured once (and again on resize / image load) and only
+     stages that are near the screen are moved, so scrolling never has to
+     recalculate layout. data-parallax="tilt" (default) turns the stage with
+     the pointer and the scroll; "explode" leaves the stage flat and hands
+     --px, --py and --sp to the CSS, which slides the layers by different
+     amounts (see the hero in gasone/). */
   var pointer = { x: 0, y: 0 };
+  var stageItems = Array.prototype.slice.call(document.querySelectorAll("[data-stage]")).map(function (el) {
+    var base = (el.getAttribute("data-stage") || "-14,8").split(",");
+    return { el: el, parent: el.parentElement, by: parseFloat(base[0]), bx: parseFloat(base[1]),
+             mode: el.getAttribute("data-parallax") || "tilt", top: 0, h: 1, near: true };
+  });
+  var depthItems = Array.prototype.slice.call(document.querySelectorAll("[data-depth]")).map(function (el) {
+    return { el: el, depth: parseFloat(el.getAttribute("data-depth")) || 0 };
+  });
+  var heroEl = document.querySelector(".hero");
+  var hero = { top: 0, h: 1, near: true };
+
+  function measure() {
+    var y = window.scrollY;
+    stageItems.forEach(function (it) {
+      var r = it.parent.getBoundingClientRect();
+      it.top = r.top + y; it.h = r.height || 1;
+    });
+    if (heroEl) { var hr = heroEl.getBoundingClientRect(); hero.top = hr.top + y; hero.h = hr.height || 1; }
+  }
 
   function applyParallax() {
-    if (reduce) return;
-    var vh = window.innerHeight;
+    if (reduce || document.documentElement.classList.contains("lite")) return;
+    var vh = window.innerHeight, y = window.scrollY;
     var mobile = window.innerWidth <= 960;
 
-    depthEls.forEach(function (el) {
-      var depth = parseFloat(el.getAttribute("data-depth")) || 0;
-      var r = el.getBoundingClientRect();
-      var centre = (r.top + r.height / 2 - vh / 2) / vh;
-      var scale = mobile ? 0.4 : 1;
-      var ty = centre * depth * -120 * scale + pointer.y * depth * 30 * scale;
-      var tx = pointer.x * depth * 40 * scale;
-      el.style.transform = "translate3d(" + tx.toFixed(1) + "px," + ty.toFixed(1) + "px,0)";
-    });
+    if (hero.near) {
+      var heroCentre = (hero.top + hero.h / 2 - y - vh / 2) / vh;
+      var dscale = mobile ? 0.4 : 1;
+      depthItems.forEach(function (it) {
+        var ty = heroCentre * it.depth * -120 * dscale + pointer.y * it.depth * 30 * dscale;
+        var tx = pointer.x * it.depth * 40 * dscale;
+        it.el.style.transform = "translate3d(" + tx.toFixed(1) + "px," + ty.toFixed(1) + "px,0)";
+      });
+    }
 
-    stages.forEach(function (stage) {
-      var base = (stage.getAttribute("data-stage") || "-14,8").split(",");
-      var by = parseFloat(base[0]), bx = parseFloat(base[1]);
-      var r = stage.getBoundingClientRect();
-      var progressY = Math.max(-1, Math.min(1, (r.top + r.height / 2 - vh / 2) / vh));
-      if (mobile) {
+    stageItems.forEach(function (it) {
+      if (!it.near) return;
+      var progressY = Math.max(-1, Math.min(1, (it.top + it.h / 2 - y - vh / 2) / vh));
+      if (it.mode === "explode") {
+        it.el.style.setProperty("--px", (mobile ? 0 : pointer.x).toFixed(3));
+        it.el.style.setProperty("--py", (mobile ? 0 : pointer.y).toFixed(3));
+        it.el.style.setProperty("--sp", progressY.toFixed(3));
+      } else if (mobile) {
         // Phones: the stage settles flat as it scrolls into the middle.
-        stage.style.transform = "rotateX(" + (progressY * 18).toFixed(2) + "deg)";
+        it.el.style.transform = "rotateX(" + (progressY * 18).toFixed(2) + "deg)";
       } else {
-        var ry = by + pointer.x * 10;
-        var rx = bx - pointer.y * 8 + progressY * 6;
-        stage.style.transform = "rotateY(" + ry.toFixed(2) + "deg) rotateX(" + rx.toFixed(2) + "deg)";
+        var ry = it.by + pointer.x * 10;
+        var rx = it.bx - pointer.y * 8 + progressY * 6;
+        it.el.style.transform = "rotateY(" + ry.toFixed(2) + "deg) rotateX(" + rx.toFixed(2) + "deg)";
       }
     });
   }
 
   if (!reduce) {
+    measure();
+    window.addEventListener("resize", function () { measure(); requestFrame(); });
+    window.addEventListener("load", function () { measure(); requestFrame(); });
+    setTimeout(measure, 1200);
+    if ("IntersectionObserver" in window) {
+      var nearObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          stageItems.forEach(function (it) { if (it.parent === e.target) it.near = e.isIntersecting; });
+          if (heroEl && e.target === heroEl) hero.near = e.isIntersecting;
+        });
+        requestFrame();
+      }, { rootMargin: "100% 0px 100% 0px" });
+      stageItems.forEach(function (it) { nearObserver.observe(it.parent); });
+      if (heroEl) nearObserver.observe(heroEl);
+    }
     if (finePointer) {
       window.addEventListener("pointermove", function (e) {
         pointer.x = e.clientX / window.innerWidth - 0.5;
@@ -229,7 +269,7 @@
       box.setAttribute("aria-label", img.alt || "Screenshot");
       box.innerHTML = '<button type="button" class="lb-close" aria-label="Close">&times;</button>';
       var big = document.createElement("img");
-      big.src = img.currentSrc || img.src;
+      big.src = img.getAttribute("data-full") || img.currentSrc || img.src;
       big.alt = img.alt;
       box.appendChild(big);
       document.body.appendChild(box);

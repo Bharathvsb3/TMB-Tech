@@ -256,13 +256,16 @@ button {
 }
 .scroll-progress-bar {
   height: 100%;
-  width: 0%;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
   background: rgb(var(--brand));
   /* A short transition smooths out the small per-frame jumps of a fast
      fling-scroll without introducing any lag against a normal scroll speed;
      the global prefers-reduced-motion block up top already forces this to
      ~0s, which only makes the readout snappier, never less accurate. */
-  transition: width 0.12s linear;
+  transition: transform 0.12s linear;
 }
 
 /* ==========================================================================
@@ -275,7 +278,7 @@ button {
   right: 0;
   z-index: 100;
   background: var(--header-bg);
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--ink-line);
   transition: background 0.3s ease;
   /* Quick slide-down + fade-in the moment the page first paints, so it

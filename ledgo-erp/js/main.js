@@ -1616,24 +1616,32 @@
     if (!bar) return;
 
     var ticking = false;
+    var scrollable = 1;
+
+    // measured on load and resize only, so scrolling does not force a layout
+    function measure() {
+      var doc = document.documentElement;
+      scrollable = Math.max(1, doc.scrollHeight - doc.clientHeight);
+    }
 
     function update() {
       ticking = false;
-      var doc = document.documentElement;
-      var scrollTop = window.scrollY || doc.scrollTop || 0;
-      var scrollable = doc.scrollHeight - doc.clientHeight;
-      var pct = scrollable > 0 ? Math.min(100, Math.max(0, (scrollTop / scrollable) * 100)) : 0;
-      bar.style.width = pct + "%";
+      var ratio = Math.min(1, Math.max(0, (window.scrollY || 0) / scrollable));
+      bar.style.transform = "scaleX(" + ratio + ")";
     }
 
-    function onScrollOrResize() {
+    function onScroll() {
       if (ticking) return;
       ticking = true;
       window.requestAnimationFrame(update);
     }
 
-    window.addEventListener("scroll", onScrollOrResize, { passive: true });
-    window.addEventListener("resize", onScrollOrResize, { passive: true });
+    function onResize() { measure(); onScroll(); }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize, { passive: true });
+    window.addEventListener("load", onResize);
+    measure();
     update();
   }
 
@@ -1654,9 +1662,18 @@
     var header = document.querySelector(".site-header");
     if (!header) return;
     var COMPACT_THRESHOLD = 120;
+    var shadowOn = false, compactOn = false;
     var onScroll = function () {
-      header.style.boxShadow = window.scrollY > 8 ? "0 8px 24px -16px rgba(0,0,0,0.5)" : "none";
-      header.classList.toggle("is-compact", window.scrollY > COMPACT_THRESHOLD);
+      var y = window.scrollY;
+      // only touch the DOM when something actually changes
+      if ((y > 8) !== shadowOn) {
+        shadowOn = y > 8;
+        header.style.boxShadow = shadowOn ? "0 8px 24px -16px rgba(0,0,0,0.5)" : "none";
+      }
+      if ((y > COMPACT_THRESHOLD) !== compactOn) {
+        compactOn = y > COMPACT_THRESHOLD;
+        header.classList.toggle("is-compact", compactOn);
+      }
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();

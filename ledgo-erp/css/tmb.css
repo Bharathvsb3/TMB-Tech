@@ -206,3 +206,15 @@
   .st-shot { transition: none; }
 }
 .footer-col a { display: inline-block; padding-block: 5px; }
+
+/* ---------- Performance ---------- */
+.section-pad { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+.st-laptop, .st-phone { contain: layout paint; }
+
+/* ---------- Lite mode: switched on automatically on a computer that scrolls badly (see js/perf.js) ---------- */
+html.lite *, html.lite *::before, html.lite *::after { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+html.lite .device, html.lite .device-printer, html.lite .st-chip, html.lite .cta-glow, html.lite .farm-scene-wrap, html.lite .scroll-cue { animation: none !important; }
+html.lite .farm-scene-wrap { display: none !important; }
+html.lite .st-stage-in, html.lite .device-cluster { transform: none !important; }
+html.lite .site-header { background: var(--paper-panel, #fff) !important; }
+html.lite .reveal { transition-duration: 0.2s !important; }
