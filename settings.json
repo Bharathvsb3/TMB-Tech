@@ -180,14 +180,16 @@
     },
 
     "jb-catalogue": {
-      "_comment": "The online-catalogue half of JB One, listed as its own product card (the mobile tag/estimate app is 'jb-one' above). Both live on the same jb-one/ site, in different sections, so url points at an anchor there rather than its own page.",
+      "_comment": "The online-catalogue half of JB One, now its own product page (jb-catalogue/). The mobile tag/estimate app is 'jb-one' above; both are part of the same JB One product family.",
       "name": "JB Catalogue",
-      "url": "{{products.jb-one.url}}#catalogue",
+      "path": "jb-catalogue/",
+      "url": "",
       "tagline": "Jewellery Shop Online Catalogue",
       "shortDescription": "JB Catalogue is the customer-facing website side of JB One: a jewellery shop's own online catalogue, with wishlist, WhatsApp enquiries and an admin back office, published on the shop's own web address.",
       "description": "JB Catalogue is the web side of JB One: an online catalogue a jewellery shop publishes on its own address, with a product grid, a wishlist, WhatsApp enquiries, optional online ordering, and an admin back office shop staff use to manage products and photos.",
-      "logo": "assets/products/jbone.png",
-      "screenshot": "jb-one/assets/screens/web-shop-home.webp",
+      "logo": "assets/products/jb-catalogue.png",
+      "_logo": "Placeholder (a copy of the JB One app icon) until the real JB Catalogue logo supplied by the user is saved into the repo and this path is pointed at it.",
+      "screenshot": "jb-catalogue/assets/screens/web-shop-home.webp",
       "operatingSystem": "Web",
       "applicationCategory": "BusinessApplication",
       "inLanguage": ["en", "ta"],
@@ -218,6 +220,60 @@
         "_comment": "The first shop running on BikeShop Manager.",
         "name": "Murali Bike Service Point",
         "url": "https://muralibikeservicepoint.tmbtech.in/"
+      }
+    },
+
+    "public-shop": {
+      "_comment": "The online-ordering website (+ optional Android app) that comes with LedGo ERP: one deployment per shop, connected to that shop's stock, prices and billing.",
+      "name": "Public Shop",
+      "path": "public-shop/",
+      "url": "",
+      "tagline": "Your Shop, Open Online",
+      "shortDescription": "Public Shop is the online ordering website that comes with LedGo ERP: a shop's own branded site, reading real stock and prices, with orders landing at the counter as real GST bills.",
+      "description": "Public Shop is the customer-facing website (and optional Android app) that comes with LedGo ERP. It reads a shop's real products, prices and stock, takes orders for home delivery or store pickup, and sends every confirmed order into LedGo ERP as a real GST bill — no separate online books.",
+      "logo": "assets/products/public-shop.png",
+      "screenshot": "public-shop/assets/screens/05-product-detail-desktop.webp",
+      "operatingSystem": "Web, Android",
+      "applicationCategory": "BusinessApplication",
+      "inLanguage": ["en", "ta", "te", "hi", "kn"],
+      "trial": {
+        "available": true,
+        "message": "Hi, I would like to get my shop online with Public Shop (with LedGo ERP). Please tell me what you need from me."
+      }
+    },
+
+    "tmb-brows": {
+      "_comment": "The general-purpose Android browser, built from the same app family as the shop apps (see tmb-agro). Browser mode.",
+      "name": "TMB Brows",
+      "path": "tmb-brows/",
+      "url": "",
+      "tagline": "The Browser That Keeps It On Your Phone",
+      "shortDescription": "TMB Brows is a private Android browser with a media player, PDF reader, QR tools, file converter, compass and step counter built in. History, bookmarks and tool data stay on the phone; no account is needed.",
+      "description": "TMB Brows is an Android browser with tabs, incognito, an ad blocker, tracker blocking and Smart Back, plus built-in Tools — Video Player, Audio Player, Image Viewer, PDF Reader, QR Tools, File Converter, File Share Hub, Advanced Compass and a Steps tracker — and local or Google-account profiles. History, bookmarks and tool data stay on the phone.",
+      "logo": "assets/products/tmb-brows.png",
+      "operatingSystem": "Android",
+      "applicationCategory": "BusinessApplication",
+      "inLanguage": ["en"],
+      "trial": {
+        "available": false
+      }
+    },
+
+    "tmb-agro": {
+      "_comment": "Case-study product: a real shop set-up (LedGo ERP + Public Shop + a branded Android shop app) built by TMB Tech, shown as an example of what a shop gets. No live public URL yet - see README-HANDOFF known gaps.",
+      "name": "TMB Agro Industries",
+      "path": "tmb-agro/",
+      "url": "",
+      "tagline": "One Shop, Three Connected Pieces",
+      "shortDescription": "TMB Agro Industries is a working shop set-up built by TMB Tech: LedGo ERP for the owner, a branded Public Shop website for customers, and an Android shop app — all running from the same stock and prices.",
+      "description": "TMB Agro Industries shows what TMB Tech builds for a shop: LedGo ERP for products, stock, prices and billing; a Public Shop website branded for the shop, reading straight from the ERP; and a branded Android app that opens that shop's site full-screen. TMB Tech can build the same three pieces for any shop.",
+      "logo": "assets/products/tmb-agro.png",
+      "operatingSystem": "Web, Android",
+      "applicationCategory": "BusinessApplication",
+      "inLanguage": ["en", "ta"],
+      "trial": {
+        "available": true,
+        "message": "Hi, I would like TMB Tech to build a shop set-up like TMB Agro Industries for my business (ERP + Public Shop + app). Please tell me what you need from me."
       }
     }
   },
@@ -346,6 +402,74 @@
       "ogAlt": "JB One by {{company.name}}",
       "siteName": "JB One by {{company.name}}",
       "sitemap": { "priority": "0.3", "changefreq": "yearly", "images": [] }
+    },
+
+    "jb-catalogue": {
+      "file": "jb-catalogue/index.html",
+      "path": "jb-catalogue/",
+      "product": "jb-catalogue",
+      "title": "JB Catalogue | Jewellery Shop Online Catalogue | {{company.name}}",
+      "description": "JB Catalogue by {{company.name}}: a jewellery shop's own online catalogue, wishlist, WhatsApp enquiries and an admin back office, published on the shop's own web address.",
+      "ogTitle": "JB Catalogue | Jewellery Shop Online Catalogue",
+      "ogImage": "jb-catalogue/assets/og.jpg",
+      "ogAlt": "JB Catalogue by {{company.name}}: a jewellery shop's own online catalogue.",
+      "siteName": "JB Catalogue by {{company.name}}",
+      "sitemap": {
+        "priority": "0.8",
+        "changefreq": "monthly",
+        "images": ["jb-catalogue/assets/og.jpg", "jb-catalogue/assets/screens/web-shop-home.webp", "jb-catalogue/assets/screens/web-product-grid.webp", "jb-catalogue/assets/screens/web-admin-dashboard.webp"]
+      }
+    },
+
+    "public-shop": {
+      "file": "public-shop/index.html",
+      "path": "public-shop/",
+      "product": "public-shop",
+      "title": "Public Shop | Online Ordering Website for Your Shop | {{company.name}}",
+      "description": "Public Shop by {{company.name}}: a branded online-ordering website connected to LedGo ERP. Real stock and prices, delivery or pickup, orders land as real GST bills.",
+      "ogTitle": "Public Shop | Online Ordering Website for Your Shop",
+      "ogImage": "public-shop/assets/og.jpg",
+      "ogAlt": "Public Shop by {{company.name}}: a shop's own online ordering website, connected to LedGo ERP.",
+      "siteName": "Public Shop by {{company.name}}",
+      "sitemap": {
+        "priority": "0.8",
+        "changefreq": "monthly",
+        "images": ["public-shop/assets/og.jpg", "public-shop/assets/screens/hero-banner.webp", "public-shop/assets/screens/05-product-detail-desktop.webp", "public-shop/assets/screens/10-checkout-address-desktop.webp", "public-shop/assets/screens/13-my-orders-desktop.webp"]
+      }
+    },
+
+    "tmb-brows": {
+      "file": "tmb-brows/index.html",
+      "path": "tmb-brows/",
+      "product": "tmb-brows",
+      "title": "TMB Brows | Private Android Browser With Tools Built In | {{company.name}}",
+      "description": "TMB Brows by {{company.name}}: an Android browser with an ad blocker, Smart Back and built-in Video, Audio, PDF, QR, Compass and Steps tools. History and tool data stay on the phone.",
+      "ogTitle": "TMB Brows | Private Android Browser With Tools Built In",
+      "ogImage": "tmb-brows/assets/og.jpg",
+      "ogAlt": "TMB Brows by {{company.name}}: an Android browser with built-in tools.",
+      "siteName": "TMB Brows by {{company.name}}",
+      "sitemap": {
+        "priority": "0.7",
+        "changefreq": "monthly",
+        "images": ["tmb-brows/assets/og.jpg"]
+      }
+    },
+
+    "tmb-agro": {
+      "file": "tmb-agro/index.html",
+      "path": "tmb-agro/",
+      "product": "tmb-agro",
+      "title": "TMB Agro Industries | ERP, Public Shop & App, One System | {{company.name}}",
+      "description": "TMB Agro Industries: a working shop built by {{company.name}} on LedGo ERP, a branded Public Shop website and an Android shop app, all running from the same stock and prices.",
+      "ogTitle": "TMB Agro Industries | ERP, Public Shop & App, One System",
+      "ogImage": "tmb-agro/assets/og.jpg",
+      "ogAlt": "TMB Agro Industries: LedGo ERP, Public Shop and an Android shop app, built by {{company.name}}.",
+      "siteName": "TMB Agro Industries by {{company.name}}",
+      "sitemap": {
+        "priority": "0.6",
+        "changefreq": "monthly",
+        "images": ["tmb-agro/assets/og.jpg"]
+      }
     }
   }
 }

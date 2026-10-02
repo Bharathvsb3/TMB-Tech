@@ -552,6 +552,14 @@
       <li><b>Delivered</b><span>Record the amount received. Anything unpaid stays on the customer's outstanding.</span></li>
     </ol>
     <p class="st-note reveal">Screens show a demo shop with sample data.</p>
+
+    <div class="reveal" style="margin:2.2rem auto 0;max-width:46rem;padding:1.4rem 1.6rem;border-radius:1rem;background:var(--paper-panel);border:1px solid var(--paper-line);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;">
+      <div style="max-width:34rem;">
+        <strong style="display:block;font-size:1.02rem;color:var(--text-on-paper);">The Online Store, as its own website</strong>
+        <span style="font-size:0.9rem;color:var(--text-on-paper-muted);">This is <strong>Public Shop</strong>: the ordering website above, as a full product page &mdash; how it connects to LedGo ERP, the customer and shop-side steps, and the Android app.</span>
+      </div>
+      <a href="{{products.public-shop.url}}" class="btn btn-ghost btn-sm">See Public Shop &rarr;</a>
+    </div>
   </div>
 </section>
 
@@ -893,6 +901,7 @@
           <h4>More from {{company.name}}</h4>
           <ul class="foot-prods">
             <li><a href="{{products.gasone.url}}"><img src="assets/others/gasone.png" alt="" width="36" height="36" loading="lazy"><span><b>{{products.gasone.name}}</b><small>{{products.gasone.tagline}}</small></span></a></li>
+            <li><a href="{{products.public-shop.url}}"><img src="assets/others/public-shop.png" alt="" width="36" height="36" loading="lazy"><span><b>{{products.public-shop.name}}</b><small>{{products.public-shop.tagline}}</small></span></a></li>
             <li><a href="{{products.jb-one.url}}"><img src="assets/others/jbone.png" alt="" width="36" height="36" loading="lazy"><span><b>{{products.jb-one.name}}</b><small>{{products.jb-one.tagline}}</small></span></a></li>
             <li><a href="{{site.baseUrl}}"><span class="foot-globe" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span><span><b>{{company.name}}</b><small>Company website</small></span></a></li>
           </ul>

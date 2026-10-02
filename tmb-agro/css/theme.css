@@ -1,0 +1,70 @@
+/* TMB Agro Industries brand tokens: green + sky blue, matching the shop's own logo colours. */
+:root {
+  --font-head: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --p: #16a34a;
+  --p-deep: #14532d;
+  --a: #0ea5e9;
+  --on-p: #ffffff;
+  --p-text: #15803d;
+  --p-soft: rgba(22, 163, 74, 0.12);
+  --p-line: rgba(22, 163, 74, 0.35);
+  --p-shadow: rgba(22, 163, 74, 0.5);
+  --grad: linear-gradient(135deg, #16a34a 0%, #14532d 100%);
+  --grad-text: linear-gradient(100deg, #16a34a 10%, #0ea5e9 90%);
+
+  --bg: #f6faf6;
+  --bg-alt: #edf7ee;
+  --surface: #ffffff;
+  --text: #192419;
+  --heading: #0f2412;
+  --muted: #53634f;
+  --line: #e0ecdf;
+  --line-strong: #c7dcc4;
+  --radius: 20px;
+  --btn-radius: 999px;
+
+  --glass: rgba(255, 255, 255, 0.72);
+  --glass-line: rgba(255, 255, 255, 0.7);
+
+  --hdr-bg: rgba(255, 255, 255, 0.62);
+  --hdr-bg-solid: rgba(255, 255, 255, 0.98);
+  --hdr-line: rgba(255, 255, 255, 0.8);
+  --hdr-text: #0f2412;
+  --hdr-muted: #53634f;
+  --hdr-hover: rgba(22, 163, 74, 0.08);
+
+  --hero-bg: linear-gradient(135deg, #e8f8ec 0%, #e3f6fb 38%, #eafaef 72%, #e3f3fe 100%);
+  --hero-text: #0f2412;
+  --hero-muted: #44533f;
+  --blob-1: rgba(22, 163, 74, 0.45);
+  --blob-2: rgba(14, 165, 233, 0.4);
+  --blob-3: rgba(20, 83, 45, 0.35);
+  --grid-line: rgba(22, 163, 74, 0.11);
+  --fx-1: #16a34a;
+  --fx-2: #4ade80;
+  --fx-3: #0ea5e9;
+  --chip-bg: rgba(255, 255, 255, 0.7);
+  --chip-text: #0f2412;
+  --chip-line: rgba(255, 255, 255, 0.9);
+
+  --marquee-bg: #ffffff;
+
+  --dark-bg: radial-gradient(120% 90% at 10% 0%, #0d3d22 0%, #0a2f1a 45%, #061f11 100%);
+  --dark-text: #d8f3e0;
+  --dark-muted: #a7c9af;
+  --dark-card: rgba(255, 255, 255, 0.06);
+  --dark-line: rgba(255, 255, 255, 0.12);
+
+  --foot-bg: #061f11;
+  --foot-text: #cfeada;
+  --foot-muted: #8fb598;
+  --foot-line: rgba(255, 255, 255, 0.1);
+}
+
+/* TMB Agro Industries touches */
+.brand img { background: #fff; }
+.sec-dark .eyebrow, .foot h4 { color: #8fe0a9; }
+.step::before { color: var(--a); }

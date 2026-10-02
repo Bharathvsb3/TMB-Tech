@@ -1,34 +1,50 @@
 {
   "home": {
-    "hash": "c203734e1637",
+    "hash": "a358de580cd1",
     "date": "2026-10-02"
   },
   "ledgo-erp": {
-    "hash": "3949e4f52e06",
+    "hash": "edaf985e005f",
     "date": "2026-10-02"
   },
   "ledgo-erp-privacy": {
-    "hash": "cea898f23e76",
+    "hash": "6d619dc2a819",
     "date": "2026-10-02"
   },
   "gasone": {
-    "hash": "7360ed7ff4d8",
+    "hash": "5f4bfc9324d6",
     "date": "2026-10-02"
   },
   "gasone-guide": {
-    "hash": "bb0727ceaba4",
+    "hash": "f643ca76c713",
     "date": "2026-10-02"
   },
   "gasone-privacy": {
-    "hash": "70c0b171ba67",
+    "hash": "1a554af5988c",
     "date": "2026-10-02"
   },
   "jb-one": {
-    "hash": "a7d2c59b9f60",
+    "hash": "f90864372d76",
     "date": "2026-10-02"
   },
   "jb-one-privacy": {
-    "hash": "7b9deb98b96e",
+    "hash": "ee8dc06b3a86",
+    "date": "2026-10-02"
+  },
+  "jb-catalogue": {
+    "hash": "5f1778686fc7",
+    "date": "2026-10-02"
+  },
+  "public-shop": {
+    "hash": "98f6520206e6",
+    "date": "2026-10-02"
+  },
+  "tmb-brows": {
+    "hash": "65969777faf0",
+    "date": "2026-10-02"
+  },
+  "tmb-agro": {
+    "hash": "e968effe899c",
     "date": "2026-10-02"
   }
 }

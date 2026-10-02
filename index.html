@@ -302,6 +302,62 @@
           </div>
         </article>
 
+        <article class="product-card reveal" data-tilt>
+          <div class="product-logo">
+            <img src="assets/products/public-shop.png" alt="Public Shop logo" loading="lazy" width="64" height="64">
+          </div>
+          <h3>Public Shop</h3>
+          <p class="tagline">{{products.public-shop.tagline}}</p>
+          <span class="trial-badge" data-tmb-if="products.public-shop.trial.available">{{trial.badge}}</span>
+          <p class="card-desc">Public Shop is the online ordering website that comes with LedGo ERP: real stock and prices, delivery or pickup, and orders that land as real GST bills.</p>
+          <ul class="tech-tags">
+            <li>Blazor</li><li>ASP.NET Core</li><li>SQLite</li><li>REST API</li>
+          </ul>
+          <div class="card-foot">
+          <a href="{{products.public-shop.url}}" class="btn btn-outline">Visit Public Shop site &rarr;</a>
+          <div class="card-extra">
+            <a href="#contact" class="btn btn-primary btn-sm" data-trial-request="public-shop" data-tmb-if="products.public-shop.trial.available">{{trial.cta}}</a>
+          </div>
+          </div>
+        </article>
+
+        <article class="product-card reveal" data-tilt>
+          <div class="product-logo">
+            <img src="assets/products/tmb-agro.png" alt="TMB Agro Industries logo" loading="lazy" width="64" height="64">
+          </div>
+          <h3>TMB Agro Industries</h3>
+          <p class="tagline">{{products.tmb-agro.tagline}}</p>
+          <span class="trial-badge" data-tmb-if="products.tmb-agro.trial.available">{{trial.badge}}</span>
+          <p class="card-desc">A working case study: LedGo ERP, a branded Public Shop website and an Android shop app, all running from the same stock and prices. See what TMB Tech builds for a shop.</p>
+          <ul class="tech-tags">
+            <li>Blazor</li><li>ASP.NET Core</li><li>Android</li><li>SQLite</li>
+          </ul>
+          <div class="card-foot">
+          <a href="{{products.tmb-agro.url}}" class="btn btn-outline">Visit TMB Agro Industries &rarr;</a>
+          <div class="card-extra">
+            <a href="#contact" class="btn btn-primary btn-sm" data-trial-request="tmb-agro" data-tmb-if="products.tmb-agro.trial.available">{{trial.cta}}</a>
+          </div>
+          </div>
+        </article>
+
+        <article class="product-card reveal" data-tilt>
+          <div class="product-logo">
+            <img src="assets/products/tmb-brows.png" alt="TMB Brows logo" loading="lazy" width="64" height="64">
+          </div>
+          <h3>TMB Brows</h3>
+          <p class="tagline">{{products.tmb-brows.tagline}}</p>
+          <p class="card-desc">A private Android browser with a media player, PDF reader, QR tools, file converter, compass and step counter built in. History and tool data stay on the phone.</p>
+          <ul class="tech-tags">
+            <li>Android</li><li>Kotlin</li><li>Firebase</li>
+          </ul>
+          <div class="card-foot">
+          <a href="{{products.tmb-brows.url}}" class="btn btn-outline">Visit TMB Brows site &rarr;</a>
+          <div class="card-extra">
+            <a href="#contact" class="btn btn-primary btn-sm" data-trial-request="tmb-brows">Request the app</a>
+          </div>
+          </div>
+        </article>
+
       </div>
     </div>
   </section>
@@ -680,6 +736,9 @@
           <li><a href="{{products.jb-one.url}}"><img src="assets/products/jbone.png" alt="" width="36" height="36" loading="lazy"><span><b>{{products.jb-one.name}}</b><small>{{products.jb-one.tagline}}</small></span></a></li>
           <li><a href="{{products.jb-catalogue.url}}"><img src="assets/products/jbone.png" alt="" width="36" height="36" loading="lazy"><span><b>{{products.jb-catalogue.name}}</b><small>{{products.jb-catalogue.tagline}}</small></span></a></li>
           <li><a href="{{products.bikeshop.url}}" target="_blank" rel="noopener noreferrer"><img src="assets/products/bikeshop.png" alt="" width="36" height="36" loading="lazy"><span><b>{{products.bikeshop.name}}</b><small>{{products.bikeshop.tagline}}</small></span></a></li>
+          <li><a href="{{products.public-shop.url}}"><img src="assets/products/public-shop.png" alt="" width="36" height="36" loading="lazy"><span><b>{{products.public-shop.name}}</b><small>{{products.public-shop.tagline}}</small></span></a></li>
+          <li><a href="{{products.tmb-agro.url}}"><img src="assets/products/tmb-agro.png" alt="" width="36" height="36" loading="lazy"><span><b>{{products.tmb-agro.name}}</b><small>{{products.tmb-agro.tagline}}</small></span></a></li>
+          <li><a href="{{products.tmb-brows.url}}"><img src="assets/products/tmb-brows.png" alt="" width="36" height="36" loading="lazy"><span><b>{{products.tmb-brows.name}}</b><small>{{products.tmb-brows.tagline}}</small></span></a></li>
         </ul>
       </div>
 

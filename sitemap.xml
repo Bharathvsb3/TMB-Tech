@@ -78,4 +78,39 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+  <url>
+    <loc>https://tmbtech.in/jb-catalogue/</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://tmbtech.in/jb-catalogue/assets/og.jpg</image:loc></image:image>
+    <image:image><image:loc>https://tmbtech.in/jb-catalogue/assets/screens/web-shop-home.webp</image:loc></image:image>
+    <image:image><image:loc>https://tmbtech.in/jb-catalogue/assets/screens/web-product-grid.webp</image:loc></image:image>
+    <image:image><image:loc>https://tmbtech.in/jb-catalogue/assets/screens/web-admin-dashboard.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://tmbtech.in/public-shop/</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://tmbtech.in/public-shop/assets/og.jpg</image:loc></image:image>
+    <image:image><image:loc>https://tmbtech.in/public-shop/assets/screens/hero-banner.webp</image:loc></image:image>
+    <image:image><image:loc>https://tmbtech.in/public-shop/assets/screens/05-product-detail-desktop.webp</image:loc></image:image>
+    <image:image><image:loc>https://tmbtech.in/public-shop/assets/screens/10-checkout-address-desktop.webp</image:loc></image:image>
+    <image:image><image:loc>https://tmbtech.in/public-shop/assets/screens/13-my-orders-desktop.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://tmbtech.in/tmb-brows/</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://tmbtech.in/tmb-brows/assets/og.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://tmbtech.in/tmb-agro/</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://tmbtech.in/tmb-agro/assets/og.jpg</image:loc></image:image>
+  </url>
 </urlset>
