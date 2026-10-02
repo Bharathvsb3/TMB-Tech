@@ -536,9 +536,13 @@ textarea:focus-visible {
 }
 
 .panel-in .app-row { opacity: 1; transform: none; }
-.panel-in .app-row:nth-of-type(2) { transition-delay: 120ms; }
-.panel-in .app-row:nth-of-type(3) { transition-delay: 240ms; }
-.panel-in .app-row:nth-of-type(4) { transition-delay: 360ms; }
+.panel-in .app-row:nth-of-type(2) { transition-delay: 80ms; }
+.panel-in .app-row:nth-of-type(3) { transition-delay: 160ms; }
+.panel-in .app-row:nth-of-type(4) { transition-delay: 240ms; }
+.panel-in .app-row:nth-of-type(5) { transition-delay: 320ms; }
+.panel-in .app-row:nth-of-type(6) { transition-delay: 400ms; }
+.panel-in .app-row:nth-of-type(7) { transition-delay: 480ms; }
+.panel-in .app-row:nth-of-type(8) { transition-delay: 560ms; }
 
 @media (max-width: 480px) {
   .app-row {
@@ -958,7 +962,10 @@ textarea:focus-visible {
 
 /* ---------- About ---------- */
 .about-inner { max-width: 900px; }
-.about-lead { font-size: 1.15rem; color: var(--text); max-width: 68ch; margin-bottom: 36px; }
+.about-lead { font-size: 1.15rem; color: var(--text); max-width: 68ch; margin-bottom: 20px; }
+.about-more { font-size: 0.98rem; line-height: 1.7; color: var(--muted); max-width: 72ch; margin-bottom: 36px; }
+.about-more a { color: var(--primary); font-weight: 600; }
+.about-more a:hover { text-decoration: underline; }
 .capability-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1000,6 +1007,7 @@ textarea:focus-visible {
 }
 .founder-name { font-weight: 700; color: var(--text); margin: 0 0 2px; }
 .founder-role { font-size: 0.85rem; color: var(--muted); margin: 0; }
+.founder-bio { font-size: 0.85rem; color: var(--muted); margin: 6px 0 0; max-width: 46ch; }
 .founder-email {
   margin-left: auto;
   font-size: 0.9rem;

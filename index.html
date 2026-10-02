@@ -123,9 +123,45 @@
               <img src="assets/products/jbone.png" alt="" width="44" height="44">
               <div class="app-row-text">
                 <strong>JB One</strong>
-                <span>Jewellery tags &amp; catalogue</span>
+                <span>Jewellery tags &amp; estimates</span>
               </div>
               <span class="app-pill pill-green" data-tmb-if="products.jb-one.trial.available">{{trial.short}}</span>
+            </div>
+
+            <div class="app-row">
+              <img src="assets/products/jb-catalogue.png" alt="" width="44" height="44">
+              <div class="app-row-text">
+                <strong>JB Catalogue</strong>
+                <span>Jewellery shop online catalogue</span>
+              </div>
+              <span class="app-pill pill-blue">Jewellery</span>
+            </div>
+
+            <div class="app-row">
+              <img src="assets/products/public-shop.png" alt="" width="44" height="44">
+              <div class="app-row-text">
+                <strong>Customer order entry</strong>
+                <span>Online ordering, with LedGo ERP</span>
+              </div>
+              <span class="app-pill pill-green" data-tmb-if="products.public-shop.trial.available">{{trial.short}}</span>
+            </div>
+
+            <div class="app-row">
+              <img src="assets/products/bikeshop.png" alt="" width="44" height="44">
+              <div class="app-row-text">
+                <strong>BikeShop Manager</strong>
+                <span>Two-wheeler service center</span>
+              </div>
+              <span class="app-pill pill-green" data-tmb-if="products.bikeshop.trial.available">{{trial.short}}</span>
+            </div>
+
+            <div class="app-row">
+              <img src="assets/products/tmb-brows.png" alt="" width="44" height="44">
+              <div class="app-row-text">
+                <strong>TMB Brows</strong>
+                <span>Private Android browser</span>
+              </div>
+              <span class="app-pill pill-blue">Android</span>
             </div>
 
             <div class="app-panel-foot">
@@ -294,7 +330,7 @@
             <li>React</li><li>Firebase</li><li>Tailwind CSS</li><li>Capacitor</li>
           </ul>
           <div class="card-foot">
-          <a href="{{products.bikeshop.url}}" class="btn btn-outline" target="_blank" rel="noopener noreferrer">Visit BikeShop site &rarr;</a>
+          <a href="{{products.bikeshop.url}}" class="btn btn-outline">Visit BikeShop site &rarr;</a>
           <div class="card-extra">
             <a href="#contact" class="btn btn-primary btn-sm" data-trial-request="bikeshop" data-tmb-if="products.bikeshop.trial.available">{{trial.cta}}</a>
             <a href="{{products.bikeshop.liveShop.url}}" class="btn btn-g btn-sm" target="_blank" rel="noopener noreferrer" data-tmb-if="products.bikeshop.liveShop.url">See a live shop</a>
@@ -304,38 +340,19 @@
 
         <article class="product-card reveal" data-tilt>
           <div class="product-logo">
-            <img src="assets/products/public-shop.png" alt="Public Shop logo" loading="lazy" width="64" height="64">
+            <img src="assets/products/public-shop.png" alt="Customer order entry logo" loading="lazy" width="64" height="64">
           </div>
-          <h3>Public Shop</h3>
+          <h3>Customer Order Entry</h3>
           <p class="tagline">{{products.public-shop.tagline}}</p>
           <span class="trial-badge" data-tmb-if="products.public-shop.trial.available">{{trial.badge}}</span>
-          <p class="card-desc">Public Shop is the online ordering website that comes with LedGo ERP: real stock and prices, delivery or pickup, and orders that land as real GST bills.</p>
+          <p class="card-desc">The online ordering website that comes with LedGo ERP: real stock and prices, delivery or pickup, and orders that land as real GST bills. TMB Agro Industries runs on it as a working example.</p>
           <ul class="tech-tags">
             <li>Blazor</li><li>ASP.NET Core</li><li>SQLite</li><li>REST API</li>
           </ul>
           <div class="card-foot">
-          <a href="{{products.public-shop.url}}" class="btn btn-outline">Visit Public Shop site &rarr;</a>
+          <a href="{{products.public-shop.url}}" class="btn btn-outline">Visit Customer Order Entry site &rarr;</a>
           <div class="card-extra">
             <a href="#contact" class="btn btn-primary btn-sm" data-trial-request="public-shop" data-tmb-if="products.public-shop.trial.available">{{trial.cta}}</a>
-          </div>
-          </div>
-        </article>
-
-        <article class="product-card reveal" data-tilt>
-          <div class="product-logo">
-            <img src="assets/products/tmb-agro.png" alt="TMB Agro Industries logo" loading="lazy" width="64" height="64">
-          </div>
-          <h3>TMB Agro Industries</h3>
-          <p class="tagline">{{products.tmb-agro.tagline}}</p>
-          <span class="trial-badge" data-tmb-if="products.tmb-agro.trial.available">{{trial.badge}}</span>
-          <p class="card-desc">A working case study: LedGo ERP, a branded Public Shop website and an Android shop app, all running from the same stock and prices. See what TMB Tech builds for a shop.</p>
-          <ul class="tech-tags">
-            <li>Blazor</li><li>ASP.NET Core</li><li>Android</li><li>SQLite</li>
-          </ul>
-          <div class="card-foot">
-          <a href="{{products.tmb-agro.url}}" class="btn btn-outline">Visit TMB Agro Industries &rarr;</a>
-          <div class="card-extra">
-            <a href="#contact" class="btn btn-primary btn-sm" data-trial-request="tmb-agro" data-tmb-if="products.tmb-agro.trial.available">{{trial.cta}}</a>
           </div>
           </div>
         </article>
@@ -599,6 +616,7 @@
         <h2>About {{company.name}}</h2>
       </div>
       <p class="about-lead">{{company.name}} focuses on building practical software solutions that help businesses simplify operations, manage information efficiently and move their workflows into reliable digital systems.</p>
+      <p class="about-more">Each product is built end to end &mdash; mobile app, web app, backend API and database &mdash; and set up, hosted and supported directly by {{company.name}}, not handed off to a template or a third party. The portfolio spans business management (<a href="{{products.ledgo-erp.url}}">LedGo ERP</a>, <a href="{{products.gasone.url}}">GasOne</a>), jewellery retail (<a href="{{products.jb-one.url}}">JB One</a>, <a href="{{products.jb-catalogue.url}}">JB Catalogue</a>), online ordering for shops (<a href="{{products.public-shop.url}}">Customer Order Entry</a>, built for shops like TMB Agro Industries), a two-wheeler service system (<a href="{{products.bikeshop.url}}">BikeShop Manager</a>) and a private Android browser (<a href="{{products.tmb-brows.url}}">TMB Brows</a>).</p>
 
       <ul class="capability-grid">
         <li>Business Applications</li>
@@ -614,6 +632,7 @@
         <div>
           <p class="founder-name">{{company.founder.name}}</p>
           <p class="founder-role">{{company.founder.role}}, {{company.name}}</p>
+          <p class="founder-bio">Designs and builds every {{company.name}} product personally, from the database up to the screen your staff and your customers actually use.</p>
         </div>
         <a href="mailto:{{company.contact.email}}" class="founder-email">{{company.contact.email}}</a>
       </div>
@@ -735,9 +754,8 @@
           <li><a href="{{products.gasone.url}}"><img src="assets/products/gasone.png" alt="" width="36" height="36" loading="lazy"><span><b>{{products.gasone.name}}</b><small>{{products.gasone.tagline}}</small></span></a></li>
           <li><a href="{{products.jb-one.url}}"><img src="assets/products/jbone.png" alt="" width="36" height="36" loading="lazy"><span><b>{{products.jb-one.name}}</b><small>{{products.jb-one.tagline}}</small></span></a></li>
           <li><a href="{{products.jb-catalogue.url}}"><img src="assets/products/jbone.png" alt="" width="36" height="36" loading="lazy"><span><b>{{products.jb-catalogue.name}}</b><small>{{products.jb-catalogue.tagline}}</small></span></a></li>
-          <li><a href="{{products.bikeshop.url}}" target="_blank" rel="noopener noreferrer"><img src="assets/products/bikeshop.png" alt="" width="36" height="36" loading="lazy"><span><b>{{products.bikeshop.name}}</b><small>{{products.bikeshop.tagline}}</small></span></a></li>
+          <li><a href="{{products.bikeshop.url}}"><img src="assets/products/bikeshop.png" alt="" width="36" height="36" loading="lazy"><span><b>{{products.bikeshop.name}}</b><small>{{products.bikeshop.tagline}}</small></span></a></li>
           <li><a href="{{products.public-shop.url}}"><img src="assets/products/public-shop.png" alt="" width="36" height="36" loading="lazy"><span><b>{{products.public-shop.name}}</b><small>{{products.public-shop.tagline}}</small></span></a></li>
-          <li><a href="{{products.tmb-agro.url}}"><img src="assets/products/tmb-agro.png" alt="" width="36" height="36" loading="lazy"><span><b>{{products.tmb-agro.name}}</b><small>{{products.tmb-agro.tagline}}</small></span></a></li>
           <li><a href="{{products.tmb-brows.url}}"><img src="assets/products/tmb-brows.png" alt="" width="36" height="36" loading="lazy"><span><b>{{products.tmb-brows.name}}</b><small>{{products.tmb-brows.tagline}}</small></span></a></li>
         </ul>
       </div>

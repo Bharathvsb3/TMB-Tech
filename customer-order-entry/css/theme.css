@@ -1,4 +1,4 @@
-/* Public Shop brand tokens: teal/emerald, store-and-stock feel. */
+/* Customer order entry brand tokens: teal/emerald, store-and-stock feel. */
 :root {
   --font-head: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -64,7 +64,7 @@
   --foot-line: rgba(255, 255, 255, 0.1);
 }
 
-/* Public Shop touches */
+/* Customer order entry touches */
 .brand img { background: #fff; }
 .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
 .sec-dark .eyebrow, .foot h4 { color: #8fe0cf; }

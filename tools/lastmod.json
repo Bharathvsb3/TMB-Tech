@@ -1,50 +1,50 @@
 {
   "home": {
-    "hash": "a358de580cd1",
+    "hash": "6ab2db8d81a9",
     "date": "2026-10-02"
   },
   "ledgo-erp": {
-    "hash": "edaf985e005f",
+    "hash": "99819bb1510a",
     "date": "2026-10-02"
   },
   "ledgo-erp-privacy": {
-    "hash": "6d619dc2a819",
+    "hash": "06239ad4f341",
     "date": "2026-10-02"
   },
   "gasone": {
-    "hash": "5f4bfc9324d6",
+    "hash": "af76276ef542",
     "date": "2026-10-02"
   },
   "gasone-guide": {
-    "hash": "f643ca76c713",
+    "hash": "24b63930f451",
     "date": "2026-10-02"
   },
   "gasone-privacy": {
-    "hash": "1a554af5988c",
+    "hash": "6669a17cd51c",
     "date": "2026-10-02"
   },
   "jb-one": {
-    "hash": "f90864372d76",
+    "hash": "d3d42624063a",
     "date": "2026-10-02"
   },
   "jb-one-privacy": {
-    "hash": "ee8dc06b3a86",
+    "hash": "e7558e10b76e",
+    "date": "2026-10-02"
+  },
+  "bikeshop": {
+    "hash": "33f88febca03",
     "date": "2026-10-02"
   },
   "jb-catalogue": {
-    "hash": "5f1778686fc7",
+    "hash": "e50090fa764a",
     "date": "2026-10-02"
   },
   "public-shop": {
-    "hash": "98f6520206e6",
+    "hash": "fd601cc5bc09",
     "date": "2026-10-02"
   },
   "tmb-brows": {
-    "hash": "65969777faf0",
-    "date": "2026-10-02"
-  },
-  "tmb-agro": {
-    "hash": "e968effe899c",
+    "hash": "810261b6c57d",
     "date": "2026-10-02"
   }
 }

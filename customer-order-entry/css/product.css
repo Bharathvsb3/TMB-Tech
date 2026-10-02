@@ -572,9 +572,13 @@ html.lite .reveal { transition-duration: 0.2s !important; }
 .sec-dark .info-table td { border-color: var(--dark-line); color: var(--dark-text); }
 .sec-dark .info-table td:first-child { color: #fff; }
 
-.status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 10px; }
-.status-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 14px 16px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); }
+.status-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 10px; }
+.status-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); }
 .status-row span.pill { flex-shrink: 0; white-space: nowrap; }
+@media (max-width: 560px) {
+  .status-row { flex-wrap: wrap; }
+  .status-row span.pill { white-space: normal; }
+}
 
 .diagram { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; align-items: stretch; margin: 28px 0; }
 .diagram-step { padding: 22px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); text-align: center; position: relative; }

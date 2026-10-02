@@ -201,14 +201,15 @@
     },
 
     "bikeshop": {
-      "_comment": "Two-wheeler service-center management system: public booking website, admin panel and a worker panel. Built by TMB Tech; hosted on its own subdomain of tmbtech.in (not this repo), so url is external like the README's 'product on its own domain' pattern.",
+      "_comment": "Two-wheeler service-center management system: public booking website, admin panel and a worker panel. Has its own TMB Tech page (bikeshop/); the live example runs on its own subdomain (liveShop.url below).",
       "name": "BikeShop Manager",
-      "url": "https://muralibikeservicepoint.tmbtech.in/",
+      "path": "bikeshop/",
+      "url": "",
       "tagline": "Two-Wheeler Service Center Software",
       "shortDescription": "BikeShop Manager runs a two-wheeler repair shop end to end: a public booking website, an admin panel for jobs, billing and stock, and a worker panel for attendance and job status.",
       "description": "BikeShop Manager is a complete system for a two-wheeler repair shop: a public website for customers to see services, offers and book a service; an admin panel for jobs, billing, customers, suppliers and expenses; and a mobile-first worker panel for attendance, job status and salary. Available in English, Tamil and Telugu.",
       "logo": "assets/products/bikeshop.png",
-      "screenshot": "assets/bikeshop/home.webp",
+      "screenshot": "bikeshop/assets/screens/home.webp",
       "operatingSystem": "Web, Android",
       "applicationCategory": "BusinessApplication",
       "inLanguage": ["en", "ta", "te"],
@@ -224,26 +225,27 @@
     },
 
     "public-shop": {
-      "_comment": "The online-ordering website (+ optional Android app) that comes with LedGo ERP: one deployment per shop, connected to that shop's stock, prices and billing.",
-      "name": "Public Shop",
-      "path": "public-shop/",
+      "_comment": "Customer order entry: the online-ordering website (+ optional Android app) that comes with LedGo ERP: one deployment per shop, connected to that shop's stock, prices and billing. TMB Agro Industries is folded into this page as a client example (no separate page).",
+      "name": "Customer order entry",
+      "path": "customer-order-entry/",
+      "legacyPath": "public-shop/",
       "url": "",
       "tagline": "Your Shop, Open Online",
-      "shortDescription": "Public Shop is the online ordering website that comes with LedGo ERP: a shop's own branded site, reading real stock and prices, with orders landing at the counter as real GST bills.",
-      "description": "Public Shop is the customer-facing website (and optional Android app) that comes with LedGo ERP. It reads a shop's real products, prices and stock, takes orders for home delivery or store pickup, and sends every confirmed order into LedGo ERP as a real GST bill — no separate online books.",
+      "shortDescription": "Customer order entry is the online-ordering website that comes with LedGo ERP: a shop's own branded site, reading real stock and prices, with orders landing at the counter as real GST bills.",
+      "description": "Customer order entry is the customer-facing website (and optional Android app) that comes with LedGo ERP. It reads a shop's real products, prices and stock, takes orders for home delivery or store pickup, and sends every confirmed order into LedGo ERP as a real GST bill — no separate online books.",
       "logo": "assets/products/public-shop.png",
-      "screenshot": "public-shop/assets/screens/05-product-detail-desktop.webp",
+      "screenshot": "customer-order-entry/assets/screens/05-product-detail-desktop.webp",
       "operatingSystem": "Web, Android",
       "applicationCategory": "BusinessApplication",
       "inLanguage": ["en", "ta", "te", "hi", "kn"],
       "trial": {
         "available": true,
-        "message": "Hi, I would like to get my shop online with Public Shop (with LedGo ERP). Please tell me what you need from me."
+        "message": "Hi, I would like to get my shop online with Customer order entry (with LedGo ERP). Please tell me what you need from me."
       }
     },
 
     "tmb-brows": {
-      "_comment": "The general-purpose Android browser, built from the same app family as the shop apps (see tmb-agro). Browser mode.",
+      "_comment": "The general-purpose Android browser, built from the same app family as the shop apps.",
       "name": "TMB Brows",
       "path": "tmb-brows/",
       "url": "",
@@ -256,24 +258,6 @@
       "inLanguage": ["en"],
       "trial": {
         "available": false
-      }
-    },
-
-    "tmb-agro": {
-      "_comment": "Case-study product: a real shop set-up (LedGo ERP + Public Shop + a branded Android shop app) built by TMB Tech, shown as an example of what a shop gets. No live public URL yet - see README-HANDOFF known gaps.",
-      "name": "TMB Agro Industries",
-      "path": "tmb-agro/",
-      "url": "",
-      "tagline": "One Shop, Three Connected Pieces",
-      "shortDescription": "TMB Agro Industries is a working shop set-up built by TMB Tech: LedGo ERP for the owner, a branded Public Shop website for customers, and an Android shop app — all running from the same stock and prices.",
-      "description": "TMB Agro Industries shows what TMB Tech builds for a shop: LedGo ERP for products, stock, prices and billing; a Public Shop website branded for the shop, reading straight from the ERP; and a branded Android app that opens that shop's site full-screen. TMB Tech can build the same three pieces for any shop.",
-      "logo": "assets/products/tmb-agro.png",
-      "operatingSystem": "Web, Android",
-      "applicationCategory": "BusinessApplication",
-      "inLanguage": ["en", "ta"],
-      "trial": {
-        "available": true,
-        "message": "Hi, I would like TMB Tech to build a shop set-up like TMB Agro Industries for my business (ERP + Public Shop + app). Please tell me what you need from me."
       }
     }
   },
@@ -404,6 +388,23 @@
       "sitemap": { "priority": "0.3", "changefreq": "yearly", "images": [] }
     },
 
+    "bikeshop": {
+      "file": "bikeshop/index.html",
+      "path": "bikeshop/",
+      "product": "bikeshop",
+      "title": "BikeShop Manager | Two-Wheeler Service Center Software | {{company.name}}",
+      "description": "BikeShop Manager by {{company.name}}: a public booking website, an admin panel for jobs and billing, and a worker panel for attendance, for a two-wheeler repair shop.",
+      "ogTitle": "BikeShop Manager | Two-Wheeler Service Center Software",
+      "ogImage": "bikeshop/assets/og.jpg",
+      "ogAlt": "BikeShop Manager by {{company.name}}: booking website, admin panel and worker panel.",
+      "siteName": "BikeShop Manager by {{company.name}}",
+      "sitemap": {
+        "priority": "0.8",
+        "changefreq": "monthly",
+        "images": ["bikeshop/assets/og.jpg", "bikeshop/assets/screens/home.webp", "bikeshop/assets/screens/booking.webp"]
+      }
+    },
+
     "jb-catalogue": {
       "file": "jb-catalogue/index.html",
       "path": "jb-catalogue/",
@@ -422,19 +423,19 @@
     },
 
     "public-shop": {
-      "file": "public-shop/index.html",
-      "path": "public-shop/",
+      "file": "customer-order-entry/index.html",
+      "path": "customer-order-entry/",
       "product": "public-shop",
-      "title": "Public Shop | Online Ordering Website for Your Shop | {{company.name}}",
-      "description": "Public Shop by {{company.name}}: a branded online-ordering website connected to LedGo ERP. Real stock and prices, delivery or pickup, orders land as real GST bills.",
-      "ogTitle": "Public Shop | Online Ordering Website for Your Shop",
-      "ogImage": "public-shop/assets/og.jpg",
-      "ogAlt": "Public Shop by {{company.name}}: a shop's own online ordering website, connected to LedGo ERP.",
-      "siteName": "Public Shop by {{company.name}}",
+      "title": "Customer Order Entry | Online Ordering Website for Your Shop | {{company.name}}",
+      "description": "Customer order entry by {{company.name}}: a branded online-ordering website connected to LedGo ERP. Real stock and prices, delivery or pickup, orders land as real GST bills.",
+      "ogTitle": "Customer Order Entry | Online Ordering Website for Your Shop",
+      "ogImage": "customer-order-entry/assets/og.jpg",
+      "ogAlt": "Customer order entry by {{company.name}}: a shop's own online ordering website, connected to LedGo ERP.",
+      "siteName": "Customer order entry by {{company.name}}",
       "sitemap": {
         "priority": "0.8",
         "changefreq": "monthly",
-        "images": ["public-shop/assets/og.jpg", "public-shop/assets/screens/hero-banner.webp", "public-shop/assets/screens/05-product-detail-desktop.webp", "public-shop/assets/screens/10-checkout-address-desktop.webp", "public-shop/assets/screens/13-my-orders-desktop.webp"]
+        "images": ["customer-order-entry/assets/og.jpg", "customer-order-entry/assets/screens/hero-banner.webp", "customer-order-entry/assets/screens/05-product-detail-desktop.webp", "customer-order-entry/assets/screens/10-checkout-address-desktop.webp", "customer-order-entry/assets/screens/13-my-orders-desktop.webp"]
       }
     },
 
@@ -452,23 +453,6 @@
         "priority": "0.7",
         "changefreq": "monthly",
         "images": ["tmb-brows/assets/og.jpg"]
-      }
-    },
-
-    "tmb-agro": {
-      "file": "tmb-agro/index.html",
-      "path": "tmb-agro/",
-      "product": "tmb-agro",
-      "title": "TMB Agro Industries | ERP, Public Shop & App, One System | {{company.name}}",
-      "description": "TMB Agro Industries: a working shop built by {{company.name}} on LedGo ERP, a branded Public Shop website and an Android shop app, all running from the same stock and prices.",
-      "ogTitle": "TMB Agro Industries | ERP, Public Shop & App, One System",
-      "ogImage": "tmb-agro/assets/og.jpg",
-      "ogAlt": "TMB Agro Industries: LedGo ERP, Public Shop and an Android shop app, built by {{company.name}}.",
-      "siteName": "TMB Agro Industries by {{company.name}}",
-      "sitemap": {
-        "priority": "0.6",
-        "changefreq": "monthly",
-        "images": ["tmb-agro/assets/og.jpg"]
       }
     }
   }
