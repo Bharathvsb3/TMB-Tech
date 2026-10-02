@@ -56,12 +56,9 @@
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
-  display: grid;
-  place-items: center;
+  object-fit: cover;
   flex-shrink: 0;
-  font-weight: 800;
-  color: #fff;
-  background: linear-gradient(135deg, #2563eb, #1e40af);
+  background: rgb(var(--brand));
 }
 .tmb-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.6rem; }
 .tmb-list li { display: flex; gap: 0.8rem; font-size: 0.9rem; min-width: 0; }
@@ -251,7 +248,7 @@
 .foot-contact li > svg { width: 1.05rem; height: 1.05rem; margin-top: 0.18rem; flex-shrink: 0; color: rgb(var(--brand)); }
 .foot-contact a { overflow-wrap: anywhere; }
 .foot-person { align-items: center !important; margin-top: 0.4rem; padding-top: 0.9rem; border-top: 1px solid var(--ink-line); }
-.foot-avatar { flex-shrink: 0; width: 2.5rem; height: 2.5rem; border-radius: 50%; display: grid; place-items: center; font-size: 0.78rem; font-weight: 800; background: rgb(var(--brand)); color: #fff; }
+.foot-avatar { flex-shrink: 0; width: 2.5rem; height: 2.5rem; border-radius: 50%; object-fit: cover; background: rgb(var(--brand)); }
 .foot-person b, .foot-prods b { display: block; font-size: 0.88rem; color: var(--text-on-ink); }
 .foot-person small, .foot-prods small { display: block; font-size: 0.75rem; line-height: 1.35; color: var(--text-on-ink-muted); }
 .footer-col ul.foot-prods { gap: 0.4rem; }

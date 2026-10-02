@@ -26,7 +26,10 @@
     "founder": {
       "name": "Bharath Sankar",
       "role": "Founder & Developer",
-      "initials": "BS"
+      "initials": "BS",
+      "photo": "assets/founder/bharath-sankar.jpg",
+      "photoSmall": "assets/founder/bharath-sankar-sm.jpg",
+      "_photo": "Used in the About section, each product's \"Built & supported by\" card and the footers. photoSmall is a smaller copy for the circular avatars; photo is the larger one."
     },
 
     "contact": {
@@ -58,7 +61,9 @@
     "language": "en-IN",
     "locale": "en_IN",
     "logo": "assets/logo/logo.png",
-    "_logo": "Company logo, relative to baseUrl."
+    "_logo": "Company logo (wide wordmark), relative to baseUrl. Used in the header/footer/404 page.",
+    "squareLogo": "assets/logo/favicon.png",
+    "_squareLogo": "A square mark, used for Organization structured data (logo/image). Search engines expect a roughly square logo, not a wide wordmark."
   },
 
   "stores": {
@@ -172,6 +177,48 @@
         "name": "T.N Mani Gopi Jewellers",
         "url": "https://tnmgopijewellers.runasp.net/shop/tnm-gopi-jewellers"
       }
+    },
+
+    "jb-catalogue": {
+      "_comment": "The online-catalogue half of JB One, listed as its own product card (the mobile tag/estimate app is 'jb-one' above). Both live on the same jb-one/ site, in different sections, so url points at an anchor there rather than its own page.",
+      "name": "JB Catalogue",
+      "url": "{{products.jb-one.url}}#catalogue",
+      "tagline": "Jewellery Shop Online Catalogue",
+      "shortDescription": "JB Catalogue is the customer-facing website side of JB One: a jewellery shop's own online catalogue, with wishlist, WhatsApp enquiries and an admin back office, published on the shop's own web address.",
+      "description": "JB Catalogue is the web side of JB One: an online catalogue a jewellery shop publishes on its own address, with a product grid, a wishlist, WhatsApp enquiries, optional online ordering, and an admin back office shop staff use to manage products and photos.",
+      "logo": "assets/products/jbone.png",
+      "screenshot": "jb-one/assets/screens/web-shop-home.webp",
+      "operatingSystem": "Web",
+      "applicationCategory": "BusinessApplication",
+      "inLanguage": ["en", "ta"],
+      "liveShop": {
+        "_comment": "Same live example as JB One above.",
+        "name": "T.N Mani Gopi Jewellers",
+        "url": "https://tnmgopijewellers.runasp.net/shop/tnm-gopi-jewellers"
+      }
+    },
+
+    "bikeshop": {
+      "_comment": "Two-wheeler service-center management system: public booking website, admin panel and a worker panel. Built by TMB Tech; hosted on its own subdomain of tmbtech.in (not this repo), so url is external like the README's 'product on its own domain' pattern.",
+      "name": "BikeShop Manager",
+      "url": "https://muralibikeservicepoint.tmbtech.in/",
+      "tagline": "Two-Wheeler Service Center Software",
+      "shortDescription": "BikeShop Manager runs a two-wheeler repair shop end to end: a public booking website, an admin panel for jobs, billing and stock, and a worker panel for attendance and job status.",
+      "description": "BikeShop Manager is a complete system for a two-wheeler repair shop: a public website for customers to see services, offers and book a service; an admin panel for jobs, billing, customers, suppliers and expenses; and a mobile-first worker panel for attendance, job status and salary. Available in English, Tamil and Telugu.",
+      "logo": "assets/products/bikeshop.png",
+      "screenshot": "assets/bikeshop/home.webp",
+      "operatingSystem": "Web, Android",
+      "applicationCategory": "BusinessApplication",
+      "inLanguage": ["en", "ta", "te"],
+      "trial": {
+        "available": true,
+        "message": "Hi, I would like to see a demo of {{products.bikeshop.name}} for my shop."
+      },
+      "liveShop": {
+        "_comment": "The first shop running on BikeShop Manager.",
+        "name": "Murali Bike Service Point",
+        "url": "https://muralibikeservicepoint.tmbtech.in/"
+      }
     }
   },
 
@@ -186,15 +233,15 @@
       "file": "index.html",
       "path": "",
       "title": "{{company.name}} | Software & Technology Solutions",
-      "description": "{{company.name}} builds business applications, ERP systems, mobile apps, web applications and custom software. Products: LedGo ERP, GasOne and JB One.",
+      "description": "{{company.name}} builds business applications, ERP systems, mobile apps and web applications. Products: LedGo ERP, GasOne, JB One and BikeShop Manager.",
       "ogTitle": "{{company.name}} | Software & Technology Solutions",
       "ogImage": "assets/og/tmb-tech.jpg",
-      "ogAlt": "{{company.name}}: software and technology solutions. Products: LedGo ERP, GasOne and JB One.",
+      "ogAlt": "{{company.name}}: software and technology solutions. Products: LedGo ERP, GasOne, JB One and BikeShop Manager.",
       "siteName": "{{company.name}}",
       "sitemap": {
         "priority": "1.0",
         "changefreq": "weekly",
-        "images": ["assets/og/tmb-tech.jpg", "assets/logo/logo.png", "assets/products/ledgo.png", "assets/products/gasone.png", "assets/products/jbone.png"]
+        "images": ["assets/og/tmb-tech.jpg", "assets/logo/logo.png", "assets/products/ledgo.png", "assets/products/gasone.png", "assets/products/jbone.png", "assets/products/bikeshop.png"]
       }
     },
 

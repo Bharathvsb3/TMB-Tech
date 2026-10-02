@@ -62,7 +62,10 @@ def normalize(s):
         if key.startswith("_"):
             continue
         url = p.get("url") or base + p["path"]
-        p["url"] = url if url.endswith("/") else url + "/"
+        # a URL that already points at an anchor on another page (e.g. the
+        # JB Catalogue card, which is really a section of jb-one/) must not
+        # get a trailing slash forced after the "#..." part
+        p["url"] = url if url.endswith("/") or "#" in url else url + "/"
         listing = lookup(s, "stores.googlePlay.listingUrl") or ""
         ps = p.setdefault("playStore", {})
         ps["url"] = listing + ps["packageId"] if ps.get("live") and ps.get("packageId") else ""

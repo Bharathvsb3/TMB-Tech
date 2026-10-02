@@ -106,7 +106,10 @@
       if (key.charAt(0) === "_") return;
       var p = s.products[key];
       var url = p.url || base + p.path;
-      if (url.slice(-1) !== "/") url += "/";
+      // a URL that already points at an anchor on another page (e.g. the
+      // JB Catalogue card, which is really a section of jb-one/) must not
+      // get a trailing slash forced after the "#..." part
+      if (url.slice(-1) !== "/" && url.indexOf("#") === -1) url += "/";
       p.url = url;
 
       // Google Play link: only once the listing is public ("live": true).
@@ -139,15 +142,19 @@
   /* ---------------- structured data ---------------- */
   function organization(s) {
     var c = s.company;
+    // Google expects a roughly square logo here, not the wide header
+    // wordmark, so this reads site.squareLogo (falling back to site.logo
+    // if a project has not set one).
+    var mark = absolute(s, s.site.squareLogo || s.site.logo);
     return {
       "@type": "Organization",
       name: c.name,
       url: s.site.baseUrl,
-      logo: absolute(s, s.site.logo),
-      image: absolute(s, s.site.logo),
+      logo: mark,
+      image: mark,
       email: c.contact.email,
       telephone: c.contact.phone,
-      founder: { "@type": "Person", name: c.founder.name },
+      founder: { "@type": "Person", name: c.founder.name, image: absolute(s, c.founder.photo) },
       sameAs: [c.social.github.url, c.social.linkedin.url],
       description: c.description
     };
@@ -187,7 +194,7 @@
       out.push({
         "@context": ctx, "@type": "WebSite", name: s.company.name, url: s.site.baseUrl,
         inLanguage: s.site.language,
-        publisher: { "@type": "Organization", name: s.company.name, logo: absolute(s, s.site.logo) }
+        publisher: { "@type": "Organization", name: s.company.name, logo: absolute(s, s.site.squareLogo || s.site.logo) }
       });
       var org = organization(s); org["@context"] = ctx; out.push(org);
       var keys = Object.keys(s.products).filter(function (k) { return k.charAt(0) !== "_"; });
