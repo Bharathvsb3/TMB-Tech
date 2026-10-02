@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://bharathvsb3.github.io/TMB-Tech/sitemap.xml
+Sitemap: https://tmbtech.in/sitemap.xml

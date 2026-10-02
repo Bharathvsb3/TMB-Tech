@@ -1,34 +1,34 @@
 {
   "home": {
-    "hash": "69f02f880b6b",
-    "date": "2026-09-25"
+    "hash": "d812663ed3be",
+    "date": "2026-10-02"
   },
   "ledgo-erp": {
-    "hash": "16c92d244940",
-    "date": "2026-09-25"
+    "hash": "b6030d3f15e8",
+    "date": "2026-10-02"
   },
   "ledgo-erp-privacy": {
-    "hash": "66acb05b3022",
-    "date": "2026-09-25"
+    "hash": "493fc3117cb8",
+    "date": "2026-10-02"
   },
   "gasone": {
-    "hash": "0c210c27a752",
-    "date": "2026-09-25"
+    "hash": "ae7a29e677f5",
+    "date": "2026-10-02"
   },
   "gasone-guide": {
-    "hash": "17165c85bb5c",
-    "date": "2026-09-25"
+    "hash": "73f0489d9660",
+    "date": "2026-10-02"
   },
   "gasone-privacy": {
-    "hash": "586717f99263",
-    "date": "2026-09-25"
+    "hash": "85da79ed44a0",
+    "date": "2026-10-02"
   },
   "jb-one": {
-    "hash": "e96fa851637d",
-    "date": "2026-09-25"
+    "hash": "590201803aba",
+    "date": "2026-10-02"
   },
   "jb-one-privacy": {
-    "hash": "8e9f1af36ec2",
-    "date": "2026-09-25"
+    "hash": "6ec3f7637a23",
+    "date": "2026-10-02"
   }
 }

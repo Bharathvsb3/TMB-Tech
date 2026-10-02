@@ -53,8 +53,8 @@
 
   "site": {
     "_comment": "Where the site lives. Used for canonical links, share previews, the sitemap and links between the company site and the product sites.",
-    "baseUrl": "https://bharathvsb3.github.io/TMB-Tech/",
-    "_baseUrl": "Must end with a slash. If you move to your own domain, change this and run  python tools/render.py",
+    "baseUrl": "https://tmbtech.in/",
+    "_baseUrl": "Must end with a slash. The GitHub Pages URL (bharathvsb3.github.io/TMB-Tech/) still works but is no longer canonical. If the domain ever changes again, change this and run  python tools/render.py",
     "language": "en-IN",
     "locale": "en_IN",
     "logo": "assets/logo/logo.png",
