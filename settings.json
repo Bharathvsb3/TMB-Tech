@@ -273,10 +273,10 @@
       "file": "index.html",
       "path": "",
       "title": "{{company.name}} | Software & Technology Solutions",
-      "description": "{{company.name}} builds business applications, ERP systems, mobile apps and web applications. Products: LedGo ERP, GasOne, JB One and BikeShop Manager.",
+      "description": "{{company.name}} builds business applications, ERP systems, mobile apps and web applications — LedGo ERP, GasOne, JB One, Customer Order Entry and more.",
       "ogTitle": "{{company.name}} | Software & Technology Solutions",
       "ogImage": "assets/og/tmb-tech.jpg",
-      "ogAlt": "{{company.name}}: software and technology solutions. Products: LedGo ERP, GasOne, JB One and BikeShop Manager.",
+      "ogAlt": "{{company.name}}: software and technology solutions. Products include LedGo ERP, GasOne, JB One, Customer Order Entry and more.",
       "siteName": "{{company.name}}",
       "sitemap": {
         "priority": "1.0",

@@ -102,6 +102,23 @@
   }
 
   /* ---------------------------------------------------------------------
+   * In-page anchor links: smooth-scroll only for the click itself, not
+   * for the page's own CSS scroll-behavior (an always-on "smooth" there
+   * fights normal mouse-wheel scrolling and makes it feel stuck).
+   * ------------------------------------------------------------------- */
+  document.addEventListener("click", function (e) {
+    var link = e.target.closest('a[href^="#"]');
+    if (!link) return;
+    var id = link.getAttribute("href").slice(1);
+    if (!id) return;
+    var target = document.getElementById(id);
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+    history.pushState(null, "", "#" + id);
+  });
+
+  /* ---------------------------------------------------------------------
    * Sliding active-nav indicator
    * ------------------------------------------------------------------- */
   var navIndicator = document.getElementById("nav-indicator");
