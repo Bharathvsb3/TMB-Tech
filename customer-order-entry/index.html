@@ -224,11 +224,24 @@
           <h4><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8M8 16h5"/></svg>Your shop staff</h4>
           <div class="steps" style="grid-template-columns:1fr">
             <div class="step"><h3>1. The bell rings</h3><p>A new order shows on the Online Orders board at once, with an alert and a push notification.</p></div>
-            <div class="step"><h3>2. Confirm or reject</h3><p>Confirm checks stock and makes a real GST bill from the same series as the counter. Reject needs a reason; nothing is billed.</p></div>
+            <div class="step"><h3>2. Confirm or reject</h3><p>Confirm checks real stock against every line, picks batches earliest-expiry-first (a picker opens only if rates disagree), and makes a real GST bill from the same series as the counter. Reject needs a reason; nothing is billed.</p></div>
             <div class="step"><h3>3. Pack, send, hand over</h3><p>Mark Packed, Out for delivery, then Delivered &mdash; enter the amount received and the payment mode.</p></div>
           </div>
         </div>
       </div>
+      <table class="info-table reveal">
+        <thead><tr><th>Stage in LedGo ERP</th><th>What the customer's order page says</th></tr></thead>
+        <tbody>
+          <tr><td>Placed</td><td>"Waiting for the shop to confirm your order"</td></tr>
+          <tr><td>Confirmed</td><td>"Confirmed, the shop is packing your items" &mdash; the real GST bill now backs the page</td></tr>
+          <tr><td>Packed</td><td>"Packed, it will be on its way soon" (pickup: "Ready for pickup")</td></tr>
+          <tr><td>Out for delivery</td><td>"On the way to you. Keep your phone handy."</td></tr>
+          <tr><td>Delivered / Picked up</td><td>"Delivered" / "Picked up", invoice available</td></tr>
+          <tr><td>Rejected</td><td>"Declined by shop", with the reason</td></tr>
+          <tr><td>Cancelled</td><td>"Cancelled", by the customer or by the shop</td></tr>
+        </tbody>
+      </table>
+      <p class="caption reveal">The page refreshes itself with no manual reload, and a push notification goes out at every change, to every device the customer allowed notifications on.</p>
     </div>
   </section>
 
@@ -401,6 +414,8 @@
         <div class="role reveal" data-tilt><b>Rate limits</b><span>At most 5 orders waiting, 10 per hour, 60 lines and 1000 units per line, per customer.</span></div>
         <div class="role reveal" data-tilt><b>Delivery rules enforced server-side</b><span>An order beyond the last distance band, or outside the pincode list, is refused by the server, not just hidden on screen.</span></div>
         <div class="role reveal" data-tilt><b>Passwords hashed, accounts locked</b><span>Repeated wrong passwords lock an account for a while; a second sign-up on the same number is refused.</span></div>
+        <div class="role reveal" data-tilt><b>No secrets reach the browser</b><span>Server-side map and messaging keys never reach the page; only the one browser-side map key a shop's picker needs is served, and only to that shop.</span></div>
+        <div class="role reveal" data-tilt><b>Order ownership re-checked every time</b><span>An order id alone is never enough &mdash; every order, cancel, PDF and status request is re-checked against who is actually signed in.</span></div>
       </div>
     </div>
   </section>
@@ -445,6 +460,8 @@
         <div class="status-row"><span>Staff alerts and customer push notifications</span><span class="pill pill-approved">Verified live</span></div>
         <div class="status-row"><span>Pincode and distance delivery rules</span><span class="pill pill-approved">Verified live</span></div>
         <div class="status-row"><span>Sign-up with OTP, forgot password</span><span class="pill pill-approved">Verified live</span></div>
+        <div class="status-row"><span>Google and OpenStreetMap route measurement</span><span class="pill pill-approved">Verified live</span></div>
+        <div class="status-row"><span>WhatsApp / chat-app link previews</span><span class="pill pill-pending">Built; fully checkable only once a shop has a live address</span></div>
         <div class="status-row"><span>Five languages</span><span class="pill pill-pending">Built, spot-checked</span></div>
         <div class="status-row"><span>Radius delivery rule</span><span class="pill pill-pending">Built, not field-tested</span></div>
         <div class="status-row"><span>UPI pay button</span><span class="pill pill-pending">Built, not field-tested with real payments</span></div>
