@@ -34,7 +34,7 @@
 
     "contact": {
       "_comment": "The email is also where every contact form sends its message (it opens the visitor's email app addressed to this address).",
-      "email": "Bharathvsb3@gmail.com",
+      "email": "info@tmbtech.in",
       "phone": "+91 75503 56255",
       "_phone": "Write the phone the way you want it shown. tel: links are made from it automatically (spaces removed)."
     },
