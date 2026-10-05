@@ -140,26 +140,6 @@
   }
 
   /* ---------------- structured data ---------------- */
-  function organization(s) {
-    var c = s.company;
-    // Google expects a roughly square logo here, not the wide header
-    // wordmark, so this reads site.squareLogo (falling back to site.logo
-    // if a project has not set one).
-    var mark = absolute(s, s.site.squareLogo || s.site.logo);
-    return {
-      "@type": "Organization",
-      name: c.name,
-      url: s.site.baseUrl,
-      logo: mark,
-      image: mark,
-      email: c.contact.email,
-      telephone: c.contact.phone,
-      founder: { "@type": "Person", name: c.founder.name, image: absolute(s, c.founder.photo) },
-      sameAs: [c.social.github.url, c.social.linkedin.url],
-      description: c.description
-    };
-  }
-
   function application(s, p, position, brief) {
     var app = {
       "@type": "SoftwareApplication",
@@ -171,6 +151,7 @@
       url: p.url,
       author: {
         "@type": "Organization",
+        "@id": s.site.baseUrl + "#organization",
         name: s.company.name,
         url: s.site.baseUrl,
         email: s.company.contact.email,
@@ -190,21 +171,9 @@
   function structuredData(s, page) {
     var ctx = "https://schema.org";
     var out = [];
-    if (page === "home") {
-      out.push({
-        "@context": ctx, "@type": "WebSite", name: s.company.name, url: s.site.baseUrl,
-        inLanguage: s.site.language,
-        publisher: { "@type": "Organization", name: s.company.name, logo: absolute(s, s.site.squareLogo || s.site.logo) }
-      });
-      var org = organization(s); org["@context"] = ctx; out.push(org);
-      var keys = Object.keys(s.products).filter(function (k) { return k.charAt(0) !== "_"; });
-      out.push({
-        "@context": ctx, "@type": "ItemList",
-        itemListElement: keys.map(function (k, i) {
-          return { "@type": "ListItem", position: i + 1, item: application(s, s.products[k], 0, true) };
-        })
-      });
-    } else if (s.products && s.products[page]) {
+    // The home page graph (Organization, WebSite, WebPage, products) is static in
+    // the <head>, written by tools/render.py, so crawlers need no JavaScript for it.
+    if (s.products && s.products[page]) {
       var p = s.products[page];
       var app = application(s, p, 0, false); app["@context"] = ctx; out.push(app);
       out.push({

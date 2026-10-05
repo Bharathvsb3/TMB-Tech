@@ -137,6 +137,43 @@ def text_of(s, value):
 
 
 # --------------------------------------------------------------- generators
+def home_jsonld(s, page):
+    """One clean schema graph for the home page: Organization, WebSite, WebPage
+    and the product list, tied together with stable @id values."""
+    base = s["site"]["baseUrl"]
+    c = s["company"]
+    org_id, site_id, page_id = base + "#organization", base + "#website", base + "#webpage"
+    logo = base + (s["site"].get("squareLogo") or s["site"]["logo"])
+    desc = text_of(s, page["description"])
+    organization = {
+        "@type": "Organization", "@id": org_id, "name": c["name"], "url": base,
+        "logo": logo, "image": logo,
+        "email": c["contact"]["email"], "telephone": c["contact"]["phone"],
+        "description": text_of(s, c["description"]),
+        "founder": {"@type": "Person", "name": c["founder"]["name"], "image": base + c["founder"]["photo"]},
+        "sameAs": [c["social"]["github"]["url"], c["social"]["linkedin"]["url"]],
+    }
+    website = {
+        "@type": "WebSite", "@id": site_id, "name": c["name"], "url": base,
+        "inLanguage": s["site"]["language"], "publisher": {"@id": org_id},
+    }
+    webpage = {
+        "@type": "WebPage", "@id": page_id, "url": base, "name": text_of(s, page["title"]),
+        "description": desc, "inLanguage": s["site"]["language"],
+        "isPartOf": {"@id": site_id}, "about": {"@id": org_id}, "publisher": {"@id": org_id},
+    }
+    items = []
+    for i, p in enumerate(products_of(s).values(), 1):
+        items.append({"@type": "ListItem", "position": i, "item": {
+            "@type": "SoftwareApplication", "name": p["name"], "description": p["shortDescription"],
+            "applicationCategory": p["applicationCategory"], "operatingSystem": p["operatingSystem"],
+            "image": base + p["logo"], "url": p["url"], "author": {"@id": org_id}}})
+    graph = {"@context": "https://schema.org",
+             "@graph": [organization, website, webpage, {"@type": "ItemList", "@id": base + "#products", "itemListElement": items}]}
+    body = json.dumps(graph, ensure_ascii=False, indent=2).replace("</", "<\\/")
+    return '<script type="application/ld+json">\n' + body + "\n</script>\n"
+
+
 def head_block(s, page):
     e = lambda v: html.escape(v, quote=True)
     title = e(text_of(s, page["title"]))
@@ -169,7 +206,7 @@ def head_block(s, page):
 <meta name="twitter:description" content="{desc}">
 <meta name="twitter:image" content="{img}">
 <meta name="twitter:image:alt" content="{og_alt}">
-<!-- seo:end -->"""
+{home_jsonld(s, page) if not page["path"] else ""}<!-- seo:end -->"""
 
 
 def read(path):
