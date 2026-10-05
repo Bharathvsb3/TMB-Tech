@@ -89,7 +89,7 @@
     </div>
   </main>
   <footer>
-    <a href="https://tmbtech.in/">TMB Tech</a> · Bharathvsb3@gmail.com · +91 75503 56255
+    <a href="https://tmbtech.in/">TMB Tech</a> · info@tmbtech.in · +91 75503 56255
   </footer>
 </body>
 </html>
