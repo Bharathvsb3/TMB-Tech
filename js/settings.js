@@ -43,12 +43,17 @@
   perf.async = true;
   (document.head || root).appendChild(perf);
 
-  // Hide the page until the tokens are filled in.
-  root.classList.add("tmb-pending");
+  // Pages built by tools/render.py are already filled in (html[data-prerendered]):
+  // they show at once and this script only re-applies the settings and adds
+  // behaviour. A bare template (opened without the build) is hidden until its
+  // tokens are filled.
+  var prerendered = root.hasAttribute("data-prerendered");
+  if (!prerendered) root.classList.add("tmb-pending");
   var hide = document.createElement("style");
   hide.textContent =
-    ".tmb-pending body{opacity:0}" +
-    "html.tmb-pending{scroll-behavior:auto!important}" +
+    (prerendered ? "" :
+      ".tmb-pending body{opacity:0}" +
+      "html.tmb-pending{scroll-behavior:auto!important}") +
     // shown only once settings.json says so, so the layout is the same before and after loading
     "[data-tmb-if]:not([data-tmb-on]){display:none!important}";
   (document.head || root).appendChild(hide);
@@ -317,6 +322,7 @@
       if (window.console) console.error("[settings] " + err.message);
       // Show the page without the values rather than with raw {{tokens}}.
       return domReady.then(function () {
+        if (prerendered) { clearTimeout(failsafe); reveal(); return; } // already complete
         fillPage(null);
         // links that lost their address would just reload the page: hide them
         document.querySelectorAll('a[href=""], a[href="mailto:"], a[href="tel:"]').forEach(function (a) {

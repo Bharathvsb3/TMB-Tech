@@ -2,7 +2,7 @@
 
 A static, fully responsive marketing website for **TMB Tech**, a software and technology company building business applications, mobile applications, ERP systems, web applications and custom software solutions.
 
-Built with plain **HTML5, CSS3 and vanilla JavaScript** — no frameworks, no build step, no dependencies. Works by opening `index.html` directly. Deployed on **GitHub Pages**, serving the custom domain **https://tmbtech.in/**.
+Built with plain **HTML5, CSS3 and vanilla JavaScript** — no frameworks, no dependencies. One small Python script (`tools/render.py`) fills the page templates from `settings.json`; the published pages are plain HTML. Deployed on **GitHub Pages**, serving the custom domain **https://tmbtech.in/**.
 
 ## Structure
 
@@ -10,16 +10,17 @@ Built with plain **HTML5, CSS3 and vanilla JavaScript** — no frameworks, no bu
 tmb-tech/
 │
 ├── settings.json        THE one place for company name, contact details, links, site address
-├── index.html          Main page (all sections)
+├── _src/               THE PAGE TEMPLATES you edit (keep {{tokens}}); same layout as the site
+├── index.html          Published main page, generated from _src/index.html (do not edit by hand)
 ├── sitemap.xml / .xsl   Generated from settings.json (search engines + a styled browser view)
 ├── robots.txt / 404.html  Generated from settings.json
 ├── css/
 │   └── style.css       All styling, CSS variables for theming
 ├── js/
 │   ├── script.js       Navigation, scroll reveal, modals, parallax, contact form
-│   └── settings.js     Reads settings.json and fills the pages (used by every site)
+│   └── settings.js     Re-applies settings.json in the browser: forms, trial buttons, product schema (used by every site)
 ├── tools/
-│   ├── render.py       Generates the search-engine files from settings.json
+│   ├── render.py       Builds the published pages from _src/ + settings.json, plus sitemap, robots, 404
 │   └── templates/      Templates for 404.html, sitemap.xsl, robots.txt, redirect pages
 │
 ├── ledgo-erp/           LedGo ERP product site (self-contained: own css/js/assets)
@@ -40,9 +41,11 @@ tmb-tech/
 
 Your name, email, phone, LinkedIn, GitHub, the company name and the site address are **not typed into the pages**. They live in `settings.json`, with notes inside the file (JSON has no comments, so notes are keys starting with `_`, which the site ignores).
 
-Inside the pages they appear as tokens, for example `{{company.contact.email}}`. `js/settings.js` swaps them for the values when a page opens, on all four sites (company, LedGo ERP, GasOne, JB One), in text, links and structured data. The contact forms send to the same email.
+In the page templates (`_src/`) they appear as tokens, for example `{{company.contact.email}}`. `tools/render.py` replaces every token with its value and writes the published page (`index.html`, `gasone/index.html`, ...), so the HTML that search engines and visitors without JavaScript receive already holds real text, never `{{braces}}`. `js/settings.js` still runs in the browser for the contact forms, trial buttons and product structured data. The contact forms send to the same email.
 
-**Changing contact details (email, phone, LinkedIn, GitHub, founder):** edit `settings.json`, commit, push. Nothing else.
+**Changing contact details (email, phone, LinkedIn, GitHub, founder):** edit `settings.json`, run `python tools/render.py`, then commit and push **both** `settings.json` and the regenerated pages. (Pushing `settings.json` alone leaves the published pages showing the old values.)
+
+**Editing page content:** change the page in `_src/` (never the published copy at the site root), run `python tools/render.py`, commit both.
 
 **Changing the site address, the company name, or a page's title / description / share image:** edit `settings.json`, then run
 
@@ -57,7 +60,7 @@ python tools/render.py --check  # is settings.json valid, is everything up to da
 python tools/render.py --lint   # any contact detail still typed into a page?
 ```
 
-Run `--check` before you push. A missing comma in `settings.json` breaks every page's contact details (the pages then show blanks instead of the values), and `--check` tells you the exact line.
+Run `--check` before you push: it fails if `settings.json` is invalid (and tells you the exact line) or if any published page is out of date with `settings.json` / `_src/`.
 
 **Google Play badges:** each product has a `playStore` block in `settings.json` (`packageId`, `live`, `comingSoon`). The official "Get it on Google Play" badge appears on the company site and the product sites only when `live` is `true`, and links to `https://play.google.com/store/apps/details?id=<packageId>`. Set `live` to `true` the day a listing goes public. With `"comingSoon": true` and `live` still `false`, a "Coming soon on Google Play" label shows instead. An app can override the label with its own `soonText`. JB One is live. GasOne (`com.jbtech.gasone`) was submitted and is in review (expected about 5 days after 25 Sep 2026); its store page still returned 404, so it shows the label "On Google Play soon: in review" instead of a badge that would not open. **When Google Play publishes it, set `products.gasone.playStore.live` to `true`** and the label turns into the real badge on the company site and on GasOne's own site.
 
@@ -124,7 +127,7 @@ The Play Store privacy-policy URLs are `https://tmbtech.in/gasone/privacy-policy
 
 ## SEO
 
-Each page's structured data (`Organization`, `WebSite`, `ItemList`, `SoftwareApplication`, `BreadcrumbList`) is built from `settings.json` by `js/settings.js`. `sitemap.xml` and `robots.txt` at the repo root are generated by `tools/render.py`. The site now lives at its own domain (`https://tmbtech.in/`), so `robots.txt` and its `Sitemap:` line are read by crawlers directly from the top of the host; before, on `bharathvsb3.github.io/TMB-Tech/`, that file was ignored because it sat under a sub-path. The site address is `site.baseUrl` in `settings.json`: if the domain ever changes again, change it there and run `python tools/render.py`, which rewrites every canonical link, share-preview tag, the sitemap and robots.txt. The old GitHub Pages URL still resolves (same host, same content) but is no longer the canonical address.
+The home page's structured data is one static JSON-LD `@graph` (`Organization`, `WebSite`, `WebPage`, `ItemList` of `SoftwareApplication`s, joined by `@id`) written into its `<head>` by `tools/render.py`. Product pages get `SoftwareApplication` and `BreadcrumbList` from `js/settings.js` at load time. `sitemap.xml` and `robots.txt` at the repo root are generated by `tools/render.py`. The site now lives at its own domain (`https://tmbtech.in/`), so `robots.txt` and its `Sitemap:` line are read by crawlers directly from the top of the host; before, on `bharathvsb3.github.io/TMB-Tech/`, that file was ignored because it sat under a sub-path. The site address is `site.baseUrl` in `settings.json`: if the domain ever changes again, change it there and run `python tools/render.py`, which rewrites every canonical link, share-preview tag, the sitemap and robots.txt. The old GitHub Pages URL still resolves (same host, same content) but is no longer the canonical address.
 
 Structured data and a sitemap only tell Google what's on the site — they don't guarantee rich results, sitelinks, or any particular search appearance. That's still entirely Google's call. After deploying, submit the site and `sitemap.xml` in [Google Search Console](https://search.google.com/search-console) and use its URL Inspection tool to request indexing of the three product sites.
 

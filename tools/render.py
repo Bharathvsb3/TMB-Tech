@@ -1,26 +1,37 @@
 #!/usr/bin/env python3
 """
-Builds the files that must be plain HTML for search engines and social sites
-from settings.json, the single source of truth for the whole site.
+Builds the published site from settings.json, the single source of truth.
 
   python tools/render.py           write everything that changed
   python tools/render.py --check   only check: exit 1 if settings.json is
                                    invalid or any generated file is out of date
   python tools/render.py --lint    list hard-coded contact details / addresses
-                                   still sitting in the pages
+                                   still sitting in the page templates
 
-What it generates
-  * the SEO block in every page's <head> (between <!-- seo:start --> and
-    <!-- seo:end -->): title, description, canonical, share-preview tags
-  * sitemap.xml, robots.txt, sitemap.xsl, 404.html
-  * the small redirect pages for the old product URLs (products/<name>/)
+How the pages are made
+  The pages you EDIT live in _src/ (same folder layout as the site, e.g.
+  _src/index.html, _src/gasone/index.html). They keep {{tokens}} such as
+  {{company.name}}. This tool writes the PUBLISHED copy at the site root
+  (index.html, gasone/index.html, ...) with every {{token}} already replaced
+  by its value from settings.json, every data-tmb-if already decided, and the
+  <head> SEO block (title, description, canonical, share tags, and on the home
+  page the JSON-LD graph) filled in. Search engines and browsers without
+  JavaScript therefore see real text, never {{braces}}.
 
-Contact details do NOT need this tool: pages read settings.json in the
-browser (js/settings.js). Run the tool only after changing the site address,
-the company name, or a page's title / description / share image.
+  Do not edit the published pages by hand: edit _src/ or settings.json, then
+  run  python tools/render.py  and commit the result.
+
+Also generated: sitemap.xml, robots.txt, sitemap.xsl, 404.html and the small
+redirect pages for the old product URLs (products/<name>/).
+
+js/settings.js still runs in the browser (contact forms, trial buttons, product
+structured data) and re-applies the same settings, but the page no longer waits
+for it. Run this tool after ANY change to settings.json (text, links, address,
+page titles) or to a page in _src/.
 
 Needs only Python 3, no packages.
 """
+
 import datetime
 import hashlib
 import html
@@ -33,6 +44,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SETTINGS = os.path.join(ROOT, "settings.json")
 TEMPLATES = os.path.join(ROOT, "tools", "templates")
 STATE = os.path.join(ROOT, "tools", "lastmod.json")
+SRC = os.path.join(ROOT, "_src")
 
 TOKEN = re.compile(r"\{\{\s*([A-Za-z0-9_.\-]+)((?:\|[a-z]+)*)\s*\}\}")
 SEO_BLOCK = re.compile(r"<!-- seo:start.*?-->.*?<!-- seo:end -->", re.S)
@@ -70,6 +82,7 @@ def normalize(s):
         ps = p.setdefault("playStore", {})
         ps["url"] = listing + ps["packageId"] if ps.get("live") and ps.get("packageId") else ""
         ps["showSoon"] = bool(ps.get("comingSoon")) and not ps.get("live")
+        ps["soonLabel"] = ps.get("soonText") or lookup(s, "stores.googlePlay.soonText") or ""
         p.setdefault("trial", {})
     resolve_deep(s, s)
     return s
@@ -209,6 +222,48 @@ def head_block(s, page):
 {home_jsonld(s, page) if not page["path"] else ""}<!-- seo:end -->"""
 
 
+# Parts of a page that must not be touched: comments (incl. the SEO block),
+# <script> and <style> bodies.
+SKIP = re.compile(r"(<!--.*?-->|<script\b.*?</script>|<style\b.*?</style>)", re.S | re.I)
+COND = re.compile(r'<([A-Za-z][A-Za-z0-9-]*)((?:[^<>]*?)\bdata-tmb-if\s*=\s*"([^"]*)")')
+HIDE_CSS = "<style>[data-tmb-if]:not([data-tmb-on]){display:none!important}</style>\n"
+
+
+def flag_is_on(value):
+    """Same rule as fillPage() in js/settings.js."""
+    if value is True:
+        return True
+    if isinstance(value, (int, float)) and not isinstance(value, bool):
+        return value != 0
+    return isinstance(value, str) and value not in ("", "false")
+
+
+def prerender(s, text, where):
+    """Turn a template page into the published page: decide every data-tmb-if
+    and replace every {{token}} with its settings.json value."""
+    parts = SKIP.split(text)  # odd entries are the untouched comments/scripts/styles
+    for i in range(0, len(parts), 2):
+        seg = parts[i]
+        n_attrs = len(re.findall(r"\bdata-tmb-if\s*=", seg))
+
+        def decide(m):
+            on = flag_is_on(lookup(s, m.group(3)))
+            return f'<{m.group(1)} data-tmb-{"on" if on else "hidden"}=""{m.group(2)}'
+
+        seg, n_done = COND.subn(decide, seg)
+        if n_done != n_attrs:
+            sys.exit(f"{where}: could not read every data-tmb-if ({n_done} of {n_attrs})")
+        try:
+            parts[i] = fill(seg, s)
+        except SystemExit as e:
+            sys.exit(f"{where}: {e}")
+    out = "".join(parts)
+    out = re.sub(r"<html\b", "<html data-prerendered", out, count=1)
+    if "</head>" not in out:
+        sys.exit(f"{where}: no </head>")
+    return out.replace("</head>", HIDE_CSS + "</head>", 1)
+
+
 def read(path):
     with open(path, encoding="utf-8", newline="") as f:
         return f.read().replace("\r\n", "\n")
@@ -277,17 +332,18 @@ def build(s):
     """Return {absolute path: new text} for every generated file."""
     out = {}
 
-    # 1. <head> SEO blocks
+    # 1. published pages: template in _src/ -> SEO block + real values
     page_texts = {}
     for key, page in pages_of(s).items():
-        path = os.path.join(ROOT, page["file"])
-        if not os.path.exists(path):
-            sys.exit(f"page file not found: {page['file']} (pages.{key})")
-        text = read(path)
+        src = os.path.join(SRC, page["file"])
+        if not os.path.exists(src):
+            sys.exit(f"page template not found: _src/{page['file']} (pages.{key})")
+        text = read(src)
         if not SEO_BLOCK.search(text):
-            sys.exit(f"{page['file']} has no <!-- seo:start --> ... <!-- seo:end --> block")
+            sys.exit(f"_src/{page['file']} has no <!-- seo:start --> ... <!-- seo:end --> block")
         text = SEO_BLOCK.sub(lambda m: head_block(s, page), text, count=1)
-        out[path] = text
+        text = prerender(s, text, page["file"])
+        out[os.path.join(ROOT, page["file"])] = text
         page_texts[key] = text
 
     # 2. sitemap + robots + sitemap page + 404
@@ -331,6 +387,7 @@ def lint(s):
         "github handle": s["company"]["social"]["github"]["handle"],
         "site address": s["site"]["baseUrl"].rstrip("/"),
     }
+    published = {os.path.normpath(os.path.join(ROOT, p["file"])) for p in pages_of(s).values()}
     skip_dirs = {".git", "node_modules", "tools"}
     skip_files = {"settings.json", "README.md", "lastmod.json"}
     exts = (".html", ".js", ".css", ".xml", ".xsl", ".txt")
@@ -341,6 +398,8 @@ def lint(s):
             if name in skip_files or not name.endswith(exts) or name.startswith("google"):
                 continue
             path = os.path.join(dirpath, name)
+            if os.path.normpath(path) in published:
+                continue  # published copies hold the real values by design; the templates in _src/ are linted
             text = SEO_BLOCK.sub("", read(path))  # generated blocks are allowed to hold the address
             if name in ("sitemap.xml", "robots.txt", "404.html", "sitemap.xsl") or "/products/" in path.replace("\\", "/"):
                 continue  # generated files

@@ -1,31 +1,11 @@
 <!DOCTYPE html>
-<html data-prerendered lang="en" data-page="gasone-privacy">
+<html lang="en" data-page="gasone-privacy">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="../../js/settings.js"></script>
 <noscript><style>.reveal,.reveal-scale{opacity:1!important;transform:none!important}</style></noscript>
-<!-- seo:start | generated from settings.json by tools/render.py, do not edit by hand -->
-<title>Privacy Policy | GasOne by TMB Tech</title>
-<meta name="description" content="Privacy Policy for the GasOne app: what information it collects, how it is used, how long it is kept, and how to request access, correction or deletion.">
-<meta name="author" content="TMB Tech">
-<link rel="canonical" href="https://tmbtech.in/gasone/privacy-policy/">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="en_IN">
-<meta property="og:url" content="https://tmbtech.in/gasone/privacy-policy/">
-<meta property="og:site_name" content="GasOne by TMB Tech">
-<meta property="og:title" content="Privacy Policy | GasOne by TMB Tech">
-<meta property="og:description" content="Privacy Policy for the GasOne app: what information it collects, how it is used, how long it is kept, and how to request access, correction or deletion.">
-<meta property="og:image" content="https://tmbtech.in/gasone/assets/og.jpg">
-<meta property="og:image:type" content="image/jpeg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="GasOne by TMB Tech">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Privacy Policy | GasOne by TMB Tech">
-<meta name="twitter:description" content="Privacy Policy for the GasOne app: what information it collects, how it is used, how long it is kept, and how to request access, correction or deletion.">
-<meta name="twitter:image" content="https://tmbtech.in/gasone/assets/og.jpg">
-<meta name="twitter:image:alt" content="GasOne by TMB Tech">
+<!-- seo:start | filled in by tools/render.py from settings.json -->
 <!-- seo:end -->
 <meta name="theme-color" content="#0a5fd8">
 <link rel="icon" type="image/png" href="../assets/gasone-icon-192.png">
@@ -35,7 +15,6 @@
 <link rel="stylesheet" href="../css/product.css">
 <link rel="stylesheet" href="../css/theme.css">
 <link rel="stylesheet" href="../css/doc.css">
-<style>[data-tmb-if]:not([data-tmb-on]){display:none!important}</style>
 </head>
 <body class="doc-page">
 <a href="#main" class="skip">Skip to content</a>
@@ -44,7 +23,7 @@
   <div class="wrap hdr-in">
     <a href="../" class="brand" aria-label="GasOne home">
       <img src="../assets/gasone-icon-192.png" alt="" width="40" height="40">
-      <span><span class="brand-name">GasOne</span><span class="brand-by">by TMB Tech</span></span>
+      <span><span class="brand-name">GasOne</span><span class="brand-by">by {{company.name}}</span></span>
     </a>
     <nav class="nav" id="nav" aria-label="Primary">
       <a href="../">Home</a>
@@ -59,18 +38,18 @@
 <main id="main" class="doc">
   <div class="doc-head">
     <img src="../assets/gasone-icon-192.png" alt="GasOne" width="72" height="72" class="doc-icon">
-    <span class="eyebrow">GasOne · com.jbtech.gasone</span>
+    <span class="eyebrow">{{products.gasone.name}} · {{products.gasone.playStore.packageId}}</span>
     <h1>Privacy Policy</h1>
     <dl class="doc-meta">
       <div><dt>Last updated</dt><dd>25 September 2026</dd></div>
-      <div><dt>Developer</dt><dd>TMB Tech (Bharath Sankar)</dd></div>
-      <div><dt>Contact</dt><dd><a href="mailto:info@tmbtech.in">info@tmbtech.in</a></dd></div>
-      <div><dt>Phone</dt><dd><a href="tel:+917550356255">+91 75503 56255</a></dd></div>
+      <div><dt>Developer</dt><dd>{{company.name}} ({{company.founder.name}})</dd></div>
+      <div><dt>Contact</dt><dd><a href="mailto:{{company.contact.email}}">{{company.contact.email}}</a></dd></div>
+      <div><dt>Phone</dt><dd><a href="tel:{{company.contact.phone|digits}}">{{company.contact.phone}}</a></dd></div>
     </dl>
   </div>
 
   <article class="doc-body">
-    <p>GasOne ("the App", "we", "us") is a collection-management app used by gas agencies to record daily cylinder deliveries, cash collection, and stock. GasOne is developed and operated by TMB Tech. This policy explains what information the App collects, how it is used, who can see it, and the choices available to you.</p>
+    <p>GasOne ("the App", "we", "us") is a collection-management app used by gas agencies to record daily cylinder deliveries, cash collection, and stock. GasOne is developed and operated by {{company.name}}. This policy explains what information the App collects, how it is used, who can see it, and the choices available to you.</p>
 
     <nav class="doc-toc" aria-label="Contents">
       <strong>Contents</strong>
@@ -94,7 +73,7 @@
     <ul>
       <li><strong>Admin and Users</strong> of an agency, who review, approve and report on the agency's collection.</li>
       <li><strong>Delivery Boys and Store Keepers</strong>, who each work from a single screen for their own entries.</li>
-      <li><strong>Super Admin</strong>, the platform administrators at TMB Tech, who run GasOne across agencies (companies, backups and messages).</li>
+      <li><strong>Super Admin</strong>, the platform administrators at {{company.name}}, who run GasOne across agencies (companies, backups and messages).</li>
     </ul>
     <p>Each agency's data is kept separate from every other agency using the App.</p>
 
@@ -137,7 +116,7 @@
     <ul>
       <li>You, for your own entries.</li>
       <li>Your agency's Admin and, where applicable, Users with the relevant permission.</li>
-      <li>The TMB Tech team, including the Super Admin, solely to operate, host, support and maintain the App, never for marketing or resale.</li>
+      <li>The {{company.name}} team, including the Super Admin, solely to operate, host, support and maintain the App, never for marketing or resale.</li>
     </ul>
     <p>Apart from the hosting provider described in the next section, we do not share your data with anyone outside your agency, except where the law requires it.</p>
 
@@ -162,10 +141,10 @@
 
     <h2 id="contact"><span class="n" aria-hidden="true">11</span>Contact us</h2>
     <div class="contact-box">
-      <div><span>Developer</span><strong>TMB Tech (Bharath Sankar)</strong></div>
-      <div><span>Email</span><a href="mailto:info@tmbtech.in">info@tmbtech.in</a></div>
-      <div><span>Phone</span><a href="tel:+917550356255">+91 75503 56255</a></div>
-      <div><span>App</span><strong>GasOne, Smart Collection Management for Gas Agencies</strong></div>
+      <div><span>Developer</span><strong>{{company.name}} ({{company.founder.name}})</strong></div>
+      <div><span>Email</span><a href="mailto:{{company.contact.email}}">{{company.contact.email}}</a></div>
+      <div><span>Phone</span><a href="tel:{{company.contact.phone|digits}}">{{company.contact.phone}}</a></div>
+      <div><span>App</span><strong>{{products.gasone.name}}, {{products.gasone.tagline}}</strong></div>
     </div>
 
     <p class="doc-foot">This is the public Privacy Policy for the GasOne app.</p>
@@ -176,7 +155,7 @@
   <div class="wrap">
     <div class="foot-bottom">
       <span>© <span data-year>2026</span> GasOne. All rights reserved.</span>
-      <a class="powered" href="https://tmbtech.in/" target="_blank" rel="noopener">Powered by <img src="../assets/tmb-logo.png" alt="TMB Tech" width="90" height="21"></a>
+      <a class="powered" href="{{site.baseUrl}}" target="_blank" rel="noopener">Powered by <img src="../assets/tmb-logo.png" alt="{{company.name}}" width="90" height="21"></a>
     </div>
   </div>
 </footer>
