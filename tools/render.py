@@ -258,6 +258,14 @@ def prerender(s, text, where):
         except SystemExit as e:
             sys.exit(f"{where}: {e}")
     out = "".join(parts)
+    # Cloudflare (which serves tmbtech.in) rewrites every email address it finds
+    # in the HTML to "[email protected]"; these markers switch that off so the
+    # real address stays in the page for crawlers and visitors without JavaScript.
+    out, n_body = re.subn(r"(<body\b[^>]*>)", r"\1<!--email_off-->", out, count=1)
+    head, sep, tail = out.rpartition("</body>")
+    if n_body != 1 or not sep:
+        sys.exit(f"{where}: no <body> ... </body>")
+    out = head + "<!--/email_off-->" + sep + tail
     out = re.sub(r"<html\b", "<html data-prerendered", out, count=1)
     if "</head>" not in out:
         sys.exit(f"{where}: no </head>")
