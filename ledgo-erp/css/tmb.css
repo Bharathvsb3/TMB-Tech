@@ -205,7 +205,7 @@
 .footer-col a { display: inline-block; padding-block: 5px; }
 
 /* ---------- Performance ---------- */
-.section-pad { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+/* No content-visibility:auto on sections: skipped sections were laid out at a guessed height, so menu links (smooth scroll) stopped short of their section. */
 .st-laptop, .st-phone { contain: layout paint; }
 
 /* ---------- Hero effects ---------- */

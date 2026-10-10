@@ -1301,7 +1301,7 @@ h1, h2, h3 { text-wrap: balance; }
 .modal-close { min-width: 44px; min-height: 44px; }
 
 /* ---------- Performance ---------- */
-.section { content-visibility: auto; contain-intrinsic-size: auto 800px; }
+/* No content-visibility:auto on sections. Skipped sections were laid out at a guessed 800px, but the real Products section is 2100px (desktop) to 4500px (phone), so page height changed while scrolling, menu links (smooth scroll) stopped short in the middle of the product list, and scrolling up jumped. */
 
 /* ---------- Hero effects ---------- */
 .hero { position: relative; }
