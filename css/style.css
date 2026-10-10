@@ -1364,3 +1364,13 @@ html.lite .device, html.lite .device-printer, html.lite .cta-grid, html.lite .he
 html.lite [data-stage], html.lite .stage-in, html.lite .st-stage-in, html.lite .hero-stage { transform: none !important; }
 html.lite .hdr-in::before, html.lite .header-inner::before { background: var(--hdr-bg-solid, rgba(255, 255, 255, 0.97)) !important; }
 html.lite .reveal { transition-duration: 0.2s !important; }
+
+/* ---------- "Built faster with AI" note in the hero ---------- */
+.ai-note {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-top: 22px; padding: 8px 16px 8px 12px; border-radius: 999px;
+  font-size: 0.9rem; line-height: 1.35; color: var(--primary-dark);
+  background: var(--primary-light); border: 1px solid var(--border);
+}
+.ai-note strong { font-weight: 700; }
+.ai-note-dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.18); }
