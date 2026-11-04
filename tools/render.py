@@ -237,6 +237,18 @@ def founder_jsonld(s, page):
 JSONLD = {"home": home_jsonld, "founder": founder_jsonld}
 
 
+def share_image_version(rel):
+    """?v=<hash of the picture>: when a share image changes its address changes
+    too, so WhatsApp, Facebook and LinkedIn fetch the new one instead of their cached copy."""
+    if rel.startswith("http"):
+        return ""
+    path = os.path.join(ROOT, rel)
+    if not os.path.exists(path):
+        return ""
+    with open(path, "rb") as f:
+        return "?v=" + hashlib.sha1(f.read()).hexdigest()[:8]
+
+
 def head_block(s, page):
     e = lambda v: html.escape(v, quote=True)
     title = e(text_of(s, page["title"]))
@@ -245,21 +257,28 @@ def head_block(s, page):
     og_alt = e(text_of(s, page["ogAlt"]))
     site_name = e(text_of(s, page["siteName"]))
     url = e(page_url(s, page))
-    img = e(asset_url(s, page, page["ogImage"]))
-    author = e(s["company"]["name"])
+    img = e(asset_url(s, page, page["ogImage"]) + share_image_version(page["ogImage"]))
+    author = e(s["company"]["founder"]["name"] + ", " + s["company"]["name"])
     locale = e(s["site"]["locale"])
+    profile = ""
+    if page.get("ogType") == "profile":
+        first, _, last = s["company"]["founder"]["name"].partition(" ")
+        profile = (f'<meta property="profile:first_name" content="{e(first)}">\n'
+                   f'<meta property="profile:last_name" content="{e(last)}">\n')
     return f"""<!-- seo:start | generated from settings.json by tools/render.py, do not edit by hand -->
 <title>{title}</title>
 <meta name="description" content="{desc}">
 <meta name="author" content="{author}">
+<meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="{url}">
 <meta property="og:type" content="{e(page.get("ogType", "website"))}">
 <meta property="og:locale" content="{locale}">
 <meta property="og:url" content="{url}">
 <meta property="og:site_name" content="{site_name}">
-<meta property="og:title" content="{og_title}">
+{profile}<meta property="og:title" content="{og_title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:image" content="{img}">
+<meta property="og:image:secure_url" content="{img}">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">

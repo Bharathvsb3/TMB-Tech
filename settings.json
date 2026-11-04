@@ -18,7 +18,7 @@
   "company": {
     "_comment": "Who you are. Shown in headers, footers, contact sections, privacy policies and the share previews.",
     "name": "TMB Tech",
-    "description": "{{company.name}} builds business applications, ERP systems, mobile apps, web applications and custom software solutions.",
+    "description": "{{company.name}} builds business applications, ERP systems, mobile apps, web applications, AI projects and custom software solutions.",
     "_description": "Any text in this file can use tokens such as {{company.name}}; they are filled in when the pages load.",
     "copyrightStartYear": 2026,
     "_copyrightStartYear": "The footer shows this year, or a range like 2026-2028 once the current year moves past it.",
@@ -251,13 +251,14 @@
 
     "tmb-brows": {
       "_comment": "The general-purpose Android browser, built from the same app family as the shop apps.",
-      "name": "TMB Brows",
-      "path": "tmb-brows/",
+      "name": "SharkPanda",
+      "path": "sharkpanda/",
+      "legacyPath": "tmb-brows/",
       "url": "",
       "tagline": "The Browser That Keeps It On Your Phone",
-      "shortDescription": "TMB Brows is a private Android browser with a media player, PDF reader, QR tools, file converter, compass and step counter built in. History, bookmarks and tool data stay on the phone; no account is needed.",
-      "description": "TMB Brows is an Android browser with tabs, incognito, an ad blocker, tracker blocking and Smart Back, plus built-in Tools — Video Player, Audio Player, Image Viewer, PDF Reader, QR Tools, File Converter, File Share Hub, Advanced Compass and a Steps tracker — and local or Google-account profiles. History, bookmarks and tool data stay on the phone.",
-      "logo": "assets/products/tmb-brows.png",
+      "shortDescription": "SharkPanda is a private Android browser with a media player, PDF reader, QR tools, file converter, compass and step counter built in. History, bookmarks and tool data stay on the phone; no account is needed.",
+      "description": "SharkPanda is an Android browser with tabs, incognito, an ad blocker, tracker blocking and Smart Back, plus built-in Tools — Video Player, Audio Player, Image Viewer, PDF Reader, QR Tools, File Converter, File Share Hub, Advanced Compass and a Steps tracker — and local or Google-account profiles. History, bookmarks and tool data stay on the phone.",
+      "logo": "assets/products/sharkpanda.png",
       "operatingSystem": "Android",
       "applicationCategory": "BusinessApplication",
       "inLanguage": ["en"],
@@ -277,11 +278,11 @@
     "home": {
       "file": "index.html",
       "path": "",
-      "title": "{{company.name}} | Software & Technology Solutions",
-      "description": "{{company.name}} builds business applications, ERP systems, mobile apps and web applications — LedGo ERP, GasOne, JB One, Customer Order Entry and more.",
-      "ogTitle": "{{company.name}} | Software & Technology Solutions",
+      "title": "{{company.name}} | Software, ERP & Mobile Apps by {{company.founder.name}}",
+      "description": "{{company.name}}, founded by {{company.founder.name}}, builds ERP, business software, mobile apps and AI projects: LedGo ERP, GasOne, JB One, SharkPanda and more.",
+      "ogTitle": "{{company.name}} | Software & Technology Solutions by {{company.founder.name}}",
       "ogImage": "assets/og/tmb-tech.jpg",
-      "ogAlt": "{{company.name}}: software and technology solutions. Products include LedGo ERP, GasOne, JB One, Customer Order Entry and more.",
+      "ogAlt": "{{company.name}}, founded by {{company.founder.name}}: software and technology solutions. Products include LedGo ERP, GasOne, JB One, SharkPanda and more.",
       "siteName": "{{company.name}}",
       "sitemap": {
         "priority": "1.0",
@@ -464,19 +465,19 @@
     },
 
     "tmb-brows": {
-      "file": "tmb-brows/index.html",
-      "path": "tmb-brows/",
+      "file": "sharkpanda/index.html",
+      "path": "sharkpanda/",
       "product": "tmb-brows",
-      "title": "TMB Brows | Private Android Browser With Tools Built In | {{company.name}}",
-      "description": "TMB Brows by {{company.name}}: an Android browser with an ad blocker, Smart Back and built-in Video, Audio, PDF, QR, Compass and Steps tools. History and tool data stay on the phone.",
-      "ogTitle": "TMB Brows | Private Android Browser With Tools Built In",
-      "ogImage": "tmb-brows/assets/og.jpg",
-      "ogAlt": "TMB Brows by {{company.name}}: an Android browser with built-in tools.",
-      "siteName": "TMB Brows by {{company.name}}",
+      "title": "SharkPanda | Private Android Browser With Tools Built In | {{company.name}}",
+      "description": "SharkPanda by {{company.name}}: an Android browser with an ad blocker, Smart Back and built-in Video, Audio, PDF, QR, Compass and Steps tools. History and tool data stay on the phone.",
+      "ogTitle": "SharkPanda | Private Android Browser With Tools Built In",
+      "ogImage": "sharkpanda/assets/og.jpg",
+      "ogAlt": "SharkPanda by {{company.name}}: an Android browser with built-in tools.",
+      "siteName": "SharkPanda by {{company.name}}",
       "sitemap": {
         "priority": "0.7",
         "changefreq": "monthly",
-        "images": ["tmb-brows/assets/og.jpg"]
+        "images": ["sharkpanda/assets/og.jpg"]
       }
     }
   }

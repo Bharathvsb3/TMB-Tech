@@ -117,10 +117,10 @@
     <image:image><image:loc>https://tmbtech.in/customer-order-entry/assets/screens/13-my-orders-desktop.webp</image:loc></image:image>
   </url>
   <url>
-    <loc>https://tmbtech.in/tmb-brows/</loc>
+    <loc>https://tmbtech.in/sharkpanda/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <image:image><image:loc>https://tmbtech.in/tmb-brows/assets/og.jpg</image:loc></image:image>
+    <image:image><image:loc>https://tmbtech.in/sharkpanda/assets/og.jpg</image:loc></image:image>
   </url>
 </urlset>

@@ -1,54 +1,54 @@
 {
   "home": {
-    "hash": "78b3abbdad2f",
+    "hash": "58485a6cc2e1",
     "date": "2026-11-04"
   },
   "founder": {
-    "hash": "1be89b9afdcb",
+    "hash": "dbd079be31b3",
     "date": "2026-11-04"
   },
   "ledgo-erp": {
-    "hash": "65f238ea0913",
+    "hash": "55b13080700e",
     "date": "2026-11-04"
   },
   "ledgo-erp-privacy": {
-    "hash": "6709cf899205",
+    "hash": "5c27584b7dd4",
     "date": "2026-11-04"
   },
   "gasone": {
-    "hash": "2d1f8d4f2f5d",
+    "hash": "7f1cc3e58107",
     "date": "2026-11-04"
   },
   "gasone-guide": {
-    "hash": "7064bcb0ffe3",
+    "hash": "4f0c44f57eaa",
     "date": "2026-11-04"
   },
   "gasone-privacy": {
-    "hash": "ef3085139edc",
+    "hash": "50a25ef443ae",
     "date": "2026-11-04"
   },
   "jb-one": {
-    "hash": "673243b1ef67",
+    "hash": "54781fa92aaa",
     "date": "2026-11-04"
   },
   "jb-one-privacy": {
-    "hash": "c3c9196168c5",
+    "hash": "ccd924edeb74",
     "date": "2026-11-04"
   },
   "bikeshop": {
-    "hash": "d5e929278117",
+    "hash": "ed8cade7032a",
     "date": "2026-11-04"
   },
   "jb-catalogue": {
-    "hash": "0fd34c3d2d6e",
+    "hash": "f089e529169a",
     "date": "2026-11-04"
   },
   "public-shop": {
-    "hash": "a77f8e37277d",
+    "hash": "578dc1e71cf7",
     "date": "2026-11-04"
   },
   "tmb-brows": {
-    "hash": "cbe76b71bd84",
+    "hash": "add994c57d01",
     "date": "2026-11-04"
   }
 }
