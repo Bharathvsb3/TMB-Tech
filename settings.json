@@ -25,7 +25,7 @@
 
     "founder": {
       "name": "Bharath Sankar",
-      "role": "Founder & Developer",
+      "role": "Founder & CEO",
       "initials": "BS",
       "photo": "assets/founder/bharath-sankar.jpg",
       "photoSmall": "assets/founder/bharath-sankar-sm.jpg",
@@ -49,6 +49,11 @@
         "url": "https://github.com/Bharathvsb3/",
         "handle": "Bharathvsb3",
         "display": "github.com/Bharathvsb3"
+      },
+      "instagram": {
+        "url": "https://www.instagram.com/tmbtech.in/",
+        "handle": "tmbtech.in",
+        "display": "@tmbtech.in"
       },
       "_comment": "url = where the link goes. handle and display = the text shown next to it."
     }
@@ -282,6 +287,25 @@
         "priority": "1.0",
         "changefreq": "weekly",
         "images": ["assets/og/tmb-tech.jpg", "assets/logo/logo.png", "assets/products/ledgo.png", "assets/products/gasone.png", "assets/products/jbone.png", "assets/products/bikeshop.png"]
+      },
+      "schema": "home"
+    },
+
+    "founder": {
+      "file": "founder/index.html",
+      "path": "founder/",
+      "title": "{{company.founder.name}} – {{company.founder.role}} of {{company.name}}",
+      "description": "Meet {{company.founder.name}}, Founder and CEO of {{company.name}}, building software solutions, ERP platforms and business applications.",
+      "ogTitle": "{{company.founder.name}} – {{company.founder.role}} of {{company.name}}",
+      "ogImage": "assets/og/bharath-sankar-founder.jpg",
+      "ogAlt": "{{company.founder.name}}, {{company.founder.role}} of {{company.name}}.",
+      "siteName": "{{company.name}}",
+      "ogType": "profile",
+      "schema": "founder",
+      "sitemap": {
+        "priority": "0.8",
+        "changefreq": "monthly",
+        "images": ["assets/og/bharath-sankar-founder.jpg", "assets/founder/bharath-sankar.jpg"]
       }
     },
 

@@ -150,29 +150,59 @@ def text_of(s, value):
 
 
 # --------------------------------------------------------------- generators
-def home_jsonld(s, page):
-    """One clean schema graph for the home page: Organization, WebSite, WebPage
-    and the product list, tied together with stable @id values."""
+def _ids(s):
     base = s["site"]["baseUrl"]
+    return base, base + "#organization", base + "#website", base + "founder/#person"
+
+
+def _org_node(s):
+    base, org_id, _, person_id = _ids(s)
     c = s["company"]
-    org_id, site_id, page_id = base + "#organization", base + "#website", base + "#webpage"
     logo = base + (s["site"].get("squareLogo") or s["site"]["logo"])
-    desc = text_of(s, page["description"])
-    organization = {
+    return {
         "@type": "Organization", "@id": org_id, "name": c["name"], "url": base,
         "logo": logo, "image": logo,
         "email": c["contact"]["email"], "telephone": c["contact"]["phone"],
         "description": text_of(s, c["description"]),
-        "founder": {"@type": "Person", "name": c["founder"]["name"], "image": base + c["founder"]["photo"]},
-        "sameAs": [c["social"]["github"]["url"], c["social"]["linkedin"]["url"]],
+        "founder": {"@id": person_id},
+        "sameAs": [c["social"]["instagram"]["url"]],
     }
-    website = {
-        "@type": "WebSite", "@id": site_id, "name": c["name"], "url": base,
-        "inLanguage": s["site"]["language"], "publisher": {"@id": org_id},
-    }
+
+
+def _website_node(s):
+    base, org_id, site_id, _ = _ids(s)
+    return {"@type": "WebSite", "@id": site_id, "name": s["company"]["name"], "url": base,
+            "inLanguage": s["site"]["language"], "publisher": {"@id": org_id}}
+
+
+def _person_node(s, full=False):
+    base, org_id, _, person_id = _ids(s)
+    f = s["company"]["founder"]
+    node = {"@type": "Person", "@id": person_id, "name": f["name"], "jobTitle": f["role"],
+            "url": base + "founder/", "image": base + f["photo"], "worksFor": {"@id": org_id}}
+    if full:
+        c = s["company"]
+        node["description"] = (f["name"] + " is the " + f["role"] + " of " + c["name"] + ", a software and technology "
+                               "solutions company that builds business applications, ERP systems and mobile apps.")
+        node["sameAs"] = [c["social"]["linkedin"]["url"], c["social"]["github"]["url"]]
+        node["knowsAbout"] = ["Software development", "ERP systems", "Mobile application development",
+                              "Business management software", "Custom software solutions"]
+        node["email"] = c["contact"]["email"]
+    return node
+
+
+def _script(graph):
+    body = json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False, indent=2)
+    return '<script type="application/ld+json">\n' + body.replace("</", "<\\/") + "\n</script>\n"
+
+
+def home_jsonld(s, page):
+    """One clean schema graph for the home page: Organization, WebSite, WebPage,
+    the founder and the product list, tied together with stable @id values."""
+    base, org_id, site_id, person_id = _ids(s)
     webpage = {
-        "@type": "WebPage", "@id": page_id, "url": base, "name": text_of(s, page["title"]),
-        "description": desc, "inLanguage": s["site"]["language"],
+        "@type": "WebPage", "@id": base + "#webpage", "url": base, "name": text_of(s, page["title"]),
+        "description": text_of(s, page["description"]), "inLanguage": s["site"]["language"],
         "isPartOf": {"@id": site_id}, "about": {"@id": org_id}, "publisher": {"@id": org_id},
     }
     items = []
@@ -181,10 +211,30 @@ def home_jsonld(s, page):
             "@type": "SoftwareApplication", "name": p["name"], "description": p["shortDescription"],
             "applicationCategory": p["applicationCategory"], "operatingSystem": p["operatingSystem"],
             "image": base + p["logo"], "url": p["url"], "author": {"@id": org_id}}})
-    graph = {"@context": "https://schema.org",
-             "@graph": [organization, website, webpage, {"@type": "ItemList", "@id": base + "#products", "itemListElement": items}]}
-    body = json.dumps(graph, ensure_ascii=False, indent=2).replace("</", "<\\/")
-    return '<script type="application/ld+json">\n' + body + "\n</script>\n"
+    return _script([_org_node(s), _website_node(s), webpage, _person_node(s),
+                    {"@type": "ItemList", "@id": base + "#products", "itemListElement": items}])
+
+
+def founder_jsonld(s, page):
+    """Founder profile page: ProfilePage + Person (worksFor the Organization)."""
+    base, org_id, site_id, person_id = _ids(s)
+    url = base + "founder/"
+    f = s["company"]["founder"]
+    person = _person_node(s, full=True)
+    person["image"] = {"@type": "ImageObject", "url": base + f["photo"], "caption": f["name"] + ", " + f["role"] + " of " + s["company"]["name"]}
+    profile = {
+        "@type": "ProfilePage", "@id": url + "#profilepage", "url": url,
+        "name": text_of(s, page["title"]), "description": text_of(s, page["description"]),
+        "inLanguage": s["site"]["language"], "isPartOf": {"@id": site_id},
+        "about": {"@id": person_id}, "mainEntity": {"@id": person_id},
+    }
+    crumbs = {"@type": "BreadcrumbList", "@id": url + "#breadcrumb", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": s["company"]["name"], "item": base},
+        {"@type": "ListItem", "position": 2, "name": f["name"], "item": url}]}
+    return _script([profile, person, _org_node(s), _website_node(s), crumbs])
+
+
+JSONLD = {"home": home_jsonld, "founder": founder_jsonld}
 
 
 def head_block(s, page):
@@ -203,7 +253,7 @@ def head_block(s, page):
 <meta name="description" content="{desc}">
 <meta name="author" content="{author}">
 <link rel="canonical" href="{url}">
-<meta property="og:type" content="website">
+<meta property="og:type" content="{e(page.get("ogType", "website"))}">
 <meta property="og:locale" content="{locale}">
 <meta property="og:url" content="{url}">
 <meta property="og:site_name" content="{site_name}">
@@ -219,7 +269,7 @@ def head_block(s, page):
 <meta name="twitter:description" content="{desc}">
 <meta name="twitter:image" content="{img}">
 <meta name="twitter:image:alt" content="{og_alt}">
-{home_jsonld(s, page) if not page["path"] else ""}<!-- seo:end -->"""
+{JSONLD[page["schema"]](s, page) if page.get("schema") else ""}<!-- seo:end -->"""
 
 
 # Parts of a page that must not be touched: comments (incl. the SEO block),

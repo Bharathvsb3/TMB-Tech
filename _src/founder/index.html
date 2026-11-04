@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" data-page="founder">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="../js/settings.js"></script>
+<script src="../js/perf.js"></script>
+<noscript><style>.reveal,.reveal-scale{opacity:1!important;transform:none!important}</style></noscript>
+<!-- seo:start | filled in by tools/render.py from settings.json -->
+<!-- seo:end -->
+<meta name="theme-color" content="#2563eb">
+
+<link rel="icon" href="../favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="48x48" href="../assets/logo/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../assets/logo/favicon-192.png">
+<link rel="apple-touch-icon" href="../assets/logo/apple-touch-icon.png">
+<link rel="stylesheet" href="../css/style.css">
+
+</head>
+<body>
+
+<div class="scroll-progress" id="scroll-progress"></div>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a href="{{site.baseUrl}}" class="logo" aria-label="{{company.name}}, back to home">
+      <img src="../assets/logo/logo.png" alt="{{company.name}}" class="logo-img">
+    </a>
+
+    <nav class="main-nav" id="main-nav" aria-label="Primary">
+      <span class="nav-indicator" id="nav-indicator" aria-hidden="true"></span>
+      <ul>
+        <li><a href="{{site.baseUrl}}" class="nav-link">Home</a></li>
+        <li><a href="{{site.baseUrl}}#products" class="nav-link">Products</a></li>
+        <li><a href="{{site.baseUrl}}#solutions" class="nav-link">Solutions</a></li>
+        <li><a href="{{site.baseUrl}}#projects" class="nav-link">Projects</a></li>
+        <li><a href="{{site.baseUrl}}#technologies" class="nav-link">Technologies</a></li>
+        <li><a href="{{site.baseUrl}}#about" class="nav-link">About</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+        <li class="nav-cta-item"><a href="#contact" class="btn btn-primary nav-cta">Get in touch</a></li>
+      </ul>
+    </nav>
+
+    <a href="#contact" class="btn btn-primary header-cta">Get in touch</a>
+
+    <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="main-nav">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+
+<div class="nav-backdrop" id="nav-backdrop"></div>
+
+<main id="main-content">
+
+  <!-- PROFILE HERO -->
+  <section class="fp-hero" id="top">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="{{site.baseUrl}}">{{company.name}}</a></li>
+          <li aria-current="page">{{company.founder.name}}</li>
+        </ol>
+      </nav>
+      <div class="fp-hero-grid">
+        <img class="fp-photo" src="../assets/founder/bharath-sankar.jpg" alt="{{company.founder.name}}, {{company.founder.role}} of {{company.name}}" width="260" height="260">
+        <div>
+          <p class="eyebrow">{{company.founder.role}}, {{company.name}}</p>
+          <h1>{{company.founder.name}}</h1>
+          <p class="fp-lead">{{company.founder.name}} is the {{company.founder.role}} of <a href="{{site.baseUrl}}">{{company.name}}</a>, a software and technology solutions company that builds business applications, ERP systems and mobile apps for real businesses.</p>
+          <div class="hero-actions">
+            <a href="#contact" class="btn btn-primary">Contact {{company.founder.name}}</a>
+            <a href="{{site.baseUrl}}" class="btn btn-secondary">Visit {{company.name}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="container fp-narrow reveal">
+      <div class="section-head section-head-left">
+        <h2>About {{company.founder.name}}</h2>
+      </div>
+      <p class="about-lead">{{company.founder.name}} founded {{company.name}} to help businesses simplify operations, manage information efficiently and move their workflows into reliable digital systems.</p>
+      <p class="about-more">At {{company.name}}, {{company.founder.name}} designs and builds the products personally: the database, the backend API, and the web and mobile screens that shop staff and customers actually use. Every product is set up, hosted and supported directly by {{company.name}}, and can be customized to fit the way a business already works.</p>
+    </div>
+  </section>
+
+  <!-- EXPERTISE -->
+  <section class="section section-alt" id="expertise">
+    <div class="container reveal">
+      <div class="section-head">
+        <h2>Software development expertise</h2>
+        <p>End-to-end development, from the data model to the screen.</p>
+      </div>
+      <div class="fp-grid">
+        <article class="fp-card"><h3>Business applications &amp; ERP</h3><p>Billing, inventory, GST and accounts in <a href="{{products.ledgo-erp.url}}">{{products.ledgo-erp.name}}</a>, plus management software for gas agencies, jewellery shops and two-wheeler service centers.</p></article>
+        <article class="fp-card"><h3>Mobile applications</h3><p>Android apps such as <a href="{{products.gasone.url}}">{{products.gasone.name}}</a>, <a href="{{products.jb-one.url}}">{{products.jb-one.name}}</a> and the <a href="{{products.tmb-brows.url}}">{{products.tmb-brows.name}}</a> browser.</p></article>
+        <article class="fp-card"><h3>Web applications</h3><p>Online ordering and catalogue sites for shops, built with Blazor and ASP.NET Core, React and Firebase.</p></article>
+        <article class="fp-card"><h3>Backend APIs &amp; databases</h3><p>REST APIs and database-driven systems, with SQLite and Firebase, that keep the web and mobile apps in step.</p></article>
+        <article class="fp-card"><h3>Custom software</h3><p>Software built to a business's exact requirement, or an existing {{company.name}} product customized to fit.</p></article>
+        <article class="fp-card"><h3>AI projects</h3><p>AI-powered projects built for businesses, from the first idea to a working product.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISION & MISSION -->
+  <section class="section" id="vision">
+    <div class="container reveal">
+      <div class="section-head">
+        <h2>Vision and mission</h2>
+      </div>
+      <div class="fp-grid fp-grid-2">
+        <article class="fp-card fp-card-accent"><h3>Mission</h3><p>To build practical software that helps businesses simplify operations, manage information efficiently and move their workflows into reliable digital systems.</p></article>
+        <article class="fp-card fp-card-accent"><h3>Vision</h3><p>Dependable software that fits the way businesses actually work, so no business has to change how it works to use it.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS & SERVICES -->
+  <section class="section section-alt" id="products">
+    <div class="container reveal">
+      <div class="section-head">
+        <h2>Products and services</h2>
+        <p>Built and supported by {{company.name}}.</p>
+      </div>
+      <div class="fp-grid fp-grid-2">
+        <div>
+          <h3 class="fp-sub">Products</h3>
+          <ul class="fp-list">
+            <li><a href="{{products.ledgo-erp.url}}"><strong>{{products.ledgo-erp.name}}</strong></a> &mdash; {{products.ledgo-erp.tagline}}</li>
+            <li><a href="{{products.gasone.url}}"><strong>{{products.gasone.name}}</strong></a> &mdash; {{products.gasone.tagline}}</li>
+            <li><a href="{{products.jb-one.url}}"><strong>{{products.jb-one.name}}</strong></a> &mdash; {{products.jb-one.tagline}}</li>
+            <li><a href="{{products.jb-catalogue.url}}"><strong>{{products.jb-catalogue.name}}</strong></a> &mdash; {{products.jb-catalogue.tagline}}</li>
+            <li><a href="{{products.public-shop.url}}"><strong>{{products.public-shop.name}}</strong></a> &mdash; {{products.public-shop.tagline}}</li>
+            <li><a href="{{products.bikeshop.url}}"><strong>{{products.bikeshop.name}}</strong></a> &mdash; {{products.bikeshop.tagline}}</li>
+            <li><a href="{{products.tmb-brows.url}}"><strong>{{products.tmb-brows.name}}</strong></a> &mdash; {{products.tmb-brows.tagline}}</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="fp-sub">Services</h3>
+          <ul class="fp-list">
+            <li>Software development</li>
+            <li>ERP solutions</li>
+            <li>Mobile application development</li>
+            <li>Business management software</li>
+            <li>Custom software solutions</li>
+            <li>AI projects</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact">
+    <div class="container fp-narrow reveal">
+      <div class="section-head section-head-left">
+        <h2>Contact {{company.founder.name}}</h2>
+        <p>For software projects, a custom requirement, or a question about a {{company.name}} product.</p>
+      </div>
+      <ul class="fp-contact">
+        <li><span>Email</span><a href="mailto:{{company.contact.email}}">{{company.contact.email}}</a></li>
+        <li><span>Phone</span><a href="tel:{{company.contact.phone|digits}}">{{company.contact.phone}}</a></li>
+        <li><span>Website</span><a href="{{site.baseUrl}}">{{site.baseUrl}}</a></li>
+        <li><span>LinkedIn</span><a href="{{company.social.linkedin.url}}" target="_blank" rel="noopener noreferrer">{{company.social.linkedin.display}}</a></li>
+        <li><span>GitHub</span><a href="{{company.social.github.url}}" target="_blank" rel="noopener noreferrer">{{company.social.github.display}}</a></li>
+        <li><span>Instagram</span><a href="{{company.social.instagram.url}}" target="_blank" rel="noopener noreferrer">{{company.social.instagram.display}}</a></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-bg" aria-hidden="true"></div>
+  <div class="container">
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; {{company.copyrightYears}} {{company.name}}. All rights reserved.</p>
+      <nav class="footer-privacy" aria-label="Site">
+        <a href="{{site.baseUrl}}">Home</a>
+        <a href="{{site.baseUrl}}#products">Products</a>
+        <a href="{{site.baseUrl}}#about">About {{company.name}}</a>
+      </nav>
+      <a class="footer-top-link" href="#top">Back to top</a>
+    </div>
+  </div>
+</footer>
+
+<button type="button" id="back-to-top" class="back-to-top" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+</button>
+
+<script src="../js/script.js"></script>
+</body>
+</html>
