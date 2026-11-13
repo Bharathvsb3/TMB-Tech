@@ -5,6 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Page not found | {{company.name}}</title>
 <meta name="robots" content="noindex">
+<!-- SharkPanda invite links. GitHub Pages cannot rewrite URLs, so /sharkpanda/game/CODE, /sharkpanda/hc-connect/CODE and /sharkpanda/sync-room/CODE
+     (and the old /tmbbrowser/... folder) land here. For those addresses this page loads the matching landing page, /sharkpanda/<kind>/index.html, and
+     keeps the address, which is where the landing page reads the code from. Everything else is the normal 404 below. The page stays hidden until the
+     landing page has arrived, so there is no flash of the 404. -->
+<script>
+(function () {
+  var m = /^\/(?:sharkpanda|tmbbrowser)\/(game|hc-connect|sync-room)\/[^\/]+\/?$/i.exec(location.pathname);
+  if (!m) return;
+  var hide = document.createElement('style');
+  hide.textContent = 'html{visibility:hidden}';
+  document.head.appendChild(hide);
+  function giveUp() { if (hide.parentNode) hide.parentNode.removeChild(hide); }
+  try {
+    fetch('/sharkpanda/' + m[1].toLowerCase() + '/index.html', { credentials: 'omit' }).then(function (r) {
+      if (!r.ok) throw new Error('no page');
+      return r.text();
+    }).then(function (html) {
+      document.open(); document.write(html); document.close();
+    }).catch(giveUp);
+  } catch (e) { giveUp(); }
+})();
+</script>
 <meta name="theme-color" content="#0b2559">
 <link rel="icon" type="image/png" sizes="48x48" href="{{site.baseUrl}}assets/logo/favicon-48.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">

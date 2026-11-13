@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Join a Sync Room on SharkPanda</title>
+<meta name="description" content="A friend invited you to watch together in a SharkPanda Sync Room. Open the invite in the app and join the room.">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="Join my Sync Room on SharkPanda">
+<meta property="og:description" content="Tap to open the invite in SharkPanda Sync Room and join the room.">
+<!--
+  The landing page of a Sync Room link:   https://tmbtech.in/sharkpanda/sync-room/SR7K4P29
+  GitHub Pages has no rewrite rules, so /sharkpanda/sync-room/<ANY CODE> is answered by the site's 404.html, which loads THIS page and keeps the address.
+  With SharkPanda installed and assetlinks.json listing it, Android opens the app straight from the link; this page is for everybody else.
+  The button uses the tmbbrowser://sync-room/CODE link, which SharkPanda's browser screen hands to Sync Room.
+-->
+<style>
+  :root { --ink:#14224a; --muted:#5d6c93; --blue:#2f7bff; --violet:#7b5cff; --pink:#ff5c93; --sun:#ffc83d; --line:#cfe0ff; }
+  * { box-sizing:border-box; }
+  html,body { margin:0; min-height:100%; }
+  body {
+    color:var(--ink); font:16px/1.5 "Nunito","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+    background:linear-gradient(180deg,#cfebff 0%,#e4e3ff 52%,#ffe2ee 100%) fixed;
+    display:flex; align-items:flex-start; justify-content:center; padding:24px 16px 48px;
+  }
+  .card { width:100%; max-width:440px; background:#fff; border-radius:28px; box-shadow:0 18px 40px rgba(91,92,255,.25); overflow:hidden; }
+  .head { padding:26px 22px 24px; color:#fff; text-align:center; background:linear-gradient(135deg,#2f7bff 0%,#6d5cff 60%,#b85cff 100%); }
+  .head p { margin:0 0 4px; font-size:13px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; opacity:.92; }
+  .head h1 { margin:0; font-size:28px; line-height:1.15; font-weight:900; text-wrap:balance; }
+  .body { padding:22px 22px 26px; text-align:center; }
+  .label { margin:0 0 10px; color:var(--muted); font-size:14px; font-weight:800; }
+  .code { display:flex; justify-content:center; gap:5px; margin:0 0 6px; }
+  .code span {
+    width:34px; height:50px; display:grid; place-items:center; border-radius:14px; background:#fff; border:2px solid var(--line);
+    font-size:24px; font-weight:900; color:var(--ink); box-shadow:0 4px 10px rgba(47,123,255,.12);
+  }
+  .code span.gap { width:10px; background:none; border:0; box-shadow:none; }
+  .hint { margin:0 0 20px; color:var(--muted); font-size:13px; font-weight:700; }
+  .btn {
+    display:block; width:100%; padding:16px 18px; border-radius:18px; text-decoration:none; text-align:center; font-weight:900; font-size:18px;
+    color:#fff; background:linear-gradient(135deg,#2f7bff,#7b5cff); box-shadow:0 8px 18px rgba(91,92,255,.4);
+  }
+  .btn.alt { margin-top:12px; color:var(--blue); background:#fff; border:2px solid var(--line); box-shadow:none; font-size:16px; }
+  .btn[aria-disabled="true"] { opacity:.5; pointer-events:none; }
+  .note { margin:18px 0 0; color:var(--muted); font-size:13px; }
+  .note b { color:var(--ink); }
+  .bad { margin:0 0 18px; padding:12px 14px; border-radius:14px; background:#fff1cf; color:#8a5a00; font-weight:800; font-size:14px; }
+  :focus-visible { outline:3px solid var(--violet); outline-offset:3px; }
+  @media (max-width:360px) { .code span { width:30px; height:44px; font-size:20px; } .head h1 { font-size:24px; } }
+</style>
+</head>
+<body>
+<main class="card">
+  <div class="head">
+    <p>SharkPanda Sync Room</p>
+    <h1>Come watch together!</h1>
+  </div>
+  <div class="body">
+    <div id="bad" class="bad" hidden>This link has no valid room code. Ask your friend to send it again.</div>
+    <p class="label" id="label">Your room code</p>
+    <div class="code" id="code" aria-live="polite"></div>
+    <p class="hint">The code works for the room your friend opened.</p>
+    <a class="btn" id="open" href="tmbbrowser://sync-room/">Open in SharkPanda</a>
+    <a class="btn alt" id="store" href="https://play.google.com/store/apps/details?id=com.tmbtech.sharkpanda" rel="noopener">Get SharkPanda on Google Play</a>
+    <p class="note"><b>Already in SharkPanda?</b> Open Sync Room, tap <b>Join</b> and type the code above.</p>
+  </div>
+</main>
+<script>
+(function () {
+  // The room code is SR + 6 characters of the server's alphabet (no 0 O 1 I L), shown as SR-7K4P-29.
+  var ALPHABET = "23456789ABCDEFGHJKMNPQRSTUVWXYZ";
+  function clean(text) { return String(text || "").toUpperCase().replace(/[^A-Z0-9]/g, ""); }
+  function valid(code) {
+    if (code.length !== 8 || code.slice(0, 2) !== "SR") return false;
+    for (var i = 2; i < 8; i++) if (ALPHABET.indexOf(code.charAt(i)) < 0) return false;
+    return true;
+  }
+  // the code is the last part of /sharkpanda/sync-room/SR7K4P29 (a "SR-7K4P-29" form or a trailing slash is fine); ?c=CODE works too
+  var parts = location.pathname.split("/").filter(Boolean);
+  var code = clean(parts.length ? decodeURIComponent(parts[parts.length - 1]) : "");
+  if (!valid(code)) code = clean(new URLSearchParams(location.search).get("c"));
+  var box = document.getElementById("code");
+  var open = document.getElementById("open");
+  if (!valid(code)) {
+    document.getElementById("bad").hidden = false;
+    document.getElementById("label").hidden = true;
+    box.hidden = true;
+    open.setAttribute("aria-disabled", "true");
+    open.removeAttribute("href");
+    return;
+  }
+  for (var i = 0; i < code.length; i++) {
+    if (i === 2 || i === 6) { var gap = document.createElement("span"); gap.className = "gap"; gap.textContent = "-"; box.appendChild(gap); }
+    var s = document.createElement("span");
+    s.textContent = code.charAt(i);
+    box.appendChild(s);
+  }
+  box.setAttribute("aria-label", "Room code " + code.slice(0, 2) + " " + code.slice(2, 6) + " " + code.slice(6));
+  open.href = "tmbbrowser://sync-room/" + code;
+  document.title = "Join a Sync Room on SharkPanda: " + code.slice(0, 2) + "-" + code.slice(2, 6) + "-" + code.slice(6);
+})();
+</script>
+</body>
+</html>

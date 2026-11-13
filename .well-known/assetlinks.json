@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.tmbtech.sharkpanda",
+      "sha256_cert_fingerprints": [
+        "80:E8:11:54:EC:5B:C6:8F:70:B5:47:C4:65:0C:0B:32:62:67:2A:8F:10:11:5C:59:DD:17:02:8E:9A:9B:4F:10",
+        "2C:B6:0B:E4:00:17:56:34:62:98:F3:FC:74:76:01:77:36:AD:81:97:39:4E:C1:0B:0F:6D:B3:50:2F:37:86:79"
+      ]
+    }
+  }
+]

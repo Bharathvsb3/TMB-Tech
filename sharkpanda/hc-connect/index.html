@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="light dark">
+<!-- /sharkpanda/hc-connect/<ANY CODE> (and the old /tmbbrowser/hc-connect/<ANY CODE>) is answered by the site's 404.html, which loads this page and keeps the address. -->
+<title>Join on HeartConnect</title>
+<style>
+  :root {
+    --bg: #fff6f5; --card: #ffffff; --ink: #2b1a1d; --muted: #7a6469; --rose: #e0446a; --on-rose: #ffffff;
+    --line: #f0d9dc; --chip: #fbeaec; --ok: #2e9e5b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1a1013; --card: #261a1e; --ink: #fbeff0; --muted: #b9a2a7; --rose: #ff6b8e; --on-rose: #2b0f18;
+      --line: #3b2a2f; --chip: #33242a; --ok: #5fd08b;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 16px;
+    background: var(--bg); color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.45;
+  }
+  main {
+    width: 100%; max-width: 420px; background: var(--card); border: 1px solid var(--line); border-radius: 24px;
+    padding: 28px 22px 24px; text-align: center; box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+  }
+  .heart { font-size: 44px; line-height: 1; color: var(--rose); }
+  h1 { font-size: 22px; margin: 12px 0 6px; overflow-wrap: anywhere; }
+  p { margin: 8px 0; color: var(--muted); font-size: 15px; }
+  .code {
+    display: inline-block; margin: 16px 0 6px; padding: 10px 18px; border-radius: 14px; background: var(--chip);
+    border: 1px solid var(--line); font-size: 26px; font-weight: 700; letter-spacing: .08em; color: var(--ink);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; user-select: all;
+  }
+  .row { display: flex; gap: 10px; margin-top: 10px; }
+  .row > * { flex: 1; }
+  a.btn, button.btn {
+    display: block; width: 100%; min-height: 48px; padding: 12px 16px; border-radius: 28px; border: 1px solid var(--line);
+    background: var(--chip); color: var(--ink); font: inherit; font-size: 16px; font-weight: 600; text-align: center;
+    text-decoration: none; cursor: pointer;
+  }
+  .primary { background: var(--rose) !important; color: var(--on-rose) !important; border-color: var(--rose) !important; margin-top: 18px; }
+  .note { font-size: 13px; margin-top: 16px; }
+  .bad { color: var(--rose); font-weight: 600; }
+  .ok { color: var(--ok); font-weight: 600; min-height: 1.3em; font-size: 14px; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <div class="heart" aria-hidden="true">&#10084;</div>
+  <h1 id="title">Join on HeartConnect</h1>
+  <p id="lead">HeartConnect is a private space for two, inside SharkPanda. Open this invitation in the app to join.</p>
+
+  <div id="good">
+    <div class="code" id="code" aria-label="Invitation code"></div>
+    <div class="ok" id="copied" aria-live="polite"></div>
+    <a class="btn primary" id="open" href="#">Open in SharkPanda</a>
+    <div class="row">
+      <button class="btn" id="copy" type="button">Copy code</button>
+      <a class="btn" id="install" href="https://play.google.com/store/apps/details?id=com.tmbtech.sharkpanda" rel="noopener">Install SharkPanda</a>
+    </div>
+    <p class="note">In the app choose HeartConnect &gt; Join and type this code if the button does not open it. The code works for a few minutes only; ask your partner for a new one if it has run out.</p>
+  </div>
+
+  <div id="bad" hidden>
+    <p class="bad">This link does not hold a valid invitation code.</p>
+    <p>Ask your partner to send the invitation again, or open HeartConnect &gt; Join in the app and type the code.</p>
+    <a class="btn" href="https://play.google.com/store/apps/details?id=com.tmbtech.sharkpanda" rel="noopener">Install SharkPanda</a>
+  </div>
+</main>
+
+<script>
+(function () {
+  'use strict';
+  // The code is the last part of the address: https://tmbtech.in/sharkpanda/hc-connect/HC7K4P29 (any case; spaces and dashes are ignored).
+  var parts = (location.pathname || '').split('/').filter(function (p) { return p.length > 0; });
+  var raw = '';
+  try { raw = decodeURIComponent(parts.length ? parts[parts.length - 1] : ''); } catch (e) { raw = ''; }
+  var code = raw.replace(/[\s-]+/g, '').toUpperCase();
+  var valid = /^HC[A-Z0-9]{6}$/.test(code) && code !== 'HCCONNECT';
+
+  function $(id) { return document.getElementById(id); }
+
+  // Optional ?n=Name (the sender's nickname): shown as plain text only, never as markup.
+  var name = '';
+  try { name = (new URLSearchParams(location.search).get('n') || '').replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, 20); } catch (e) { name = ''; }
+
+  if (!valid) {
+    $('good').hidden = true;
+    $('bad').hidden = false;
+    $('title').textContent = 'Invitation not found';
+    $('lead').hidden = true;
+    return;
+  }
+
+  var shown = code.slice(0, 2) + '-' + code.slice(2, 6) + '-' + code.slice(6);
+  $('code').textContent = shown;
+  $('title').textContent = name ? 'Join ' + name + ' on HeartConnect' : 'Join on HeartConnect';
+  document.title = $('title').textContent;
+
+  var appLink = 'tmbbrowser://hc-connect/' + code;
+  $('open').setAttribute('href', appLink);
+
+  function copyCode() {
+    function done(ok) { $('copied').textContent = ok ? 'Code copied' : 'Press and hold the code to copy it'; }
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(shown).then(function () { done(true); }, function () { fallback(); });
+        return;
+      }
+    } catch (e) { /* the fallback below */ }
+    fallback();
+    function fallback() {
+      try {
+        var box = document.createElement('textarea');
+        box.value = shown;
+        box.setAttribute('readonly', '');
+        box.style.position = 'fixed';
+        box.style.opacity = '0';
+        document.body.appendChild(box);
+        box.select();
+        var ok = document.execCommand && document.execCommand('copy');
+        document.body.removeChild(box);
+        done(!!ok);
+      } catch (e) { done(false); }
+    }
+  }
+  $('copy').addEventListener('click', copyCode);
+
+  // Tries the app once by itself (Android only: other systems have no app to open). The button does the same on a tap.
+  if (/Android/i.test(navigator.userAgent || '')) {
+    setTimeout(function () { try { location.href = appLink; } catch (e) { /* the button is still there */ } }, 400);
+  }
+})();
+</script>
+</body>
+</html>
