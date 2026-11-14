@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Page not found | {{company.name}}</title>
 <meta name="robots" content="noindex">
-<!-- SharkPanda invite links. GitHub Pages cannot rewrite URLs, so /sharkpanda/game/CODE, /sharkpanda/hc-connect/CODE and /sharkpanda/sync-room/CODE
+<!-- SharkPanda invite links. GitHub Pages cannot rewrite URLs, so /sharkpanda/game/CODE, /sharkpanda/together/CODE, /sharkpanda/hc-connect/CODE and /sharkpanda/sync-room/CODE
      (and the old /tmbbrowser/... folder) land here. For those addresses this page loads the matching landing page, /sharkpanda/<kind>/index.html, and
      keeps the address, which is where the landing page reads the code from. Everything else is the normal 404 below. The page stays hidden until the
      landing page has arrived, so there is no flash of the 404. -->
 <script>
 (function () {
-  var m = /^\/(?:sharkpanda|tmbbrowser)\/(game|hc-connect|sync-room)\/[^\/]+\/?$/i.exec(location.pathname);
+  var m = /^\/(?:sharkpanda|tmbbrowser)\/(game|together|hc-connect|sync-room)\/[^\/]+\/?$/i.exec(location.pathname);
   if (!m) return;
   var hide = document.createElement('style');
   hide.textContent = 'html{visibility:hidden}';

@@ -310,6 +310,40 @@
       }
     },
 
+    "ads": {
+      "file": "ads/index.html",
+      "path": "ads/",
+      "title": "Advertise with {{company.name}} | Ads for shops and businesses",
+      "description": "Advertise your shop or business with {{company.name}}: banners, short videos and list cards on our websites and in the SharkPanda app, with a simple report.",
+      "ogTitle": "Advertise with {{company.name}}",
+      "ogImage": "assets/og/tmb-tech.jpg",
+      "ogAlt": "Advertise with {{company.name}}: banners, short videos and list cards for local businesses.",
+      "siteName": "{{company.name}}",
+      "sitemap": {
+        "priority": "0.6",
+        "changefreq": "monthly",
+        "images": [
+          "assets/og/tmb-tech.jpg"
+        ]
+      }
+    },
+    "privacy": {
+      "file": "privacy-policy/index.html",
+      "path": "privacy-policy/",
+      "title": "Privacy Policy | {{company.name}}",
+      "description": "Privacy Policy of the {{company.name}} website: what information is handled, how Google AdSense advertising and cookies work, and how to contact us.",
+      "ogTitle": "Privacy Policy | {{company.name}}",
+      "ogImage": "assets/og/tmb-tech.jpg",
+      "ogAlt": "{{company.name}} Privacy Policy",
+      "siteName": "{{company.name}}",
+      "sitemap": {
+        "priority": "0.3",
+        "changefreq": "yearly",
+        "images": [
+          "assets/og/tmb-tech.jpg"
+        ]
+      }
+    },
     "ledgo-erp": {
       "file": "ledgo-erp/index.html",
       "path": "ledgo-erp/",

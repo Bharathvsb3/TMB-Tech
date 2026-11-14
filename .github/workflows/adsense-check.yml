@@ -1,0 +1,44 @@
+name: AdSense check
+
+# Runs every day (and on demand: Actions > AdSense check > Run workflow).
+# - fails (GitHub e-mails the owner) when ads.txt or the AdSense script is missing from a page;
+# - opens ONE issue the first time a real ad is served, so the owner is told when ads start showing.
+on:
+  schedule:
+    - cron: '30 4 * * *' # 10:00 AM IST every day
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Playwright
+        run: |
+          mkdir -p /tmp/adcheck && cd /tmp/adcheck
+          npm init -y >/dev/null
+          npm install playwright@1.47.2 >/dev/null
+          npx playwright install --with-deps chromium
+      - name: Check ads.txt, the script and the ad slots
+        id: check
+        run: |
+          cp .github/scripts/check-adsense.mjs /tmp/adcheck/check-adsense.mjs
+          cd /tmp/adcheck && node check-adsense.mjs
+      - name: Tell the owner when ads start showing (once)
+        if: always() && steps.check.outputs.filled == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          existing=$(gh issue list --repo "$GITHUB_REPOSITORY" --state all --search "AdSense ads are showing in:title" --json number --jq 'length')
+          if [ "$existing" = "0" ]; then
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "AdSense ads are showing on tmbtech.in" \
+              --body "The daily check found filled ad slots on https://tmbtech.in. See the run summary: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          fi
